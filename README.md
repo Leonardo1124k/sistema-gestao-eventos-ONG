@@ -1,31 +1,27 @@
-
-# 🌱 Projeto Landing Page – ONG Moradia Digna
+# 🏠 Landing Page – ONG Moradia Digna
 
 ## 📌 Descrição do Projeto
 
 Este projeto faz parte do **Projeto Integrador** do curso de **Análise e Desenvolvimento de Sistemas da Fatec Franca**, desenvolvido pelos alunos do Grupo G3 durante o primeiro semestre de 2025.
 
-O objetivo principal é a criação de uma **landing page institucional para a ONG Moradia Digna**, com foco em **melhorar a comunicação da ONG com o público**, **facilitar o processo de doação**, **engajar novos voluntários** e **ampliar a visibilidade digital da organização**.
+O objetivo principal foi a criação de uma **landing page institucional para a ONG Moradia Digna**, com foco em **melhorar a comunicação da ONG com o público**, **facilitar o processo de doação**, **engajar novos voluntários** e **ampliar a visibilidade digital da organização**.
 
 A landing page foi desenvolvida utilizando tecnologias web modernas e seguiu as melhores práticas de **Engenharia de Software**, passando por todas as etapas de levantamento de requisitos, modelagem de casos de uso, documentação, diagramação e desenvolvimento.
-
-Desenvolvedores: Leonardo1124k (gerente), lucianospeixoto (vice-gerente), felipeosouza06, joseantoniomarques
 
 ## 🛠️ Tecnologias Utilizadas
 
 - HTML5
 - CSS3
-- JavaScript (básico para interatividade)
-- Git e GitHub para versionamento de código
-- Ferramentas de Prototipação (Figma)
+- JavaScript (leve para interatividade)
+- Git e GitHub
+- Figma para a prototipação
 
 ## 📋 Funcionalidades Principais
 
-- Apresentação institucional da ONG (história, missão e valores)
-- Formulário para doações e voluntariado
-- Integração com serviços externos para manutenção de formulários
-- Design responsivo (compatível com desktop e mobile)
-- Estrutura de navegação objetiva
+- Apresentação institucional da ONG.
+- Formulário para doações e voluntariado.
+- Integração com serviço externo para manutenção de formulários.
+- Design responsivo (compatível com desktop e mobile).
 
 ## 🚀 Como Executar o Projeto Localmente
 
@@ -33,20 +29,15 @@ Desenvolvedores: Leonardo1124k (gerente), lucianospeixoto (vice-gerente), felipe
 
 ```bash
 cd pasta-que-ira-utilizar
-git clone https://github.com/seu-usuario/Landing-Page-ONG.git
+git clone https://github.com/Leonardo1124k/Landing-Page-ONG.git
 ```
 
-2. Navegue até a pasta do projeto:
+2. Procure a pasta do projeto e abra o arquivo **index.html** no seu navegador:
 
 ```bash
-cd Landing-Page-ONG
+(Abra manualmente clicando duas vezes no arquivo)
 ```
 
-3. Abra o arquivo **index.html** no seu navegador de preferência:
-
-```bash
-(Abra manualmente clicando duas vezes no arquivo ou use uma extensão como Live Server no VS Code)
-```
 ## 👥 Equipe de Desenvolvimento – Grupo G3 (Fatec Franca)
 
 - @Leonardo1124k – Gerente do Projeto
