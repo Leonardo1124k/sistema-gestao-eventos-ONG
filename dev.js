@@ -1,459 +1,698 @@
 // ========================
-// CONFIGURAÇÕES GERAIS
+// CONFIGURAÇÕES GERAIS - CORRIGIDAS
 // ========================
 const CAROUSEL_AUTO_ROTATE_TIME = 5000;
 const REALIZACOES_AUTO_ROTATE_TIME = 8000;
 const HISTORIA_AUTO_ROTATE_TIME = 8000;
-const PARTNERS_GAP = 30; // gap entre logos
+const EVENT_AUTO_ROTATE_TIME = 0; // CONSTANTE CORRETA ADICIONADA
+const PARTNERS_GAP = 30;
+// ========================
+// FUNÇÃO UTILITÁRIA PARA PREVENIR JUMP NO MOBILE - VERSÃO REFORÇADA
+// ========================
+function attachControlHandler(element, handler) {
+  if (!element) return;
+
+  // Apenas variáveis básicas
+  let isPointerDown = false;
+
+  // Captura eventos de toque/clique
+  element.addEventListener(
+    "pointerdown",
+    () => {
+      isPointerDown = true;
+    },
+    { passive: true }
+  );
+  element.addEventListener(
+    "touchstart",
+    () => {
+      isPointerDown = true;
+    },
+    { passive: true }
+  );
+
+  // Clique — executa o handler, mas não faz scrollTo
+  element.addEventListener("click", (e) => {
+    e.preventDefault(); // impede navegação de <a> e comportamento nativo
+    try {
+      (e.currentTarget || element).blur();
+    } catch (err) {}
+    try {
+      handler && handler(e);
+    } catch (err) {
+      console.error(err);
+    }
+    isPointerDown = false;
+  });
+
+  // Suporte a teclado (Enter e Espaço)
+  element.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      try {
+        handler && handler(e);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
+}
 
 // ========================
 // FUNÇÃO DE DEBOUNCE
 // ========================
 function debounce(func, wait = 100) {
-    let timeout;
-    return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
 }
 
 // ========================
-// CORREÇÃO ALTURA DINÂMICA DOS CARROSSÉIS
+// REMOVIDA: stabilizeCarouselHeight (função não utilizada)
 // ========================
 
-/* Helper: calcula a maior altura entre os slides e define min-height no wrapper */
-function stabilizeCarouselHeight(wrapperSelector, slideSelector) {
-    const wrapper = document.querySelector(wrapperSelector);
-    if (!wrapper) return;
-    const slides = wrapper.querySelectorAll(slideSelector);
-    if (!slides.length) return;
-
-    const width = Math.max(wrapper.clientWidth, 320);
-    let maxHeight = 0;
-
-    slides.forEach(slide => {
-        const clone = slide.cloneNode(true);
-        clone.style.position = 'absolute';
-        clone.style.visibility = 'hidden';
-        clone.style.width = width + 'px';
-        clone.style.height = 'auto';
-        clone.style.left = '-9999px';
-        clone.style.top = '0';
-        document.body.appendChild(clone);
-        const h = clone.getBoundingClientRect().height;
-        if (h > maxHeight) maxHeight = h;
-        document.body.removeChild(clone);
-    });
-
-    if (maxHeight > 0) {
-        wrapper.style.minHeight = Math.ceil(maxHeight) + 'px';
-    }
-}
-
 // ========================
-// FIX MOBILE LAYOUT
+// FIX MOBILE LAYOUT - CORRIGIDO
 // ========================
 function fixMobileLayout() {
-    if (window.innerWidth <= 768) {
-        const containers = document.querySelectorAll('.container, .hero-content, .about-content, .realizacao-conteudo, .event-content');
-        containers.forEach(container => {
-            container.style.margin = '0 auto';
-            container.style.padding = '0 15px';
-            container.style.width = '100%';
-            container.style.maxWidth = '100%';
-        });
+  if (window.innerWidth <= 768) {
+    const containers = document.querySelectorAll(
+      ".container, .hero-content, .about-content, .realizacao-conteudo, .event-content"
+    );
+    containers.forEach((container) => {
+      container.style.margin = "0 auto";
+      container.style.padding = "0 15px";
+      container.style.width = "100%";
+      container.style.maxWidth = "100%";
+    });
 
-        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, li');
-        textElements.forEach(el => {
-            el.style.wordWrap = 'break-word';
-            el.style.overflowWrap = 'break-word';
-        });
+    const textElements = document.querySelectorAll(
+      "p, h1, h2, h3, h4, h5, h6, span, li"
+    );
+    textElements.forEach((el) => {
+      el.style.wordWrap = "break-word";
+      el.style.overflowWrap = "break-word";
+    });
 
-        /* IMPORTANT: não selecionar os botões dos carrosséis aqui (evita esticá-los).
-           Excluímos os controles do carrossel usando :not(...) */
-        const buttons = document.querySelectorAll(
-            'button:not(.carousel-prev):not(.carousel-next):not(.realizacoes-prev):not(.realizacoes-next):not(.event-prev):not(.event-next):not(.historia-prev):not(.historia-next):not(.partners-prev):not(.partners-next), .btn, .cta-btn, .primary-btn'
-        );
+    const buttons = document.querySelectorAll(
+      ".cta-btn, .primary-btn, .donate-btn, .btn-yellow-2, .btn-yellow, .btn"
+    );
 
-        buttons.forEach(button => {
-            // estilos úteis para botões de ação (CTAs), sem forçar largura fixa
-            button.style.minHeight = '44px';
-            button.style.minWidth = '44px';
-            button.style.display = 'inline-flex';
-            button.style.alignItems = 'center';
-            button.style.justifyContent = 'center';
-            button.style.whiteSpace = 'nowrap';
-            button.style.overflow = 'hidden';
-            button.style.textOverflow = 'ellipsis';
-            button.style.maxWidth = '280px';
-            button.style.width = 'auto';
-            button.style.margin = '6px auto';
-            button.style.borderRadius = '28px'; // define pill para CTAs
-            // remover possíveis larguras conflitantes
-            button.style.removeProperty('width');
-        });
-    } else {
-        // limpa estilos inline quando sair do mobile (opcional)
-        const buttonsAll = document.querySelectorAll('button, .btn, .cta-btn, .primary-btn');
-        buttonsAll.forEach(b => {
-            b.style.minWidth = '';
-            b.style.minHeight = '';
-            b.style.maxWidth = '';
-            b.style.width = '';
-            b.style.margin = '';
-            b.style.borderRadius = '';
-        });
-    }
+    buttons.forEach((button) => {
+      button.style.minHeight = "44px";
+      button.style.minWidth = "44px";
+      button.style.display = "inline-flex";
+      button.style.alignItems = "center";
+      button.style.justifyContent = "center";
+      button.style.whiteSpace = "nowrap";
+      button.style.overflow = "hidden";
+      button.style.textOverflow = "ellipsis";
+      button.style.maxWidth = "280px";
+      button.style.width = "auto";
+      button.style.margin = "6px auto";
+      button.style.borderRadius = "28px";
+      button.style.removeProperty("width");
+    });
+  } else {
+    const buttonsAll = document.querySelectorAll(
+      ".cta-btn, .primary-btn, .donate-btn, .btn-yellow-2, .btn-yellow, .btn"
+    );
+    buttonsAll.forEach((b) => {
+      b.style.minWidth = "";
+      b.style.minHeight = "";
+      b.style.maxWidth = "";
+      b.style.width = "";
+      b.style.margin = "";
+      b.style.borderRadius = "";
+    });
+  }
 }
 
 // ========================
-// CORREÇÃO BOTÕES MOBILE
+// CORREÇÃO BOTÕES MOBILE - ATUALIZADA COM attachControlHandler
 // ========================
 function fixEventButtonsMobile() {
-    const eventButtons = document.querySelectorAll('.event-section .primary-btn, .event-section .btn-yellow');
-    eventButtons.forEach(button => {
-        button.style.minHeight = '44px';
-        button.style.minWidth = '44px';
-        button.style.display = 'flex';
-        button.style.alignItems = 'center';
-        button.style.justifyContent = 'center';
-        button.style.textAlign = 'center';
-        button.style.whiteSpace = 'nowrap';
-        button.style.overflow = 'hidden';
-        button.style.textOverflow = 'ellipsis';
-    });
+  const eventButtons = document.querySelectorAll(
+    ".event-section .primary-btn, .event-section .btn-yellow"
+  );
+  eventButtons.forEach((button) => {
+    button.style.minHeight = "44px";
+    button.style.minWidth = "44px";
+    button.style.display = "flex";
+    button.style.alignItems = "center";
+    button.style.justifyContent = "center";
+    button.style.textAlign = "center";
+    button.style.whiteSpace = "nowrap";
+    button.style.overflow = "hidden";
+    button.style.textOverflow = "ellipsis";
+  });
 
-    const eventPrevBtn = document.querySelector('.event-prev');
-    const eventNextBtn = document.querySelector('.event-next');
+  const eventPrevBtn = document.querySelector(".event-prev");
+  const eventNextBtn = document.querySelector(".event-next");
 
-    if (eventPrevBtn) {
-        eventPrevBtn.style.zIndex = '1000';
-        eventPrevBtn.style.position = 'absolute';
-    }
-    if (eventNextBtn) {
-        eventNextBtn.style.zIndex = '1000';
-        eventNextBtn.style.position = 'absolute';
-    }
+  if (eventPrevBtn) {
+    eventPrevBtn.style.zIndex = "1300";
+  }
+  if (eventNextBtn) {
+    eventNextBtn.style.zIndex = "1300";
+  }
 
-    const ctaContainers = document.querySelectorAll('.cta-buttons-2');
-    ctaContainers.forEach(container => {
-        container.style.display = 'flex';
-        container.style.justifyContent = 'center';
-        container.style.alignItems = 'center';
-        container.style.width = '100%';
-        container.style.flexWrap = 'wrap';
-        container.style.gap = '10px';
-    });
+  const ctaContainers = document.querySelectorAll(".cta-buttons-2");
+  ctaContainers.forEach((container) => {
+    container.style.display = "flex";
+    container.style.justifyContent = "center";
+    container.style.alignItems = "center";
+    container.style.width = "100%";
+    container.style.flexWrap = "wrap";
+    container.style.gap = "10px";
+  });
 }
 
 // ========================
 // HEADER SCROLL
 // ========================
 function initHeaderScroll() {
-    const header = document.querySelector("header");
-    if (!header) return;
+  const header = document.querySelector("header");
+  if (!header) return;
 
-    let lastScrollTop = 0;
-    const headerHeight = header.offsetHeight;
-    let ticking = false;
+  let lastScrollTop = 0;
+  const headerHeight = header.offsetHeight;
+  let ticking = false;
 
-    window.addEventListener("scroll", () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentScroll =
+          window.pageYOffset || document.documentElement.scrollTop;
 
-                if (Math.abs(currentScroll - lastScrollTop) >= 5) {
-                    if (currentScroll > lastScrollTop && currentScroll > headerHeight) {
-                        header.style.transform = `translateY(-${headerHeight}px)`;
-                    } else {
-                        header.style.transform = `translateY(0)`;
-                    }
-                    header.style.transition = "transform 0.3s ease-out";
-                    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-                }
-                ticking = false;
-            });
-            ticking = true;
+        if (Math.abs(currentScroll - lastScrollTop) >= 5) {
+          if (currentScroll > lastScrollTop && currentScroll > headerHeight) {
+            header.style.transform = `translateY(-${headerHeight}px)`;
+          } else {
+            header.style.transform = `translateY(0)`;
+          }
+          header.style.transition = "transform 0.3s ease-out";
+          header.style.zIndex = "9999";
+          header.style.willChange = "transform";
+          lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
+
+// ========================
+// CLASSE CARROSSEL UNIFICADA - CORRIGIDA
+// ========================
+class Carousel {
+  constructor(config) {
+    this.container = document.querySelector(config.containerSelector);
+    if (!this.container) return;
+
+    this.itemSelector = config.itemSelector;
+    this.items = document.querySelectorAll(this.itemSelector);
+    this.prevBtn = document.querySelector(config.prevBtnSelector);
+    this.nextBtn = document.querySelector(config.nextBtnSelector);
+    this.dots = document.querySelectorAll(config.dotsSelector);
+    this.autoRotateTime = config.autoRotateTime || 0;
+
+    this.currentIndex = 0;
+    this.interval = null;
+    this.isAnimating = false;
+
+    this.init();
+  }
+
+  init() {
+    if (this.prevBtn) {
+      attachControlHandler(this.prevBtn, () => this.prev());
+    }
+    if (this.nextBtn) {
+      attachControlHandler(this.nextBtn, () => this.next());
+    }
+
+    this.dots.forEach((dot, index) => {
+      attachControlHandler(dot, () => this.goToSlide(index));
     });
+
+    if (this.autoRotateTime > 0) {
+      this.startAutoRotate();
+      this.container.addEventListener("mouseenter", () =>
+        this.stopAutoRotate()
+      );
+      this.container.addEventListener("mouseleave", () =>
+        this.startAutoRotate()
+      );
+      this.container.addEventListener("touchstart", () =>
+        this.stopAutoRotate()
+      );
+    }
+
+    this.updateSlide(0);
+  }
+
+  updateSlide(index) {
+    if (this.isAnimating) return;
+
+    this.isAnimating = true;
+    this.items.forEach((item) => item.classList.remove("active"));
+    this.dots.forEach((dot) => dot.classList.remove("active"));
+
+    this.currentIndex = (index + this.items.length) % this.items.length;
+
+    this.items[this.currentIndex].classList.add("active");
+    if (this.dots[this.currentIndex]) {
+      this.dots[this.currentIndex].classList.add("active");
+    }
+
+    setTimeout(() => {
+      this.isAnimating = false;
+    }, 300);
+  }
+
+  next() {
+    this.updateSlide(this.currentIndex + 1);
+  }
+
+  prev() {
+    this.updateSlide(this.currentIndex - 1);
+  }
+
+  goToSlide(index) {
+    this.updateSlide(index);
+  }
+
+  startAutoRotate() {
+    this.stopAutoRotate();
+    if (this.autoRotateTime > 0) {
+      this.interval = setInterval(() => this.next(), this.autoRotateTime);
+    }
+  }
+
+  stopAutoRotate() {
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+  }
 }
 
 // ========================
-// CARROSSEIS GENÉRICOS
+// CARROSSEIS INICIALIZADOS COM CLASSE UNIFICADA
 // ========================
-function initCarousel(carouselSelector, slideSelector, prevBtnSelector, nextBtnSelector, dotSelector, autoTime) {
-    const carousel = document.querySelector(carouselSelector);
-    if (!carousel) return;
-
-    const slides = document.querySelectorAll(slideSelector);
-    const prevBtn = document.querySelector(prevBtnSelector);
-    const nextBtn = document.querySelector(nextBtnSelector);
-    const dots = document.querySelectorAll(dotSelector);
-
-    if (slides.length === 0) return;
-
-    let currentIndex = 0;
-    let interval;
-
-    function updateSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.remove('active', 'prev', 'next');
-            slide.style.display = ''; // não força display, deixa CSS controlar (usa posicionamento absoluto)
-        });
-        dots.forEach(dot => dot.classList.remove('active'));
-
-        currentIndex = (index + slides.length) % slides.length;
-        const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
-        const nextIndex = (currentIndex + 1) % slides.length;
-
-        slides[prevIndex]?.classList.add('prev');
-        slides[currentIndex]?.classList.add('active');
-        slides[nextIndex]?.classList.add('next');
-
-        if (dots[currentIndex]) dots[currentIndex].classList.add('active');
-
-        // garante altura estável após trocar slide
-        stabilizeCarouselHeight(carouselSelector, slideSelector);
-    }
-
-    function nextSlide() { updateSlide(currentIndex + 1); }
-    function prevSlide() { updateSlide(currentIndex - 1); }
-
-    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); clearInterval(interval); nextSlide(); startAutoRotate(); });
-    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); clearInterval(interval); prevSlide(); startAutoRotate(); });
-    dots.forEach((dot, i) => dot.addEventListener('click', (e) => { e.preventDefault(); dot.blur(); clearInterval(interval); updateSlide(i); startAutoRotate(); }));
-
-    function startAutoRotate() {
-        clearInterval(interval);
-        interval = setInterval(nextSlide, autoTime);
-    }
-
-    // estabiliza ao iniciar e no resize
-    updateSlide(0);
-    stabilizeCarouselHeight(carouselSelector, slideSelector);
-    startAutoRotate();
-
-    window.addEventListener('resize', debounce(() => stabilizeCarouselHeight(carouselSelector, slideSelector), 150));
+function initMissionCarousel() {
+  new Carousel({
+    containerSelector: ".carousel-container",
+    itemSelector: ".carousel-slide",
+    prevBtnSelector: ".carousel-prev",
+    nextBtnSelector: ".carousel-next",
+    dotsSelector: ".carousel-dots .dot",
+    autoRotateTime: CAROUSEL_AUTO_ROTATE_TIME,
+  });
 }
 
-// ========================
-// CARROSSEL REALIZAÇÕES
-// ========================
-function initRealizacoesCarousel() {
-    const carouselSelector = '.realizacoes-carousel';
-    const itemSelector = '.realizacao-item';
-    const wrapper = document.querySelector(carouselSelector);
-    if (!wrapper) return;
-
-    const items = wrapper.querySelectorAll(itemSelector);
-    const prevBtn = document.querySelector('.realizacoes-prev');
-    const nextBtn = document.querySelector('.realizacoes-next');
-    if (items.length === 0) return;
-
-    let currentIndex = 0;
-    let interval;
-
-    function showItem(index) {
-        items.forEach(item => item.classList.remove('active'));
-        currentIndex = (index + items.length) % items.length;
-        items[currentIndex].classList.add('active');
-
-        // estabiliza altura ao mostrar item
-        stabilizeCarouselHeight(carouselSelector, itemSelector);
-    }
-
-    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); clearInterval(interval); showItem(currentIndex + 1); startAutoRotate(); });
-    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); clearInterval(interval); showItem(currentIndex - 1); startAutoRotate(); });
-
-    function startAutoRotate() {
-        clearInterval(interval);
-        interval = setInterval(() => showItem(currentIndex + 1), REALIZACOES_AUTO_ROTATE_TIME);
-    }
-
-    showItem(0);
-    stabilizeCarouselHeight(carouselSelector, itemSelector);
-    startAutoRotate();
-
-    window.addEventListener('resize', debounce(() => stabilizeCarouselHeight(carouselSelector, itemSelector), 150));
-}
-
-// ========================
-// CARROSSEL HISTÓRIA
-// ========================
 function initHistoriaCarousel() {
-    const carouselSelector = '.historia-carousel';
-    const itemSelector = '.carousel-item';
-    const wrapper = document.querySelector(carouselSelector);
-    if (!wrapper) return;
+  new Carousel({
+    containerSelector: ".historia-carousel",
+    itemSelector: ".historia-item",
+    prevBtnSelector: ".historia-prev",
+    nextBtnSelector: ".historia-next",
+    dotsSelector: ".historia-dots .dot",
+    autoRotateTime: HISTORIA_AUTO_ROTATE_TIME,
+  });
+}
 
-    const items = wrapper.querySelectorAll(itemSelector);
-    const prevBtn = document.querySelector('.historia-prev');
-    const nextBtn = document.querySelector('.historia-next');
-    const dots = document.querySelectorAll('.historia-dots .dot');
-    if (items.length === 0) return;
+function initRealizacoesCarousel() {
+  new Carousel({
+    containerSelector: ".realizacoes-carousel",
+    itemSelector: ".realizacao-item",
+    prevBtnSelector: ".realizacoes-prev",
+    nextBtnSelector: ".realizacoes-next",
+    dotsSelector: ".realizacoes-dots .dot",
+    autoRotateTime: REALIZACOES_AUTO_ROTATE_TIME,
+  });
+}
 
-    let currentIndex = 0;
-    let interval;
-
-    function updateSlide(index) {
-        items.forEach((item, i) => {
-            item.classList.remove('active');
-            item.style.display = '';
-        });
-        dots.forEach(dot => dot.classList.remove('active'));
-
-        currentIndex = (index + items.length) % items.length;
-        items[currentIndex].classList.add('active');
-        if (dots[currentIndex]) dots[currentIndex].classList.add('active');
-
-        // estabiliza altura ao mostrar item
-        stabilizeCarouselHeight(carouselSelector, itemSelector);
-    }
-
-    function nextSlide() { updateSlide(currentIndex + 1); }
-    function prevSlide() { updateSlide(currentIndex - 1); }
-
-    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); clearInterval(interval); nextSlide(); startAutoRotate(); });
-    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); clearInterval(interval); prevSlide(); startAutoRotate(); });
-    dots.forEach((dot, i) => dot.addEventListener('click', (e) => { e.preventDefault(); dot.blur(); clearInterval(interval); updateSlide(i); startAutoRotate(); }));
-
-    function startAutoRotate() {
-        clearInterval(interval);
-        interval = setInterval(nextSlide, HISTORIA_AUTO_ROTATE_TIME);
-    }
-
-    updateSlide(0);
-    stabilizeCarouselHeight(carouselSelector, itemSelector);
-    startAutoRotate();
-
-    window.addEventListener('resize', debounce(() => stabilizeCarouselHeight(carouselSelector, itemSelector), 150));
+function initEventCarousel() {
+  // CONSTANTE CORRIGIDA: usando EVENT_AUTO_ROTATE_TIME
+  new Carousel({
+    containerSelector: ".event-carousel",
+    itemSelector: ".event-item",
+    prevBtnSelector: ".event-prev",
+    nextBtnSelector: ".event-next",
+    dotsSelector: ".event-dots .dot",
+    autoRotateTime: EVENT_AUTO_ROTATE_TIME, // CONSTANTE CORRETA
+  });
 }
 
 // ========================
-// CARROSSEL PARCEIROS
+// CARROSSEL PARCEIROS - VERSÃO CORRIGIDA COM LOOP INFINITO
 // ========================
 function initPartnersCarousel() {
-    const carousel = document.querySelector('.partners-carousel');
-    if (!carousel) return;
+  const carousel = document.querySelector(".partners-carousel");
+  if (!carousel) return;
 
-    const grid = document.querySelector('.partners-grid');
-    const items = document.querySelectorAll('.partner-logo-box');
-    const prevBtn = document.querySelector('.partners-prev');
-    const nextBtn = document.querySelector('.partners-next');
-    if (!grid || items.length < 3) return;
+  const grid = document.querySelector(".partners-grid");
+  const items = Array.from(document.querySelectorAll(".partner-logo-box"));
+  const prevBtn = document.querySelector(".partners-prev");
+  const nextBtn = document.querySelector(".partners-next");
+  if (!grid || items.length < 1) return;
 
-    let itemWidth = items[0].offsetWidth + PARTNERS_GAP;
-    let currentIndex = 0;
-    const visibleItems = Math.floor(carousel.offsetWidth / itemWidth);
-    let interval;
+  let itemWidth = items[0].offsetWidth + PARTNERS_GAP;
+  let currentIndex = 0;
+  let interval;
+  let isAnimating = false;
 
-    // Clone itens iniciais para efeito infinito
-    items.forEach((item, index) => {
-        if (index < visibleItems) {
-            grid.appendChild(item.cloneNode(true));
-        }
-    });
+  // Clonar itens para loop infinito
+  items.forEach((item) => {
+    const clone = item.cloneNode(true);
+    grid.appendChild(clone);
+  });
 
-    function updateCarousel() {
+  const allItems = Array.from(grid.children);
+
+  function recalc() {
+    if (items[0]) {
+      itemWidth = items[0].offsetWidth + PARTNERS_GAP;
+    }
+  }
+
+  function updateCarousel() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    grid.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    grid.style.transition = "transform 0.5s ease";
+
+    // Lógica de loop infinito corrigida
+    if (currentIndex >= items.length) {
+      setTimeout(() => {
+        grid.style.transition = "none";
+        currentIndex = 0;
+        grid.style.transform = `translateX(0)`;
+        setTimeout(() => {
+          grid.style.transition = "transform 0.5s ease";
+          isAnimating = false;
+        }, 50);
+      }, 500);
+    } else if (currentIndex < 0) {
+      setTimeout(() => {
+        grid.style.transition = "none";
+        currentIndex = items.length - 1;
         grid.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-        grid.style.transition = 'transform 0.5s ease';
-
-        if (currentIndex >= items.length) {
-            setTimeout(() => { grid.style.transition = 'none'; currentIndex = 0; grid.style.transform = `translateX(0)`; }, 500);
-        }
-        if (currentIndex < 0) {
-            setTimeout(() => { grid.style.transition = 'none'; currentIndex = items.length - 1; grid.style.transform = `translateX(-${currentIndex * itemWidth}px)`; }, 500);
-        }
+        setTimeout(() => {
+          grid.style.transition = "transform 0.5s ease";
+          isAnimating = false;
+        }, 50);
+      }, 500);
+    } else {
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
     }
+  }
 
-    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); currentIndex++; updateCarousel(); });
-    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); currentIndex--; updateCarousel(); });
-
-    function startAutoRotate() {
-        clearInterval(interval);
-        interval = setInterval(() => { currentIndex++; updateCarousel(); }, CAROUSEL_AUTO_ROTATE_TIME);
-    }
-
+  function nextSlide() {
+    if (isAnimating) return;
+    currentIndex++;
     updateCarousel();
-    startAutoRotate();
+  }
 
-    window.addEventListener('resize', debounce(() => {
-        const newItemWidth = items[0].offsetWidth + PARTNERS_GAP;
-        currentIndex = Math.round(currentIndex * itemWidth / newItemWidth);
-        itemWidth = newItemWidth;
-        updateCarousel();
-    }));
+  function prevSlide() {
+    if (isAnimating) return;
+    currentIndex--;
+    updateCarousel();
+  }
+
+  function startAutoRotate() {
+    clearInterval(interval);
+    interval = setInterval(nextSlide, CAROUSEL_AUTO_ROTATE_TIME);
+  }
+
+  function stopAutoRotate() {
+    clearInterval(interval);
+  }
+
+  if (nextBtn) {
+    attachControlHandler(nextBtn, () => {
+      stopAutoRotate();
+      nextSlide();
+      startAutoRotate();
+    });
+  }
+
+  if (prevBtn) {
+    attachControlHandler(prevBtn, () => {
+      stopAutoRotate();
+      prevSlide();
+      startAutoRotate();
+    });
+  }
+
+  window.addEventListener(
+    "resize",
+    debounce(() => {
+      recalc();
+      updateCarousel();
+    }, 150)
+  );
+
+  recalc();
+  startAutoRotate();
 }
 
 // ========================
-// MENU MOBILE & SMOOTH SCROLL
+// MENU MOBILE & SMOOTH SCROLL - CORRIGIDO
 // ========================
 function initMobileMenu() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    if (!menuToggle) return;
-    const navLinks = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-links a');
+  const menuToggle = document.querySelector(".menu-toggle");
+  if (!menuToggle) return;
+  const navLinks = document.querySelector(".nav-links");
+  const navItems = document.querySelectorAll(".nav-links a");
 
-    function toggleMenu() {
-        menuToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
+  function toggleMenu() {
+    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", !isExpanded);
+    menuToggle.classList.toggle("active");
+    navLinks.classList.toggle("active");
 
-        let overlay = document.querySelector('.nav-overlay');
-        if (navLinks.classList.contains('active')) {
-            if (!overlay) {
-                overlay = document.createElement('div');
-                overlay.className = 'nav-overlay';
-                document.body.appendChild(overlay);
-                setTimeout(() => overlay.classList.add('active'), 10);
-            }
-            overlay.onclick = closeMenu;
-            document.body.style.overflow = 'hidden';
-        } else {
-            closeMenu();
+    let overlay = document.querySelector(".nav-overlay");
+    if (navLinks.classList.contains("active")) {
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.className = "nav-overlay";
+        document.body.appendChild(overlay);
+        setTimeout(() => overlay.classList.add("active"), 10);
+      }
+      overlay.onclick = closeMenu;
+      document.body.style.overflow = "hidden";
+    } else {
+      closeMenu();
+    }
+  }
+
+  function closeMenu() {
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.classList.remove("active");
+    navLinks.classList.remove("active");
+    const overlay = document.querySelector(".nav-overlay");
+    if (overlay) {
+      overlay.classList.remove("active");
+      setTimeout(() => {
+        if (overlay.parentNode) {
+          overlay.parentNode.removeChild(overlay);
         }
+        document.body.style.overflow = "";
+      }, 300);
+    } else {
+      document.body.style.overflow = "";
+    }
+  }
+
+  // Usando attachControlHandler para prevenir jump
+  attachControlHandler(menuToggle, toggleMenu);
+
+  navItems.forEach((item) => {
+    attachControlHandler(item, (e) => {
+      closeMenu();
+      if (item.getAttribute("href").startsWith("#")) {
+        const target = document.querySelector(item.getAttribute("href"));
+        if (target) {
+          e.preventDefault();
+          const offsetTop =
+            target.offsetTop -
+            document.querySelector("header").offsetHeight -
+            20;
+          window.scrollTo({ top: offsetTop, behavior: "smooth" });
+        }
+      }
+    });
+  });
+
+  window.addEventListener(
+    "resize",
+    debounce(() => {
+      if (window.innerWidth > 768) closeMenu();
+    })
+  );
+}
+
+// ========================
+// ANIMAÇÃO AO SCROLL
+// ========================
+function initScrollAnimations() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  }, observerOptions);
+
+  const animatableElements = document.querySelectorAll(
+    ".about-content, .about-carousel, .realizacao-item, .historia-texto, .historia-carousel-container, .event-item, .help-column"
+  );
+
+  animatableElements.forEach((el) => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(30px)";
+    el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+    observer.observe(el);
+  });
+}
+
+// ========================
+// TRATAMENTO DE ERROS E FALLBACKS
+// ========================
+function initErrorHandling() {
+  const images = document.querySelectorAll("img");
+  images.forEach((img) => {
+    img.addEventListener("error", function () {
+      this.style.display = "none";
+      console.log("Imagem não carregada:", this.src);
+    });
+  });
+
+  if (!window.IntersectionObserver) {
+    console.warn("IntersectionObserver não suportado neste navegador");
+    const animatableElements = document.querySelectorAll(
+      ".about-content, .about-carousel, .realizacao-item, .historia-texto, .historia-carousel-container, .event-item, .help-column"
+    );
+    animatableElements.forEach((el) => {
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+    });
+  }
+}
+
+// ========================
+// NAVEGAÇÃO POR TECLADO
+// ========================
+function initKeyboardNavigation() {
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") {
+      const activeCarousels = document.querySelectorAll(
+        ".carousel-slide.active, .realizacao-item.active, .historia-item.active, .event-item.active"
+      );
+      if (activeCarousels.length > 0) {
+        e.preventDefault();
+        const prevButton = activeCarousels[0]
+          .closest(
+            ".carousel-container, .realizacoes-carousel, .historia-carousel, .event-carousel"
+          )
+          ?.querySelector(
+            ".carousel-prev, .realizacoes-prev, .historia-prev, .event-prev"
+          );
+        if (prevButton) prevButton.click();
+      }
     }
 
-    function closeMenu() {
-        menuToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-        const overlay = document.querySelector('.nav-overlay');
-        if (overlay) {
-            overlay.classList.remove('active');
-            setTimeout(() => overlay.remove(), 300);
-        }
-        document.body.style.overflow = '';
+    if (e.key === "ArrowRight") {
+      const activeCarousels = document.querySelectorAll(
+        ".carousel-slide.active, .realizacao-item.active, .historia-item.active, .event-item.active"
+      );
+      if (activeCarousels.length > 0) {
+        e.preventDefault();
+        const nextButton = activeCarousels[0]
+          .closest(
+            ".carousel-container, .realizacoes-carousel, .historia-carousel, .event-carousel"
+          )
+          ?.querySelector(
+            ".carousel-next, .realizacoes-next, .historia-next, .event-next"
+          );
+        if (nextButton) nextButton.click();
+      }
     }
 
-    menuToggle.addEventListener('click', toggleMenu);
-    navItems.forEach(item => item.addEventListener('click', e => {
-        closeMenu();
-        if (item.getAttribute('href').startsWith('#')) {
-            const target = document.querySelector(item.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                const offsetTop = target.offsetTop - document.querySelector('header').offsetHeight - 20;
-                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-            }
-        }
-    }));
+    if (e.key === "Escape") {
+      const navLinks = document.querySelector(".nav-links");
+      if (navLinks && navLinks.classList.contains("active")) {
+        document.querySelector(".menu-toggle")?.click();
+      }
+    }
+  });
+}
 
-    window.addEventListener('resize', debounce(() => { if (window.innerWidth > 768) closeMenu(); }));
+// ========================
+// CONTROLE DE PERFORMANCE
+// ========================
+function initPerformanceControls() {
+  let isScrolling = false;
+  window.addEventListener("scroll", function () {
+    if (!isScrolling) {
+      window.requestAnimationFrame(function () {
+        isScrolling = false;
+      });
+      isScrolling = true;
+    }
+  });
 }
 
 // ========================
 // INICIALIZAÇÃO DE TUDO
 // ========================
-document.addEventListener('DOMContentLoaded', () => {
-    fixEventButtonsMobile();
-    fixMobileLayout();
-    initHeaderScroll();
-    initCarousel('.carousel-container', '.carousel-slide', '.carousel-prev', '.carousel-next', '.dot', CAROUSEL_AUTO_ROTATE_TIME);
-    initCarousel('.event-carousel', '.event-item', '.event-prev', '.event-next', '.event-dots .dot', REALIZACOES_AUTO_ROTATE_TIME);
-    initHistoriaCarousel();
-    initRealizacoesCarousel();
-    initPartnersCarousel();
-    initMobileMenu();
+document.addEventListener("DOMContentLoaded", () => {
+  fixEventButtonsMobile();
+  fixMobileLayout();
+  initHeaderScroll();
+  initMissionCarousel();
+  initEventCarousel(); // CONSTANTE CORRIGIDA
+  initHistoriaCarousel();
+  initRealizacoesCarousel();
+  initPartnersCarousel();
+  initMobileMenu();
+  initScrollAnimations();
+  initErrorHandling();
+  initKeyboardNavigation();
+  initPerformanceControls();
 });
 
-window.addEventListener('resize', debounce(fixMobileLayout));
-window.addEventListener('orientationchange', debounce(fixMobileLayout));
+// ========================
+// EVENTOS DE REDIMENSIONAMENTO
+// ========================
+window.addEventListener("resize", debounce(fixMobileLayout));
+window.addEventListener("orientationchange", debounce(fixMobileLayout));
+
+// ========================
+// LOADING INICIAL
+// ========================
+window.addEventListener("load", function () {
+  document.body.classList.add("loaded");
+
+  setTimeout(() => {
+    const loader = document.querySelector(".loading-screen");
+    if (loader) {
+      loader.style.display = "none";
+    }
+  }, 500);
+});

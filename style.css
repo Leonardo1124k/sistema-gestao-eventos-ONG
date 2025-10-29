@@ -1,23 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* Variaveis para cores*/
 :root {
   --aa: white;
-  /*Segunda opção de fundo da página e para palavras*/
   --bb: black;
-  /*Para fundo de botoes, partes especificas da página e palavras*/
   --cc: goldenrod;
-  /*Opção de laranja mais escuro */
   --dd: #eda600;
-  /*Opção de laranja médio */
-  --ee: #FFC107;
-  /*Opção mais clara*/
-  --ff: #F9F9F6;
-  /*Fundo predominante da página*/
+  --ee: #ffc107;
+  --ff: #f9f9f6;
   --gg: #222;
-  /*Alternativa ao black*/
   --hh: #999;
-  /*Fundo cinza para bolinhas */
   --ii: rgb(0, 168, 0);
 }
 
@@ -32,7 +24,7 @@ body {
   background-color: var(--ff);
   color: var(--bb);
   line-height: 1.6;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   overflow-x: hidden;
 }
 
@@ -241,7 +233,7 @@ nav {
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 350px;
+  grid-template-columns: 1fr auto;
   gap: 3rem;
   align-items: start;
 }
@@ -318,8 +310,8 @@ nav {
 }
 
 .mission-card {
-  background: var(--dd);      /* Fundo amarelo padrão */
-  color: var(--aa);           /* Letras brancas */
+  background: var(--dd);
+  color: var(--aa);
   height: 100%;
   padding: 2rem;
   border-radius: 16px;
@@ -332,14 +324,14 @@ nav {
 }
 
 .carousel-title {
-  color: var(--aa);           /* Título branco */
+  color: var(--aa);
   font-size: 2rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
 .carousel-text {
-  color: var(--aa);           /* Texto branco */
+  color: var(--aa);
   font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.6;
@@ -355,10 +347,10 @@ nav {
   margin-bottom: 1rem;
   width: 100%;
   display: flex;
-  flex-direction: column; /* Alinha em coluna */
-  flex-wrap: nowrap;      /* Não quebra em várias linhas */
+  flex-direction: column;
+  flex-wrap: nowrap;
   justify-content: flex-start;
-  align-items: flex-start; /* Alinha à esquerda */
+  align-items: flex-start;
 }
 
 .values-list li {
@@ -369,8 +361,8 @@ nav {
   padding-left: 1.8rem;
   position: relative;
   text-align: left;
-  flex-basis: auto; /* Remove o 40% */
-  width: 100%;      /* Ocupa toda a largura */
+  flex-basis: auto;
+  width: 100%;
 }
 
 .values-list li::before {
@@ -450,7 +442,7 @@ nav {
   position: relative;
 }
 
-/* Seção REALIZAÇÕES */
+/* ======== FIX: CONTAINER ESTÁVEL PARA REALIZAÇÕES ======== */
 .realizacoes-section {
   padding: 5rem 0;
   position: relative;
@@ -470,21 +462,46 @@ nav {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 80px;
-  min-height: 500px;
-  height: 500px; /* Adicione esta linha */
+}
+.realizacoes-carousel {
+  display: grid;
 }
 
 .realizacao-item {
-  display: none;
-  gap: 3rem;
-  align-items: center;
-  width: 100%;
+  position: static; /* sai do fluxo absoluto para permitir cálculo de altura */
+  top: auto;
+  left: auto;
+  grid-area: 1 / 1; /* todos ocupam a mesma célula do grid */
+  height: auto; /* altura baseada no conteúdo; grid iguala pela maior */
+  z-index: 0;
 }
 
 .realizacao-item.active {
+  z-index: 1; /* ativo acima dos demais (que estão invisíveis e sem pointer-events) */
+}
+
+.realizacao-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
-  animation: fadeIn 0.3s ease;
-  padding: 2rem 2rem;
+  gap: 3rem;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+.realizacao-item.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  animation: slideFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes slideFadeIn {
@@ -498,18 +515,15 @@ nav {
   }
 }
 
-.realizacao-item.active {
-  animation: slideFadeIn 0.5s cubic-bezier(.4,0,.2,1);
-}
-
 .realizacao-imagem {
-  flex: 1;
+  display: flex;
+  align-items: center;
+  flex: 1 1 50%;
+  height: auto;
   min-width: 300px;
   border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 6px 24px rgba(237, 166, 0, 0.10);
+  box-shadow: 0 6px 24px rgba(237, 166, 0, 0.1);
   transition: transform 0.3s ease;
-  /* Adiciona efeito hover */
 }
 
 .realizacao-imagem:hover {
@@ -517,9 +531,10 @@ nav {
 }
 
 .realizacao-imagem img {
-  width: 100%;
-  height: auto;
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .realizacao-subtitulo {
@@ -548,6 +563,33 @@ nav {
   font-size: 1.1rem;
   line-height: 1.8;
   margin-bottom: 1.2rem;
+}
+
+/* ========== DOTS PARA REALIZAÇÕES ========== */
+.realizacoes-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.realizacoes-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--hh);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+.realizacoes-dots .dot.active {
+  background: var(--ee);
+  transform: scale(1.2);
+}
+
+.realizacoes-dots .dot:hover {
+  transform: scale(1.1);
 }
 
 /* Controles do Carrossel */
@@ -579,19 +621,20 @@ nav {
   right: -10px;
 }
 
-.realizacoes-prev:hover,
-.realizacoes-next:hover {
-  background: var(--dd);
-  color: var(--aa);
-  transform: translateY(-50%) scale(1.1);
-  border-width: 3px;
-  box-shadow: 0 2px 8px rgba(237, 166, 0, 0.15);
+@media all and (min-width: 992px) {
+  .realizacoes-prev:hover,
+  .realizacoes-next:hover {
+    background: var(--dd);
+    color: var(--aa);
+    transform: translateY(-50%) scale(1.1);
+    border-width: 3px;
+    box-shadow: 0 2px 8px rgba(237, 166, 0, 0.15);
+  }
 }
 
 /* Seção Nossa História */
 .historia-section {
   padding: 80px 0;
-  /* background: ; */
 }
 
 .historia-titulo {
@@ -628,34 +671,70 @@ nav {
   position: relative;
 }
 
+/* ========== CORREÇÕES PARA O CARROSSEL DE HISTÓRIA ========== */
 .historia-carousel {
   width: 100%;
-  min-height: 500px;
+  height: 500px;
   position: relative;
   overflow: hidden;
   border-radius: 14px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.carousel-item {
+.historia-item {
   position: absolute;
   width: 100%;
   height: 100%;
   opacity: 0;
   transition: opacity 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.carousel-item.active {
+.historia-item.active {
   opacity: 1;
+  z-index: 2;
 }
 
-.carousel-item img {
+.historia-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
-/* Controles (copiado do anterior)*/
+/* ========== CORREÇÕES PARA OS DOTS ========== */
+.historia-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  z-index: 10;
+  position: relative;
+}
+
+.historia-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--hh);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+.historia-dots .dot.active {
+  background: var(--ee);
+  transform: scale(1.2);
+}
+
+.historia-dots .dot:hover {
+  transform: scale(1.1);
+}
+
+/* ========== CORREÇÕES PARA OS BOTÕES DE NAVEGAÇÃO ========== */
 .historia-prev,
 .historia-next {
   position: absolute;
@@ -667,7 +746,7 @@ nav {
   border-radius: 50%;
   font-size: 1.8rem;
   cursor: pointer;
-  z-index: 10;
+  z-index: 15;
   transition: all 0.3s ease;
   color: var(--dd);
   border: 2px solid var(--dd);
@@ -677,11 +756,11 @@ nav {
 }
 
 .historia-prev {
-  left: -25px;
+  left: 15px;
 }
 
 .historia-next {
-  right: -25px;
+  right: 15px;
 }
 
 .historia-prev:hover,
@@ -692,73 +771,7 @@ nav {
   box-shadow: 0 4px 20px rgba(212, 165, 41, 0.3);
 }
 
-/* Indicadores */
-.historia-dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.historia-dots .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--hh);
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.historia-dots .dot.active {
-  background: var(--ee);
-}
-
-/* Seção EVENTOS */
-
-.event-section .primary-btn {
-  display: inline-block;
-  padding: 12px 25px;
-  background-color: var(--dd);
-  color: var(--bb);
-  border-radius: 20%;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  margin-top: 1.5rem;
-  cursor: pointer;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-}
-
-.event-section .primary-btn:hover {
-  background-color: var(--gg);
-  color: var(--dd);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.event-section .btn-yellow {
-  background-color: var(--dd);
-  color: black;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  margin-top: 1.5rem;
-}
-
-.event-section .btn-yellow:hover {
-  background-color: var(--gg);
-  color: var(--ee);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
+/* ======== FIX: CONTAINER ESTÁVEL PARA EVENTOS ======== */
 .event-section {
   padding: 5rem 0;
   position: relative;
@@ -781,14 +794,25 @@ nav {
 }
 
 .event-item {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
   gap: 3rem;
   align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
 }
 
 .event-item.active {
-  display: flex;
-  animation: fadeIn 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .event-content {
@@ -819,25 +843,24 @@ nav {
 }
 
 .event-image {
-  flex: 1;
-  width: 500px;
-  height: auto;
+  flex: 1 1 50%;
+  width: 100%;
+  height: 100%;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
-  transform: scale(1.1);
-  /* aumenta % */
+  transform: none;
 }
 
 .event-image:hover {
-  transform: scale(1.15);
-  /* aumenta % */
+  transform: scale(1.03);
 }
 
 .event-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
@@ -860,6 +883,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 28px;
 }
 
 .event-prev {
@@ -899,6 +923,50 @@ nav {
   background: var(--ee);
 }
 
+.event-section .primary-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: var(--dd);
+  color: var(--bb);
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  /* transition: all 0.3s ease; */
+  margin-top: 1.5rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.event-section .primary-btn:hover {
+  background-color: var(--gg);
+  color: var(--dd);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.event-section .btn-yellow {
+  background-color: var(--dd);
+  color: black;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  /* transition: all 0.3s ease; */
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  margin-top: 1.5rem;
+}
+
+.event-section .btn-yellow:hover {
+  background-color: var(--gg);
+  color: var(--ee);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* COMO AJUDAR */
 .comoajudar-title {
   text-align: center;
@@ -932,9 +1000,8 @@ nav {
   padding: 1rem;
 }
 
-.help-column> :not(.cta-buttons-2) {
+.help-column > :not(.cta-buttons-2) {
   margin-bottom: 60px;
-  /* Espaço para o botão */
 }
 
 .about-text-2 {
@@ -947,11 +1014,9 @@ nav {
 
 .cta-buttons-2 {
   position: relative;
-  /* Novo */
-  bottom: 0;
-  /* Novo - fixa na base */
+  /* bottom: 0;
   left: -10px;
-  right: 0;
+  right: 0; */
   display: flex;
   justify-content: center;
   padding-top: 20px;
@@ -970,14 +1035,11 @@ nav {
   position: relative;
   margin: 0.5rem 0;
   margin-top: 0.2rem;
-  /* Espaço mínimo acima da lista */
   padding-top: 0;
-  /* Remove padding extra */
 }
 
-.help-column p+.values-list-2 {
+.help-column p + .values-list-2 {
   margin-top: -1rem;
-  /* Valor negativo para "puxar" a lista para cima */
 }
 
 .values-list-2 li::before {
@@ -992,14 +1054,13 @@ nav {
   background-color: var(--dd);
   color: var(--bb);
   padding: 10px 20px;
-  border-radius: 20%;
+  border-radius: 8px;
   font-weight: bold;
   text-decoration: none;
   display: inline-block;
   transition: all 0.3s ease;
   text-align: center;
   min-width: 150px;
-  /* Largura mínima para uniformidade */
 }
 
 .btn-yellow-2:hover {
@@ -1019,18 +1080,14 @@ nav {
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   align-items: start;
-  /* Importante para alinhar pelo topo */
 }
 
 .help-column {
   display: flex;
   flex-direction: column;
   height: 100%;
-  /* Obrigatório para o alinhamento */
   position: relative;
-  /* Novo */
   border-right: 1px solid var(--bb);
-  /* Linha cinza clara */
 }
 
 .help-column:last-child {
@@ -1038,20 +1095,16 @@ nav {
 }
 
 .help-column h3 {
+  position: relative;
   color: var(--dd);
   font-size: 1.6rem;
   margin-bottom: 30px;
-  position: relative;
-  left: -20px;
 }
 
 .help-column p {
   margin-bottom: 0.2rem;
-  /* Espaço mínimo abaixo do parágrafo */
   line-height: 1.2;
-  /* Reduz um pouco a altura da linha */
   padding-bottom: 0;
-  /* Remove padding extra */
   text-align: left;
 }
 
@@ -1064,7 +1117,6 @@ nav {
 }
 
 /* Seção PARCEIROS Atualizada */
-
 .partners-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -1073,7 +1125,6 @@ nav {
 
 .partners-section {
   padding: 80px 0;
-  /* Padding apenas top/bottom */
   text-align: center;
   position: relative;
 }
@@ -1096,17 +1147,14 @@ nav {
   position: relative;
   overflow: hidden;
   width: calc(100% - 120px);
-  /* Deixa espaço para as setas */
   margin: 0 auto;
   padding: 0 60px;
-  /* Espaço para as setas não cortarem */
 }
 
 .partners-grid {
   display: flex;
   gap: 30px;
   will-change: transform;
-  /* Melhora performance */
 }
 
 .partner-logo-box {
@@ -1131,7 +1179,7 @@ nav {
 .partners-prev,
 .partners-next {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.9);
   border: none;
@@ -1150,19 +1198,16 @@ nav {
   justify-content: center;
 }
 
-/* Ajustando o espaçamento igual para ambas as setas */
 .partners-prev {
   top: 225px;
   left: -10px;
   margin-left: 10px;
-  /* Distância da borda */
 }
 
 .partners-next {
   top: 225px;
   right: -10px;
   margin-right: 10px;
-  /* Distância da borda */
 }
 
 .partners-prev:hover,
@@ -1177,7 +1222,6 @@ nav {
   margin-top: 40px;
   display: flex;
   justify-content: center;
-  /* Alinha o conteúdo à direita */
   align-items: center;
   gap: 20px;
 }
@@ -1189,7 +1233,7 @@ nav {
 
 /*RODAPÉ */
 footer {
-  background-color: #DADADA;
+  background-color: #dadada;
   color: var(--gg);
   padding: 40px 0 20px;
   box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
@@ -1203,64 +1247,64 @@ footer {
   margin-bottom: 30px;
 }
 
- .footer-column {
-    flex: 1;
-    min-width: 250px;
-  }
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+}
 
-  .footer-column h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: #d4a529;
-    position: relative;
-    right: -10px;
-  }
+.footer-column h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #d4a529;
+  position: relative;
+  right: -10px;
+}
 
-  .footer-column p {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.footer-column p {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  .social-links {
-    position: relative;
-    right: -50px;
-    display: flex;
-    gap: 40px;
-    margin: 20px 0;
-  }
+.social-links {
+  position: relative;
+  right: -50px;
+  display: flex;
+  gap: 40px;
+  margin: 20px 0;
+}
 
-  .social-links a {
-    color: #333;
-    font-size: 24px;
-    transition: color 0.3s;
-  }
+.social-links a {
+  color: #333;
+  font-size: 24px;
+  transition: color 0.3s;
+}
 
-  .social-links a:hover {
-    color: #d4a529;
-  }
+.social-links a:hover {
+  color: #d4a529;
+}
 
-  .copyright-text {
-    font-weight: bold;
-    margin-top: 20px;
-  }
+.copyright-text {
+  font-weight: bold;
+  margin-top: 20px;
+}
 
-  .footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid #ccc;
-    font-size: 14px;
-  }
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+  font-size: 14px;
+}
 
-  .footer-bottom p {
-    margin-bottom: 10px;
-  }
+.footer-bottom p {
+  margin-bottom: 10px;
+}
 
-  .footer-bottom span {
-    color: blue;
-    cursor: pointer;
-  }
+.footer-bottom span {
+  color: blue;
+  cursor: pointer;
+}
 
 .grupog3 {
   text-decoration: none;
@@ -1303,6 +1347,34 @@ footer {
 }
 
 /* ========== RESPONSIVIDADE COMPLETA ========== */
+
+/* ========== RESPONSIVIDADE PARA O CARROSSEL DE HISTÓRIA ========== */
+@media (max-width: 768px) {
+  .historia-carousel {
+    height: 400px;
+  }
+
+  .historia-prev,
+  .historia-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .historia-prev {
+    left: 10px;
+  }
+
+  .historia-next {
+    right: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .historia-carousel {
+    height: 300px;
+  }
+}
 
 /* ========== HEADER RESPONSIVO ========== */
 @media (max-width: 1200px) {
@@ -1348,8 +1420,48 @@ footer {
     height: auto;
   }
 
+  /* ===== TOGGLE CORRIGIDO (mobile) ===== */
   .menu-toggle {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 38px;
+    height: 28px;
+    padding: 6px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 1202;
+  }
+
+  /* barras */
+  .menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--gg);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  /* vira X */
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+  }
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -4px);
+  }
+
+  /* evita corte */
+  header,
+  nav,
+  .nav-links {
+    overflow: visible;
   }
 
   .nav-links {
@@ -1387,6 +1499,28 @@ footer {
     text-align: center;
     font-size: 1.1rem;
   }
+
+  /* ===== FIX: REALIZAÇÕES - AJUSTE MOBILE ===== */
+  .realizacoes-carousel {
+    padding: 0 20px;
+    min-height: auto;
+    height: auto;
+  }
+
+  .realizacao-item.active {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .realizacao-imagem,
+  .realizacao-conteudo {
+    width: 100%;
+  }
+
+  .realizacao-imagem img {
+    border-radius: 14px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1414,7 +1548,7 @@ footer {
   .hero-content {
     left: 150px;
   }
-  
+
   .cta-buttons {
     left: 100px;
   }
@@ -1425,20 +1559,20 @@ footer {
     left: 100px;
     max-width: 600px;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-text {
     font-size: 1.2rem;
   }
-  
+
   .cta-buttons {
     left: 50px;
     gap: 40px;
   }
-  
+
   .cta-btn {
     padding: 12px 22px;
     font-size: 1em;
@@ -1452,24 +1586,24 @@ footer {
     min-height: 500px;
     background-position: 65% center;
   }
-  
+
   .hero-content {
     left: 0;
     padding: 40px 20px;
     max-width: 100%;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2rem;
     line-height: 1.2;
   }
-  
+
   .hero-text {
     font-size: 1rem;
     line-height: 1.4;
   }
-  
+
   .cta-buttons {
     left: 0;
     justify-content: center;
@@ -1477,7 +1611,7 @@ footer {
     margin-top: 30px;
     flex-direction: column;
   }
-  
+
   .cta-btn {
     width: 100%;
     max-width: 250px;
@@ -1490,12 +1624,12 @@ footer {
   .hero-content {
     padding: 30px 15px;
   }
-  
+
   .hero-title {
     font-size: 1.8rem;
     margin-bottom: 15px;
   }
-  
+
   .hero-text {
     font-size: 0.9rem;
     margin-bottom: 15px;
@@ -1648,14 +1782,14 @@ footer {
     margin-bottom: 2.5rem;
   }
 
+  .realizacoes-carousel,
+  .event-carousel {
+    padding: 0 40px;
+  }
+
   .realizacao-item {
     flex-direction: column;
     gap: 2rem;
-  }
-
-  .realizacao-imagem,
-  .realizacao-conteudo {
-    min-width: 100%;
   }
 
   .realizacao-imagem {
@@ -1674,6 +1808,10 @@ footer {
     height: 50px;
     font-size: 1.5rem;
   }
+
+  .realizacao-imagem img {
+    max-width: 380px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1686,25 +1824,34 @@ footer {
     margin-bottom: 2rem;
   }
 
-  .realizacoes-carousel {
+  .realizacoes-carousel,
+  .event-carousel {
     padding: 0 15px;
-    min-height: auto;
-    height: auto;
   }
 
-  .realizacao-item {
+  .realizacao-item,
+  .event-item {
     flex-direction: column;
     gap: 1.5rem;
     padding: 1rem 0;
   }
 
-  .realizacao-imagem {
+  .realizacao-imagem,
+  .event-image {
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
+    min-height: 200px;
   }
 
-  .realizacao-conteudo {
+  .realizacao-imagem img,
+  .event-image img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .realizacao-conteudo,
+  .event-content {
     text-align: center;
     padding: 0 10px;
   }
@@ -1722,7 +1869,9 @@ footer {
   }
 
   .realizacoes-prev,
-  .realizacoes-next {
+  .realizacoes-next,
+  .event-prev,
+  .event-next {
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
@@ -1748,11 +1897,13 @@ footer {
     margin-bottom: 1.8rem;
   }
 
-  .realizacoes-carousel {
+  .realizacoes-carousel,
+  .event-carousel {
     padding: 0 10px;
   }
 
-  .realizacao-item {
+  .realizacao-item,
+  .event-item {
     gap: 1.5rem;
   }
 
@@ -1761,7 +1912,9 @@ footer {
   }
 
   .realizacoes-prev,
-  .realizacoes-next {
+  .realizacoes-next,
+  .event-prev,
+  .event-next {
     width: 35px;
     height: 35px;
     font-size: 1rem;
@@ -1930,7 +2083,6 @@ footer {
     order: 1;
     max-width: 500px;
     margin: 0 auto;
-    transform: scale(1);
   }
 
   .event-prev {
@@ -2069,14 +2221,14 @@ footer {
     padding-bottom: 0;
   }
 
-  .help-column> :not(.cta-buttons-2) {
+  .help-column > :not(.cta-buttons-2) {
     margin-bottom: 30px;
   }
 
   .cta-buttons-2 {
     position: relative;
     margin-top: 30px;
-    left: 0;
+    /* left: 0; */
   }
 }
 
@@ -2305,67 +2457,6 @@ footer {
 /* ========== CORREÇÕES ESPECÍFICAS PARA BOTÕES DOS CARROSSÉIS NO MOBILE ========== */
 @media (max-width: 768px) {
   .carousel-prev,
-  .carousel-next {
-    width: 35px;
-    height: 35px;
-    font-size: 1.1rem;
-    z-index: 5; 
-  }
-  
-  .carousel-prev { left: 5px; }
-  .carousel-next { right: 5px; }
-
-  .realizacoes-prev,
-  .realizacoes-next {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-    top: 50%;
-    z-index: 5;
-  }
-  .realizacoes-prev { left: 5px; }
-  .realizacoes-next { right: 5px; }
-
-  .realizacoes-carousel { position: relative; padding: 0 40px; }
-
-  .event-prev,
-  .event-next {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-    top: 50%;
-    z-index: 5;
-  }
-  .event-prev { left: 5px; }
-  .event-next { right: 5px; }
-  .event-carousel { padding: 0 40px; }
-
-  .historia-prev,
-  .historia-next {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-    top: 50%;
-    z-index: 5;
-  }
-  .historia-prev { left: 5px; }
-  .historia-next { right: 5px; }
-
-  .partners-prev,
-  .partners-next {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-    top: 50%;
-    z-index: 5;
-  }
-  .partners-prev { left: 5px; margin-left: 0; }
-  .partners-next { right: 5px; margin-right: 0; }
-  .partners-carousel { padding: 0 40px; }
-}
-
-@media (max-width: 480px) {
-  .carousel-prev,
   .carousel-next,
   .realizacoes-prev,
   .realizacoes-next,
@@ -2375,144 +2466,6 @@ footer {
   .historia-next,
   .partners-prev,
   .partners-next {
-    width: 32px;
-    height: 32px;
-    font-size: 0.9rem;
-  }
-  
-  .realizacoes-carousel,
-  .event-carousel,
-  .partners-carousel {
-    padding: 0 35px !important;
-  }
- 
-  .realizacao-imagem,
-  .event-image,
-  .carousel-item img {
-    margin: 0 5px;
-  }
-}
-
-/* ========== GARANTIR QUE BOTÕES NÃO SOBREPONHAM CONTEÚDO ========== */
-@media (max-width: 768px) {
-  /* Colocar conteúdo acima das setas */
-  .realizacao-conteudo,
-  .event-content,
-  .historia-texto {
-    position: relative;
-    z-index: 20; /* conteúdo acima das setas */
-  }
-  
-  .realizacao-imagem,
-  .event-image {
-    margin: 0 auto 1rem;
-    position: relative;
-    z-index: 15;
-  }
-  
-  .realizacao-descricao,
-  .event-description {
-    padding: 0 5px;
-  }
-}
-
-/* ========== MELHORIAS DE ESPAÇAMENTO GERAL ========== */
-@media (max-width: 768px) {
-
-  .why-section,
-  .realizacoes-section,
-  .historia-section,
-  .event-section,
-  .help-section-columns,
-  .partners-section {
-    padding: 2.5rem 0 !important;
-  }
-  
-
-  .realizacao-item,
-  .event-item {
-    gap: 1.5rem;
-  }
-  
-
-  .container {
-    padding: 0 15px;
-  }
-}
-
-/* ========== MELHORIAS DE ACESSIBILIDADE E UX ========== */
-@media (max-width: 768px) {
-
-  button, 
-  .cta-btn, 
-  .btn-yellow-2, 
-  .primary-btn,
-  .carousel-prev,
-  .carousel-next,
-  .realizacoes-prev,
-  .realizacoes-next,
-  .event-prev,
-  .event-next,
-  .historia-prev,
-  .historia-next,
-  .partners-prev,
-  .partners-next {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-
-  .about-text,
-  .realizacao-descricao p,
-  .event-description p,
-  .historia-texto p,
-  .about-text-2 {
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  img {
-    loading: lazy;
-  }
-}
-
-@media (max-width: 768px) {
-  input, select, textarea {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    background-attachment: scroll;
-  }
-}
-
-/* ... todo o seu CSS anterior ... */
-
-@media (max-width: 576px) {
-  .footer-column p {
-    font-size: 0.9rem;
-  }
-
-  .social-links {
-    gap: 25px;
-  }
-
-  .footer-bottom p {
-    font-size: 0.8rem;
-  }
-}
-
-/* ========== CORREÇÕES FINAIS PARA BOTÕES NO MOBILE ========== */
-/* Forçar botões dos carrosséis redondos no mobile e CTAs como pills */
-@media (max-width: 768px) {
-  /* Controles dos carrosséis — quadrado/circular, centro do conteúdo */
-  .carousel-prev, .carousel-next,
-  .realizacoes-prev, .realizacoes-next,
-  .event-prev, .event-next,
-  .historia-prev, .historia-next,
-  .partners-prev, .partners-next {
     width: 44px !important;
     height: 44px !important;
     min-width: 44px !important;
@@ -2526,8 +2479,10 @@ footer {
     overflow: visible !important;
   }
 
-  /* CTAs (links/botões principais) — formato "pill" sem forçar largura total */
-  .cta-btn, .btn-yellow-2, .primary-btn, .donate-btn {
+  .cta-btn,
+  .btn-yellow-2,
+  .primary-btn,
+  .donate-btn {
     width: auto !important;
     max-width: 280px;
     display: inline-flex !important;
@@ -2538,13 +2493,17 @@ footer {
   }
 }
 
-/* Se precisar reduzir tamanho em telas muito pequenas */
 @media (max-width: 480px) {
-  .carousel-prev, .carousel-next,
-  .realizacoes-prev, .realizacoes-next,
-  .event-prev, .event-next,
-  .historia-prev, .historia-next,
-  .partners-prev, .partners-next {
+  .carousel-prev,
+  .carousel-next,
+  .realizacoes-prev,
+  .realizacoes-next,
+  .event-prev,
+  .event-next,
+  .historia-prev,
+  .historia-next,
+  .partners-prev,
+  .partners-next {
     width: 36px !important;
     height: 36px !important;
     min-width: 36px !important;
@@ -2553,3 +2512,318 @@ footer {
   }
 }
 
+/* ========== CORREÇÕES DE Z-INDEX PARA CONTROLES DOS CARROSSÉIS ========== */
+.realizacoes-prev,
+.realizacoes-next,
+.event-prev,
+.event-next,
+.historia-prev,
+.historia-next,
+.partners-prev,
+.partners-next,
+.carousel-prev,
+.carousel-next {
+  z-index: 1300 !important;
+}
+
+.menu-toggle {
+  z-index: 1001;
+}
+
+.carousel-controls,
+.historia-carousel-container,
+.realizacoes-carousel,
+.event-carousel,
+.partners-carousel {
+  position: relative;
+  z-index: 100;
+}
+
+.nav-overlay {
+  z-index: 999;
+}
+
+.nav-links.active {
+  z-index: 1000;
+}
+
+/* ========== CORREÇÕES APENAS PARA MOBILE ========== */
+@media (max-width: 768px) {
+  :root {
+    --header-height-mobile: 60px;
+  }
+
+  header {
+    min-height: var(--header-height-mobile);
+  }
+
+  main {
+    margin-top: var(--header-height-mobile);
+  }
+
+  .hero {
+    margin-top: 0;
+    height: calc(100vh - var(--header-height-mobile));
+    min-height: 450px;
+  }
+
+  .menu-toggle {
+    z-index: 9999 !important;
+  }
+
+  .hero-content {
+    position: relative;
+    left: 0 !important;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 15px;
+    max-width: 100% !important;
+  }
+
+  .cta-buttons {
+    position: relative;
+    left: 0 !important;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-btn {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: 2rem !important;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .hero-text {
+    font-size: 1rem !important;
+    line-height: 1.4;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: calc(100vh - 60px);
+    min-height: 400px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem !important;
+  }
+
+  .hero-text {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-fallback {
+    margin-top: var(--header-height-mobile) !important;
+    padding-top: 0 !important;
+  }
+
+  @supports (padding: max(0px)) {
+    .hero {
+      padding-top: unset !important;
+    }
+  }
+}
+
+/* aumenta visualmente só a primeira imagem da seção Nossa História */
+.historia-item:first-child img {
+  transform: scale(1.9);
+  transition: transform 0.3s ease;
+}
+
+/* --- CORREÇÃO DOS CARROSÉIS DE REALIZAÇÕES E EVENTOS --- */
+
+.realizacoes-carousel,
+.event-carousel {
+  position: relative;
+}
+
+/* Cada slide deve ocupar o mesmo espaço, sobrepondo os outros */
+.realizacao-item,
+.event-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/* Apenas o slide ativo fica visível */
+.realizacao-item.active,
+.event-item.active {
+  opacity: 1;
+  visibility: visible;
+  position: relative; /* garante que o conteúdo do ativo respeite o fluxo interno */
+  z-index: 2;
+}
+
+/* Garante que o texto não cause deslocamento */
+.realizacao-item p,
+.event-item p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+/* Ajuste extra para mobile */
+@media (max-width: 768px) {
+  .realizacao-item,
+  .event-item {
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* --- AJUSTE DE LAYOUT PARA SEÇÕES REALIZAÇÕES / EVENTOS --- */
+
+/* Container principal dos carrosséis */
+.realizacoes-carousel,
+.event-carousel {
+  position: relative;
+  padding: 20px 36px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Cada slide */
+.realizacao-item,
+.event-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 900px; /* limita largura no mobile */
+  margin: 0 auto;
+  text-align: center;
+  background-color: transparent;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Slide ativo visível */
+.realizacao-item.active,
+.event-item.active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+/* Imagem do slide */
+.realizacao-item img,
+.event-item img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  aspect-ratio: 1 / 1;
+}
+
+/* Título */
+.realizacao-item h3,
+.event-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--dd);
+}
+
+/* Texto */
+.realizacao-item p,
+.event-item p {
+  display: -webkit-box;
+  -webkit-line-clamp: 8; /* número máximo de linhas visíveis */
+  -webkit-box-orient: vertical;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  transition: max-height 0.3s ease;
+}
+
+/* Ao passar o mouse ou tocar, o texto se expande */
+.realizacao-item:hover p,
+.event-item:hover p {
+  max-height: 500px; /* expande o “rabo” se precisar */
+  -webkit-line-clamp: unset;
+}
+
+/* Espaçamento entre o texto e os botões */
+.realizacoes-prev,
+.realizacoes-next,
+.event-prev,
+.event-next {
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* @media all and (min-width: 993px) {
+  .realizacoes-prev:hover,
+  .realizacoes-next:hover,
+  .event-prev:hover,
+  .event-next:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+} */
+
+/* ==== OVERRIDE FINAL (depois de todas as media queries):
+   Realizações com altura do maior slide usando CSS Grid ==== */
+.realizacoes-carousel {
+  display: grid !important; /* sobrepõe ajustes anteriores que usam flex */
+}
+
+.realizacao-item {
+  position: static !important; /* sai do absoluto para permitir cálculo de altura */
+  top: auto !important;
+  left: auto !important;
+  grid-area: 1 / 1 !important; /* todos ocupam a mesma célula */
+  height: auto !important; /* altura baseada no conteúdo; grid ajusta pela maior */
+  z-index: 0;
+}
+
+.realizacao-item.active {
+  z-index: 1; /* ativo acima dos demais (inativos têm opacity: 0 e pointer-events: none) */
+}
+
+/* ==== OVERRIDE FINAL:
+   Eventos com altura do maior slide usando CSS Grid (mesmo padrão de Realizações) ==== */
+.event-carousel {
+  display: grid !important; /* sobrepõe definições anteriores que usam flex */
+}
+
+.event-item {
+  position: static !important; /* sai do absoluto para permitir cálculo de altura */
+  top: auto !important;
+  left: auto !important;
+  grid-area: 1 / 1 !important; /* todos os slides ocupam a mesma célula */
+  height: auto !important; /* altura baseada no conteúdo; grid ajusta pela maior */
+  z-index: 0;
+}
+
+.event-item.active {
+  z-index: 1; /* ativo acima dos inativos (que seguem invisíveis e sem pointer-events) */
+}
