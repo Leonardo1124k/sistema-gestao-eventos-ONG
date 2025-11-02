@@ -2827,3 +2827,31 @@ footer {
 .event-item.active {
   z-index: 1; /* ativo acima dos inativos (que seguem invisíveis e sem pointer-events) */
 }
+
+.nav-links a {
+  white-space: nowrap;        /* mantém o texto em uma única linha */
+  overflow: hidden;           /* evita overflow visual desagradável */
+  text-overflow: ellipsis;    /* opcional: mostra "..." se ficar pequeno demais */
+}
+
+/* 2) Permite que o container navegue horizontalmente em caso extremo (não quebra o layout) */
+.nav-links a{
+  display: flex;
+  gap: 35px;                  /* seu valor original, ajuste se quiser */
+  align-items: center;
+  flex-wrap: nowrap;          /* evita quebra de itens para a próxima linha */
+  overflow-x: auto;           /* permite scroll horizontal quando necessário */
+}
+
+/* 3) Ajustes progressivos (reduzir padding/fonte quando a largura diminuir) */
+@media (max-width: 1200px) {
+  .nav-links a {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .nav-links a {
+    font-size: 0.95rem;
+  }
+}

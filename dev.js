@@ -33,7 +33,14 @@ function attachControlHandler(element, handler) {
 
   // Clique — executa o handler, mas não faz scrollTo
   element.addEventListener("click", (e) => {
-    e.preventDefault(); // impede navegação de <a> e comportamento nativo
+    // Só bloqueia o comportamento padrão se o elemento NÃO for um link real
+    const isAnchor = element.tagName === "A" && element.getAttribute("href");
+    const isFormButton = element.tagName === "BUTTON" && element.type === "submit";
+
+    if (!isAnchor && !isFormButton) {
+      e.preventDefault(); // impede apenas botões JS
+    }
+
     try {
       (e.currentTarget || element).blur();
     } catch (err) {}
