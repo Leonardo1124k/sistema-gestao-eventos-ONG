@@ -1,0 +1,269 @@
+/* Seção Nossa História */
+.historia-section {
+  padding: 80px 0;
+}
+
+.historia-titulo {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--cc);
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.historia-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.historia-texto {
+  flex: 1 1 45%;
+  max-width: 45%;
+  padding: 20px;
+}
+
+.historia-texto p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--bb);
+  margin-bottom: 1.1rem;
+}
+
+.historia-carousel-container {
+  flex: 1 1 50%;
+  min-width: 300px;
+  position: relative;
+}
+
+/* ========== CORREÇÕES PARA O CARROSSEL DE HISTÓRIA ========== */
+.historia-carousel {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.historia-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.historia-item.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.historia-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ========== CORREÇÕES PARA OS DOTS ========== */
+.historia-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  z-index: 10;
+  position: relative;
+}
+
+.historia-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--hh);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+.historia-dots .dot.active {
+  background: var(--ee);
+  transform: scale(1.2);
+}
+
+.historia-dots .dot:hover {
+  transform: scale(1.1);
+}
+
+/* ========== CORREÇÕES PARA OS BOTÕES DE NAVEGAÇÃO ========== */
+.historia-prev,
+.historia-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f9f9f6b4;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 15;
+  transition: all 0.3s ease;
+  color: var(--dd);
+  border: 2px solid var(--dd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.historia-prev {
+  left: 15px;
+}
+
+.historia-next {
+  right: 15px;
+}
+
+.historia-prev:hover,
+.historia-next:hover {
+  background: var(--dd);
+  color: var(--aa);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 20px rgba(212, 165, 41, 0.3);
+}
+
+/* ========== RESPONSIVIDADE PARA O CARROSSEL DE HISTÓRIA ========== */
+@media (max-width: 768px) {
+  .historia-carousel {
+    height: 400px;
+  }
+
+  .historia-prev,
+  .historia-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .historia-prev {
+    left: 10px;
+  }
+
+  .historia-next {
+    right: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .historia-carousel {
+    height: 300px;
+  }
+}
+
+/* ========== MEDIA QUERIES - NOSSA HISTÓRIA ========== */
+@media (max-width: 1200px) {
+  .historia-wrapper {
+    gap: 30px;
+  }
+
+  .historia-texto p {
+    font-size: 1rem;
+  }
+
+  .historia-carousel {
+    min-height: 450px;
+  }
+}
+
+@media (max-width: 992px) {
+  .historia-section {
+    padding: 60px 0;
+  }
+
+  .historia-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .historia-texto,
+  .historia-carousel-container {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .historia-texto {
+    margin-bottom: 30px;
+    text-align: center;
+    padding: 0;
+  }
+
+  .historia-carousel {
+    min-height: 400px;
+  }
+
+  .historia-prev {
+    left: 10px;
+  }
+
+  .historia-next {
+    right: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .historia-titulo {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .historia-carousel {
+    min-height: 350px;
+  }
+
+  .historia-prev,
+  .historia-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .historia-texto p {
+    text-align: justify;
+  }
+}
+
+@media (max-width: 576px) {
+  .historia-section {
+    padding: 50px 0;
+  }
+
+  .historia-titulo {
+    font-size: 1.8rem;
+  }
+
+  .historia-texto {
+    padding: 10px 0;
+  }
+
+  .historia-carousel {
+    min-height: 300px;
+    border-radius: 8px;
+  }
+
+  .historia-prev {
+    left: 5px;
+  }
+
+  .historia-next {
+    right: 5px;
+  }
+
+  .historia-dots {
+    margin-top: 15px;
+  }
+}

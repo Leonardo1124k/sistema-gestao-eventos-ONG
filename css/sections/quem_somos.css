@@ -1,0 +1,339 @@
+/*Por que estamos aqui / Quem somos */
+.why-section {
+  padding: 5rem 0;
+  margin-bottom: -10px;
+}
+
+.about-title {
+  text-align: center;
+  color: var(--cc);
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 800;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: start;
+}
+
+.about-content {
+  max-width: 650px;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.about-stats {
+  margin: 2rem 0;
+  padding-left: 1.5rem;
+}
+
+.stat-item {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  list-style-type: none;
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
+.stat-item::before {
+  content: "•";
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  top: -0.3rem;
+}
+
+/*CARROSSEL do missao visao e valores */
+.about-carousel {
+  position: relative;
+  width: 450px;
+  margin-left: auto;
+}
+
+.carousel-container {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+  border-radius: 16px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.carousel-slide.next {
+  transform: translateX(100%);
+}
+
+.carousel-slide.prev {
+  transform: translateX(-100%);
+}
+
+.mission-card {
+  background: var(--dd);
+  color: var(--aa);
+  height: 100%;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.carousel-title {
+  text-align: center;
+  color: var(--aa);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.carousel-text {
+  color: var(--aa);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.6;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.values-list {
+  color: var(--aa);
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.values-list li {
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0.3rem 0;
+  padding-left: 0;
+  position: relative;
+  text-align: center;
+  flex-basis: auto;
+  width: 100%;
+}
+
+.values-list li::before {
+  color: var(--aa);
+  font-size: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mission-card p.carousel-text {
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+/* Controles */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--ff);
+  border: 2px solid var(--dd);
+  color: var(--dd);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+  background: var(--dd);
+  color: var(--aa);
+}
+
+.carousel-prev {
+  left: 15px;
+}
+
+.carousel-next {
+  right: 15px;
+}
+
+/* Indicadores */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--hh);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: var(--ee);
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+/* ========== MEDIA QUERIES - POR QUE ESTAMOS AQUI / QUEM SOMOS ========== */
+@media (max-width: 1200px) {
+  .about-grid {
+    gap: 2rem;
+  }
+
+  .about-carousel {
+    width: 400px;
+  }
+}
+
+@media (max-width: 992px) {
+  .why-section {
+    padding: 4rem 0;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about-content {
+    max-width: 100%;
+  }
+
+  .about-carousel {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .carousel-container {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-section {
+    padding: 3rem 0;
+  }
+
+  .about-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
+    text-align: justify;
+  }
+
+  .stat-item {
+    font-size: 1rem;
+  }
+
+  .carousel-title {
+    font-size: 1.7rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .carousel-text {
+    font-size: 1.1rem;
+    max-width: 90%;
+  }
+
+  .values-list li {
+    flex-basis: 100%;
+    width: 100%;
+    margin: 0.3rem 0;
+    padding-left: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .why-section {
+    padding: 2.5rem 0;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+  }
+
+  .about-grid {
+    gap: 2rem;
+  }
+
+  .carousel-container {
+    height: 320px;
+  }
+
+  .mission-card {
+    padding: 1.5rem;
+  }
+
+  .carousel-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .carousel-text {
+    font-size: 1rem;
+  }
+
+  .values-list li {
+    font-size: 1rem;
+    padding-left: 1.2rem;
+  }
+
+  .carousel-prev,
+  .carousel-next {
+    width: 35px;
+    height: 35px;
+    font-size: 1.3rem;
+  }
+}

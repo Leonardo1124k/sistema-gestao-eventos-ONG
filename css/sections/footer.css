@@ -1,0 +1,172 @@
+/*RODAPÉ */
+footer {
+  background-color: #dadada;
+  color: var(--gg);
+  padding: 40px 0 20px;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-column h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #d4a529;
+  position: relative;
+  right: -10px;
+}
+
+.footer-column p {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-links {
+  position: relative;
+  right: -50px;
+  display: flex;
+  gap: 40px;
+  margin: 20px 0;
+}
+
+.social-links a {
+  color: #333;
+  font-size: 24px;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: #d4a529;
+}
+
+.copyright-text {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.footer-bottom p {
+  margin-bottom: 10px;
+}
+
+.footer-bottom span {
+  color: blue;
+  cursor: pointer;
+}
+
+.grupog3 {
+  text-decoration: none;
+}
+
+/* Ícones */
+.fas,
+.fab {
+  width: 20px;
+  text-align: center;
+}
+
+.developer {
+  text-align: center;
+  margin-top: 20px;
+  color: #bdc3c7;
+  font-size: 12px;
+}
+
+.developer a {
+  color: #bdc3c7;
+  text-decoration: none;
+}
+
+.developer a:hover {
+  text-decoration: underline;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* ========== MEDIA QUERIES - RODAPÉ ========== */
+@media (max-width: 992px) {
+  .footer-content {
+    gap: 30px;
+  }
+
+  .footer-column h3 {
+    font-size: 18px;
+  }
+
+  .social-links {
+    gap: 30px;
+    right: -40px;
+  }
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 30px 0 15px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-column {
+    min-width: 100%;
+  }
+
+  .footer-column h3 {
+    right: 0;
+  }
+
+  .social-links {
+    right: 0;
+    justify-content: flex-start;
+  }
+
+  .footer-bottom {
+    padding-top: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-column p {
+    font-size: 0.9rem;
+  }
+
+  .social-links {
+    gap: 25px;
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
+  }
+}

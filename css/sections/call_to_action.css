@@ -1,0 +1,130 @@
+/* seção CTA */
+.hero {
+  position: relative;
+  height: 100vh;
+  margin-top: 70px;
+  background: url(../../images/Apresentação_Moradia_Digna.png) center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centraliza horizontalmente o conteúdo */
+}
+
+.hero-content {
+  max-width: 800px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 3.3rem;
+  margin-bottom: 20px;
+  color: var(--dd);
+}
+
+.hero-text {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: var(--aa);
+  margin-bottom: 20px;
+  letter-spacing: 1.2px;
+  font-weight: 500;
+}
+
+/* 🔸 Botões alinhados à esquerda em relação ao bloco central */
+.cta-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto; /* mantém centralização do container */
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 15px 27px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background-color: var(--dd);
+  color: var(--bb);
+}
+
+.cta-btn:hover {
+  background-color: var(--gg);
+  color: var(--ee);
+  transform: translateY(-4px);
+}
+
+/* ========== HERO/Call to action RESPONSIVO ========== */
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-text {
+    font-size: 1.2rem;
+  }
+
+  .cta-buttons {
+    gap: 20px;
+  }
+
+  .cta-btn {
+    padding: 12px 22px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    min-height: 500px;
+    background-position: 65% center;
+  }
+
+  .hero-content {
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .cta-btn {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+
+  .hero-text {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+}
