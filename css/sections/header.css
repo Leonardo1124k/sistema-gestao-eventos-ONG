@@ -1,0 +1,262 @@
+/*CABEÇALHO*/
+header {
+  background-color: var(--aa);
+  padding: 15px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: clamp(80px, 8vh, 105px);
+  z-index: 100;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1300px;
+  padding: 0 20px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.logo img {
+  width: 210px;
+  height: 80px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 35px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--bb);
+  font-weight: 500;
+  font-size: 1.12rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover:not(.donate-btn) {
+  color: var(--cc);
+}
+
+.donate-btn {
+  background-color: var(--dd);
+  padding: 12px 25px;
+  border-radius: 9px;
+  margin-left: 40px;
+  letter-spacing: 1.2px;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.donate-btn:hover {
+  background-color: var(--bb);
+  color: var(--ee);
+}
+
+.donate-btn strong {
+  font-weight: 800;
+}
+
+/* Menu Toggle (Mobile) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  width: 30px;
+  height: 30px;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--gg);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Nav Overlay */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ========== HEADER RESPONSIVO ========== */
+@media (max-width: 1200px) {
+  .nav-links {
+    gap: 25px;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+  }
+
+  .donate-btn {
+    padding: 10px 20px;
+    margin-left: 20px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .logo img {
+    width: 170px;
+    height: auto;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .donate-btn {
+    padding: 8px 16px;
+    margin-left: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 8px 0;
+    min-height: 60px;
+  }
+
+  .logo img {
+    width: 140px;
+    height: auto;
+  }
+
+  /* ===== TOGGLE CORRIGIDO (mobile) ===== */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 38px;
+    height: 28px;
+    padding: 6px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 1202;
+  }
+
+  /* barras */
+  .menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--gg);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  /* vira X */
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+  }
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -4px);
+  }
+
+  /* evita corte */
+  header,
+  nav,
+  .nav-links {
+    overflow: visible;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100vh;
+    background: var(--aa);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 100px;
+    gap: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    padding: 15px 20px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .donate-btn {
+    margin: 20px auto 0;
+    width: 80%;
+    display: block;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .logo img {
+    width: 130px;
+  }
+
+  .nav-links {
+    width: 85%;
+  }
+}
+
+@media (max-width: 400px) {
+  .logo img {
+    width: 120px;
+  }
+
+  .nav-links {
+    width: 90%;
+  }
+}

@@ -1,0 +1,403 @@
+@import url('base.css');
+@import url('sections/header.css');
+@import url('sections/call_to_action.css');
+@import url('sections/quem_somos.css');
+@import url('sections/nossas_acoes.css');
+@import url('sections/historia.css');
+@import url('sections/eventos.css');
+@import url('sections/como_ajudar.css');
+@import url('sections/parceiros.css');
+@import url('sections/footer.css');
+
+/* ========== CORREÇÕES ESPECÍFICAS PARA BOTÕES DOS CARROSSÉIS NO MOBILE ========== */
+@media (max-width: 768px) {
+  .carousel-prev,
+  .carousel-next,
+  .realizacoes-prev,
+  .realizacoes-next,
+  .event-prev,
+  .event-next,
+  .historia-prev,
+  .historia-next,
+  .partners-prev,
+  .partners-next {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  .cta-btn,
+  .btn-yellow-2,
+  .primary-btn,
+  .donate-btn {
+    width: auto !important;
+    max-width: 280px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px !important;
+    border-radius: 28px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-prev,
+  .carousel-next,
+  .realizacoes-prev,
+  .realizacoes-next,
+  .event-prev,
+  .event-next,
+  .historia-prev,
+  .historia-next,
+  .partners-prev,
+  .partners-next {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* ========== CORREÇÕES DE Z-INDEX PARA CONTROLES DOS CARROSSÉIS ========== */
+.realizacoes-prev,
+.realizacoes-next,
+.event-prev,
+.event-next,
+.historia-prev,
+.historia-next,
+.partners-prev,
+.partners-next,
+.carousel-prev,
+.carousel-next {
+  z-index: 1300 !important;
+}
+
+.menu-toggle {
+  z-index: 1001;
+}
+
+.carousel-controls,
+.historia-carousel-container,
+.realizacoes-carousel,
+.event-carousel,
+.partners-carousel {
+  position: relative;
+  z-index: 100;
+}
+
+.nav-overlay {
+  z-index: 999;
+}
+
+.nav-links.active {
+  z-index: 1000;
+}
+
+/* ========== CORREÇÕES APENAS PARA MOBILE ========== */
+@media (max-width: 768px) {
+  :root {
+    --header-height-mobile: 60px;
+  }
+
+  header {
+    min-height: var(--header-height-mobile);
+  }
+
+  main {
+    margin-top: var(--header-height-mobile);
+  }
+
+  .hero {
+    margin-top: 0;
+    height: calc(100vh - var(--header-height-mobile));
+    min-height: 450px;
+  }
+
+  .menu-toggle {
+    z-index: 9999 !important;
+  }
+
+  .hero-content {
+    position: relative;
+    left: 0 !important;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 15px;
+    max-width: 100% !important;
+  }
+
+  .cta-buttons {
+    position: relative;
+    left: 0 !important;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-btn {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: 2rem !important;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .hero-text {
+    font-size: 1rem !important;
+    line-height: 1.4;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: calc(100vh - 60px);
+    min-height: 400px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem !important;
+  }
+
+  .hero-text {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-fallback {
+    margin-top: var(--header-height-mobile) !important;
+    padding-top: 0 !important;
+  }
+
+  @supports (padding: max(0px)) {
+    .hero {
+      padding-top: unset !important;
+    }
+  }
+}
+
+/* aumenta visualmente só a primeira imagem da seção Nossa História */
+.historia-item:first-child img {
+  transform: scale(1.9);
+  transition: transform 0.3s ease;
+}
+
+/* --- CORREÇÃO DOS CARROSÉIS DE REALIZAÇÕES E EVENTOS --- */
+
+.realizacoes-carousel,
+.event-carousel {
+  position: relative;
+}
+
+/* Cada slide deve ocupar o mesmo espaço, sobrepondo os outros */
+.realizacao-item,
+.event-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/* Apenas o slide ativo fica visível */
+.realizacao-item.active,
+.event-item.active {
+  opacity: 1;
+  visibility: visible;
+  position: relative; /* garante que o conteúdo do ativo respeite o fluxo interno */
+  z-index: 2;
+}
+
+/* Garante que o texto não cause deslocamento */
+.realizacao-item p,
+.event-item p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+/* Ajuste extra para mobile */
+@media (max-width: 768px) {
+  .realizacao-item,
+  .event-item {
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* --- AJUSTE DE LAYOUT PARA SEÇÕES REALIZAÇÕES / EVENTOS --- */
+
+/* Container principal dos carrosséis */
+.realizacoes-carousel,
+.event-carousel {
+  position: relative;
+  padding: 20px 36px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Cada slide */
+.realizacao-item,
+.event-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 900px; /* limita largura no mobile */
+  margin: 0 auto;
+  text-align: center;
+  background-color: transparent;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Slide ativo visível */
+.realizacao-item.active,
+.event-item.active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+/* Imagem do slide */
+.realizacao-item img,
+.event-item img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  aspect-ratio: 1 / 1;
+}
+
+/* Título */
+.realizacao-item h3,
+.event-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--dd);
+}
+
+/* Texto */
+.realizacao-item p,
+.event-item p {
+  display: -webkit-box;
+  -webkit-line-clamp: 8; /* número máximo de linhas visíveis */
+  -webkit-box-orient: vertical;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  transition: max-height 0.3s ease;
+}
+
+/* Ao passar o mouse ou tocar, o texto se expande */
+.realizacao-item:hover p,
+.event-item:hover p {
+  max-height: 500px; /* expande o “rabo” se precisar */
+  -webkit-line-clamp: unset;
+}
+
+/* Espaçamento entre o texto e os botões */
+.realizacoes-prev,
+.realizacoes-next,
+.event-prev,
+.event-next {
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* ==== OVERRIDE FINAL (depois de todas as media queries):
+   Realizações com altura do maior slide usando CSS Grid ==== */
+.realizacoes-carousel {
+  display: grid !important; /* sobrepõe ajustes anteriores que usam flex */
+}
+
+.realizacao-item {
+  position: static !important; /* sai do absoluto para permitir cálculo de altura */
+  top: auto !important;
+  left: auto !important;
+  grid-area: 1 / 1 !important; /* todos ocupam a mesma célula */
+  height: auto !important; /* altura baseada no conteúdo; grid ajusta pela maior */
+  z-index: 0;
+}
+
+.realizacao-item.active {
+  z-index: 1; /* ativo acima dos demais (inativos têm opacity: 0 e pointer-events: none) */
+}
+
+/* ==== OVERRIDE FINAL:
+   Eventos com altura do maior slide usando CSS Grid (mesmo padrão de Realizações) ==== */
+.event-carousel {
+  display: grid !important; /* sobrepõe definições anteriores que usam flex */
+}
+
+.event-item {
+  position: static !important; /* sai do absoluto para permitir cálculo de altura */
+  top: auto !important;
+  left: auto !important;
+  grid-area: 1 / 1 !important; /* todos os slides ocupam a mesma célula */
+  height: auto !important; /* altura baseada no conteúdo; grid ajusta pela maior */
+  z-index: 0;
+}
+
+.event-item.active {
+  z-index: 1; /* ativo acima dos inativos (que seguem invisíveis e sem pointer-events) */
+}
+
+.nav-links a {
+  white-space: nowrap;        /* mantém o texto em uma única linha */
+  overflow: hidden;           /* evita overflow visual desagradável */
+  text-overflow: ellipsis;    /* opcional: mostra "..." se ficar pequeno demais */
+}
+
+/* 2) Permite que o container navegue horizontalmente em caso extremo (não quebra o layout) */
+.nav-links a{
+  display: flex;
+  gap: 35px;                  /* seu valor original, ajuste se quiser */
+  align-items: center;
+  flex-wrap: nowrap;          /* evita quebra de itens para a próxima linha */
+  overflow-x: auto;           /* permite scroll horizontal quando necessário */
+}
+
+/* 3) Ajustes progressivos (reduzir padding/fonte quando a largura diminuir) */
+@media (max-width: 1200px) {
+  .nav-links a {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .nav-links a {
+    font-size: 0.95rem;
+  }
+}

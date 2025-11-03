@@ -1,0 +1,109 @@
+        /* COMO AJUDAR */
+        .how-to-help-section {
+            padding: 5rem 0;
+            text-align: center;
+            background-color: var(--ff);
+        }
+
+        .how-to-help-section .section-title {
+            color: var(--cc);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        .help-cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .help-card {
+            background-color: var(--ff);
+            border: 2px solid var(--dd);
+            border-radius: 16px;
+            padding: 40px 30px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .help-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .help-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--dd);
+        }
+
+        .help-card p {
+            font-size: 1.1rem;
+            color: var(--bb);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .help-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            width: 100%;
+            max-width: 200px;
+            background-color: var(--dd);
+            color: var(--aa);
+            text-decoration: none;
+        }
+
+        .help-btn:hover {
+            filter: brightness(1.1);
+        }
+
+        /* ========== MEDIA QUERIES - COMO AJUDAR ========== */
+        @media (max-width: 768px) {
+            .help-cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .help-card {
+                width: 80%;
+                max-width: 400px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .help-card {
+                padding: 30px 20px;
+            }
+
+            .help-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .help-card p {
+                font-size: 1rem;
+            }
+
+            .help-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
