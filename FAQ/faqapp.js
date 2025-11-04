@@ -5,7 +5,7 @@ const FAQApp = (function() {
         animationSpeed: 300,
         loadingDelay: 300
     };
-    
+/*.*/
     // Elementos DOM
     const elements = {
         faqQuestions: document.querySelectorAll('.faq-question'),
