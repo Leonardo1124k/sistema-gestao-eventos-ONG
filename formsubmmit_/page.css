@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #fff9e6; /* Amarelo muito claro para fundo */
+    background-color: #fff9e6;
     color: #333;
     position: relative;
     min-height: 100vh;
@@ -46,13 +46,13 @@ body {
 }
 
 .header h1 {
-    color: #d4a017; /* Dourado/amarelo escuro para títulos */
+    color: #d4a017;
     font-size: 2.2rem;
     margin-bottom: 15px;
 }
 
 .header p {
-    color: #5a5a5a; /* Cinza escuro para texto */
+    color: #5a5a5a;
     font-size: 1.1rem;
     line-height: 1.6;
 }
@@ -62,7 +62,7 @@ body {
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid #f0e0a0; /* Borda amarela clara */
+    border: 1px solid #f0e0a0;
 }
 
 .form-group {
@@ -73,7 +73,7 @@ body {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #d4a017; /* Dourado/amarelo escuro */
+    color: #d4a017;
 }
 
 .form-group input[type="text"],
@@ -83,16 +83,16 @@ body {
 .form-group textarea {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #f0e0a0; /* Borda amarela clara */
+    border: 1px solid #f0e0a0;
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s;
-    background-color: #fffcf0; /* Fundo amarelo muito claro */
+    background-color: #fffcf0;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #d4a017; /* Dourado no foco */
+    border-color: #d4a017;
     outline: none;
 }
 
@@ -120,24 +120,25 @@ body {
 .donation-option label {
     display: block;
     padding: 10px;
-    background-color: #fff5d0; /* Amarelo claro */
-    border: 1px solid #f0e0a0; /* Borda amarela clara */
+    background-color: #fff5d0;
+    border: 1px solid #f0e0a0;
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s;
-    color: #b08d10; /* Amarelo escuro */
+    color: #b08d10;
 }
 
 .donation-option input[type="radio"]:checked + label {
-    background-color: #d4a017; /* Dourado */
+    background-color: #d4a017;
     color: white;
-    border-color: #d4a017; /* Dourado */
+    border-color: #d4a017;
 }
 
 .other-amount {
     margin-top: 15px;
     display: none;
+    transition: all 0.3s ease;
 }
 
 .other-amount.active {
@@ -162,153 +163,69 @@ body {
 }
 
 .btn-submit {
-    background-color: #d4a017; /* Dourado */
+    background-color: #d4a017;
     color: white;
 }
 
 .btn-submit:hover {
-    background-color: #b08d10; /* Dourado mais escuro no hover */
+    background-color: #b08d10;
+}
+
+.btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 .btn-cancel {
-    background-color: #e0e0e0; /* Cinza claro */
+    background-color: #e0e0e0;
     color: #333;
 }
 
 .btn-cancel:hover {
-    background-color: #c8c8c8; /* Cinza médio no hover */
+    background-color: #c8c8c8;
 }
 
 .error-message {
-    color: #c23b3b; /* Vermelho para erros */
+    color: #c23b3b;
     font-size: 0.9rem;
     margin-top: 5px;
     display: none;
+    font-weight: 500;
 }
 
-.error input,
-.error textarea {
-    border-color: #c23b3b !important; /* Vermelho para campos inválidos */
-}
-
-.error .error-message {
+.form-group.error .error-message {
     display: block;
+}
+
+.form-group.error input,
+.form-group.error textarea {
+    border-color: #c23b3b !important;
+    background-color: #fff8f8;
+}
+
+#amountError {
+    display: none;
+    margin-top: 10px;
 }
 
 .success-message {
     display: none;
     text-align: center;
-    padding: 20px;
-    background-color: #fff5d0; /* Amarelo claro */
-    color: #b08d10; /* Amarelo escuro */
-    border-radius: 5px;
+    padding: 25px;
+    background-color: #d4f4d4;
+    color: #2e7d32;
+    border-radius: 10px;
     margin-bottom: 20px;
-    border: 1px solid #f0e0a0; /* Borda amarela clara */
+    border: 1px solid #a5d6a7;
+    animation: fadeIn 0.5s ease;
 }
 
-@media (max-width: 768px) {
-    .donation-option {
-        flex: 1 1 calc(50% - 10px);
-    }
-    
-    .container {
-        padding: 20px 10px;
-    }
-    
-    .header h1 {
-        font-size: 1.8rem;
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.form-group textarea {
-    min-height: 100px;
-    resize: none; /* Isso remove o redimensionamento */
-}
-
-.background-image-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('caminho/para/sua-imagem.jpg');
-    background-size: cover;          /* Cobrir toda a área mantendo proporções */
-    background-position: center center; /* Centraliza horizontal e verticalmente */
-    background-repeat: no-repeat;
-    background-attachment: fixed;    /* Fixa a imagem durante o scroll */
-    z-index: -1;
-    opacity: 0.3;
-    
-    /* Técnica avançada de centralização para diferentes tamanhos de tela */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* Se estiver usando tag <img> dentro do container */
-.background-image-container img {
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    
-    /* Centralização perfeita */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* Garante que a imagem cubra todo o espaço */
-    object-fit: cover;
-}
-
-/* Mantenha todo o CSS anterior e adicione: */
-
-.payment-method {
-    margin: 25px 0;
-    padding: 20px;
-    background-color: #fff5d0;
-    border-radius: 8px;
-    border: 1px solid #f0e0a0;
-}
-
-.payment-method h3 {
-    color: #d4a017;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-}
-
-.payment-options {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.payment-option {
-    padding: 10px 15px;
-    background-color: #f8f8f8;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-    border: 1px solid #ddd;
-}
-
-.payment-option.active {
-    background-color: #d4a017;
-    color: white;
-    border-color: #d4a017;
-}
-
-.payment-option:hover {
-    background-color: #e8e8e8;
-}
-
-.payment-option.active:hover {
-    background-color: #b08d10;
-}
-
-/* Estilos para a seção PIX */
+/* PIX Section */
 .pix-section {
     margin: 30px 0;
     padding: 25px;
@@ -388,13 +305,121 @@ body {
     color: #5a5a5a;
 }
 
-/* Responsivo */
+/* CORRIGIR ERROS VISUAIS */
+.error-message {
+    display: none;
+    color: #c23b3b;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.form-group.error .error-message {
+    display: block !important;
+}
+
+.form-group.error input,
+.form-group.error textarea {
+    border-color: #c23b3b !important;
+    background-color: #fff8f8;
+}
+
+#amountError {
+    display: none;
+    color: #c23b3b;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.other-amount {
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.other-amount.active {
+    display: block !important;
+}
+
+.btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
+    .donation-option {
+        flex: 1 1 calc(50% - 10px);
+    }
+    .container {
+        padding: 20px 10px;
+    }
+    .header h1 {
+        font-size: 1.8rem;
+    }
     .pix-details {
         flex-direction: column;
     }
-    
     .pix-qr-code {
         margin-top: 20px;
+    }
+}
+
+/* === QR CODE ESTÁTICO RESPONSIVO === */
+.pix-qr-code {
+    flex: 0 0 200px;
+    text-align: center;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #f0e0a0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.qr-image {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 180px !important;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
+}
+
+.qr-caption {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #5a5a5a;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .pix-details {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    .pix-qr-code {
+        flex: none;
+        width: 100%;
+        max-width: 180px;
+        padding: 12px;
+    }
+    .qr-image {
+        max-width: 150px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .pix-qr-code {
+        max-width: 150px;
+    }
+    .qr-image {
+        max-width: 130px !important;
     }
 }
