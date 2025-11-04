@@ -313,7 +313,7 @@
 .realizacao-item:hover p,
 .event-item:hover p {
   max-height: 500px; /* expande o “rabo” se precisar */
-  -webkit-line-clamp: unset;
+/*   -webkit-line-clamp: unset; */
 }
 
 /* Espaçamento entre o texto e os botões */
