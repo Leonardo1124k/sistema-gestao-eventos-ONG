@@ -180,7 +180,7 @@ function fixEventButtonsMobile() {
 // ========================
 // HEADER SCROLL
 // ========================
-function initHeaderScroll() {
+/* function initHeaderScroll() {
   const header = document.querySelector("header");
   if (!header) return;
 
@@ -210,6 +210,17 @@ function initHeaderScroll() {
       ticking = true;
     }
   });
+} */
+function initHeaderScroll() {
+  const header = document.querySelector("header");
+  if (!header) return;
+
+  header.style.position = "fixed";
+  header.style.top = "0";
+  header.style.left = "0";
+  header.style.right = "0";
+  header.style.zIndex = "9999";
+  header.style.transition = "none";
 }
 
 // ========================
