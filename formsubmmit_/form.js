@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const pixKey = "45.037.042/0001-35";
 
     // === TOGGLE OUTRO VALOR ===
-    document.querySelectorAll('input[name="donationAmount"]').forEach(radio => {
+    document.querySelectorAll('input[name="Valor_da_doacao"]').forEach(radio => {
         radio.addEventListener('change', function () {
             if (this.value === 'other') {
                 otherAmountContainer.classList.add('active');
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // 4. Valor da doação
-        const selected = document.querySelector('input[name="donationAmount"]:checked');
+        const selected = document.querySelector('input[name="Valor_da_doacao"]:checked');
         if (!selected) {
             amountError.style.display = 'block';
             isValid = false;
@@ -96,7 +96,7 @@ if (isValid) {
 
     // === PEGAR VALOR FINAL ===
     let finalValue = '0.00';
-    const selected = document.querySelector('input[name="donationAmount"]:checked');
+    const selected = document.querySelector('input[name="Valor_da_doacao"]:checked');
     if (selected) {
         if (selected.value === 'other') {
             const custom = parseFloat(customAmountInput.value);
