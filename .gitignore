@@ -1,0 +1,14 @@
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Java / Spring Boot (Backend)
+# backend/target/
+# backend/.mvn/wrapper/maven-wrapper.jar
+# backend/**/*.class
+# backend/.idea/
+# backend/*.iml
+# backend/help.md
+
+# Logs
+*.log

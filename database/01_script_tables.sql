@@ -1,0 +1,62 @@
+-- 1. Tabela de Usuários (Sem login, apenas cadastro de contato)
+-- CREATE TABLE usuarios (
+--     id_usuario SERIAL PRIMARY KEY,
+--     nome VARCHAR(150) NOT NULL,
+--     email VARCHAR(150) NOT NULL, -- Removido UNIQUE para permitir que a mesma pessoa doe/reserve várias vezes
+--     telefone VARCHAR(20) NOT NULL,
+--     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+-- 2. Tabela de Eventos
+-- CREATE TABLE eventos (
+--     id_evento SERIAL PRIMARY KEY,
+--     nome_evento VARCHAR(150) NOT NULL,
+--     tipo_evento VARCHAR(50) NOT NULL CHECK (tipo_evento IN ('talharim', 'bazar')),
+--     descricao TEXT,
+--     data_evento TIMESTAMP NOT NULL,
+--     local_evento VARCHAR(200) NOT NULL,
+--     limite_vendas INT, -- Nullable, pois Bazar não tem limite de vendas
+--     status_evento VARCHAR(20) DEFAULT 'ativo' CHECK (status_evento IN ('ativo', 'inativo')),
+--     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+-- 3. Tabela de Reservas do Talharim
+-- CREATE TABLE reservas_talharim (
+--     id_reserva SERIAL PRIMARY KEY,
+--     id_usuario INT NOT NULL,
+--     id_evento INT NOT NULL,
+--     quantidade INT NOT NULL,
+--     forma_pagamento VARCHAR(50), -- Campo ADICIONADO conforme nossa análise
+--     observacoes TEXT,
+--     codigo_reserva VARCHAR(50) UNIQUE NOT NULL,
+--     status_reserva VARCHAR(20) DEFAULT 'ativa',
+--     status_retirada VARCHAR(20) DEFAULT 'nao_retirado',
+--     status_pagamento VARCHAR(20) DEFAULT 'nao_pago',
+--     data_reserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+--     FOREIGN KEY (id_evento) REFERENCES eventos(id_evento)
+-- );
+
+-- 4. Tabela de Doações do Bazar
+-- CREATE TABLE doacoes_bazar (
+--     id_doacao SERIAL PRIMARY KEY,
+--     id_usuario INT NOT NULL,
+--     id_evento INT NOT NULL,
+--     tipos_itens VARCHAR(100) NOT NULL, -- Ex: "Roupas, Calçados"
+--     quantidade INT NOT NULL, -- Quantidade aproximada
+--     descricao TEXT NOT NULL,
+--     codigo_doacao VARCHAR(50) UNIQUE NOT NULL,
+--     status_doacao VARCHAR(20) DEFAULT 'pendente',
+--     data_doacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+--     FOREIGN KEY (id_evento) REFERENCES eventos(id_evento)
+-- );
+
+-- 5. Tabela de Administradores (Login da ONG)
+-- CREATE TABLE administradores (
+--     id_admin SERIAL PRIMARY KEY,
+--     email VARCHAR(150) UNIQUE NOT NULL,
+--     senha_hash TEXT NOT NULL,
+--     nome VARCHAR(100),
+--     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
