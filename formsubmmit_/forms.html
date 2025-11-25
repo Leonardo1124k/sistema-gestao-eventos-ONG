@@ -33,19 +33,19 @@
         <form id="donationForm" class="donation-form" action="https://formsubmit.co/leonardopradopessoni@gmail.com" method="POST">
             <div class="form-group">
                 <label for="fullName">Nome completo *</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Digite seu nome completo" required>
+                <input type="text" id="fullName" name="Nome_completo" placeholder="Digite seu nome completo" required>
                 <span class="error-message">Nome deve ter pelo menos 3 caracteres</span>
             </div>
 
             <div class="form-group">
                 <label for="email">Email para contato *</label>
-                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                <input type="email" id="email" name="Email" placeholder="seu@email.com" required>
                 <span class="error-message">Por favor, insira um email válido</span>
             </div>
 
             <div class="form-group">
                 <label for="phone">Telefone (WhatsApp) *</label>
-                <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" required>
+                <input type="tel" id="phone" name="Telefone" placeholder="(00) 00000-0000" required>
                 <span class="error-message">Telefone deve ter DDD + número</span>
             </div>
 
@@ -53,28 +53,28 @@
                 <label>Valor da doação *</label>
                 <div class="donation-options">
                     <div class="donation-option">
-                        <input type="radio" id="amount15" name="donationAmount" value="15">
+                        <input type="radio" id="amount15" name="Valor_da_doacao" value="15">
                         <label for="amount15">R$15</label>
                     </div>
                     <div class="donation-option">
-                        <input type="radio" id="amount30" name="donationAmount" value="30">
+                        <input type="radio" id="amount30" name="Valor_da_doacao" value="30">
                         <label for="amount30">R$30</label>
                     </div>
                     <div class="donation-option">
-                        <input type="radio" id="amount50" name="donationAmount" value="50">
+                        <input type="radio" id="amount50" name="Valor_da_doacao" value="50">
                         <label for="amount50">R$50</label>
                     </div>
                     <div class="donation-option">
-                        <input type="radio" id="amount100" name="donationAmount" value="100">
+                        <input type="radio" id="amount100" name="Valor_da_doacao" value="100">
                         <label for="amount100">R$100</label>
                     </div>
                     <div class="donation-option">
-                        <input type="radio" id="otherAmount" name="donationAmount" value="other">
+                        <input type="radio" id="otherAmount" name="Valor_da_doacao" value="other">
                         <label for="otherAmount">Outro valor</label>
                     </div>
                 </div>
                 <div class="other-amount" id="otherAmountContainer">
-                    <input type="number" id="customAmount" name="customAmount" placeholder="Digite o valor desejado" min="1" step="0.01">
+                    <input type="number" id="customAmount" name="Outro_valor" placeholder="Digite o valor desejado" min="1" step="0.01">
                     <span class="error-message">Valor deve ser maior que zero</span>
                 </div>
                 <span class="error-message" id="amountError">Por favor, selecione um valor para doação</span>
@@ -111,12 +111,12 @@
 
             <div class="form-group">
                 <label for="message">Mensagem (opcional)</label>
-                <textarea id="message" name="message" placeholder="Deixe uma mensagem se desejar..."></textarea>
+                <textarea id="message" name="Mensagem" placeholder="Deixe uma mensagem se desejar..."></textarea>
             </div>
 
             <div class="form-actions">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" id="donationValue" name="donationValue" value="">
+                <input type="hidden" id="donationValue" name="Valor_final_da_doacao" value="">
                 <input type="hidden" name="_next" value="two/page.html">
                 <input type="hidden" name="_subject" value="Nova Doação Recebida!">
                 <input type="hidden" name="_template" value="table">
