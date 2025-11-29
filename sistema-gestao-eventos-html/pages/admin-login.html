@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin - ONG Eventos</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/admin-login.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-icon">🔒</div>
+        <h1>Acesso Administrativo</h1>
+        <p>Sistema de Gestão de Eventos</p>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="usuario">Usuário *</label>
+          <input 
+            type="text" 
+            id="usuario" 
+            name="usuario" 
+            required
+            placeholder="Digite seu usuário"
+            autocomplete="username"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha *</label>
+          <input 
+            type="password" 
+            id="senha" 
+            name="senha" 
+            required
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+          >
+        </div>
+
+        <div id="errorMessage" class="alert alert-error" style="display: none;"></div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          Entrar
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <p>Credenciais de teste:</p>
+        <p><strong>Usuário:</strong> ong</p>
+        <p><strong>Senha:</strong> admin123</p>
+      </div>
+
+      <div class="back-home">
+        <a href="../pages/talharim.html">← Voltar ao Início</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/admin-login.js"></script>
+</body>
+</html>

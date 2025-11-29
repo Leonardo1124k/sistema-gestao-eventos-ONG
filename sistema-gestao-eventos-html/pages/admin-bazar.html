@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento Bazar - Admin</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/admin-dashboard.css">
+  <link rel="stylesheet" href="../css/admin-tables.css">
+</head>
+<body>
+  <header class="admin-header">
+    <div class="container">
+      <div class="admin-header-content">
+        <div class="logo">
+          <div class="logo-icon">🔒</div>
+          <span>ONG Eventos - Admin</span>
+        </div>
+        <div class="admin-user">
+          <span id="nomeUsuario">Admin</span>
+          <a href="../pages/bazar.html" class="btn btn-secondary btn-sm">Sair</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <nav class="admin-nav">
+        <a href="admin-talharim.html" class="nav-item">🍝 Talharim</a>
+        <a href="admin-bazar.html" class="nav-item active">🛍️ Bazar</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <div class="container">
+        <h1>Gerenciamento de Doações - Bazar</h1>
+        <p class="subtitle">Visualize e gerencie todas as doações</p>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="doacoesTable">
+              <tr>
+                <td colspan="6" class="empty-state">Nenhuma doação registrada</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/admin-bazar.js"></script>
+</body>
+</html>

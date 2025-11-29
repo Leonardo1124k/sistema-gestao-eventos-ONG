@@ -1,0 +1,137 @@
+/* Index Page Styles */
+
+.index-main {
+  background: linear-gradient(to bottom right, #fef3c7, #fef08a);
+  min-height: calc(100vh - 200px);
+}
+
+/* Hero Section */
+.hero {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #92400e;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: #b45309;
+  margin: 0;
+}
+
+/* Events Section */
+.events {
+  padding: 3rem 1rem;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Event Card */
+.event-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: white;
+  border: 2px dashed #d1d5db;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.event-card:hover {
+  border-color: #f97316;
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.1);
+  transform: translateY(-4px);
+}
+
+.event-icon {
+  font-size: 3rem;
+}
+
+.event-card h2 {
+  font-size: 1.5rem;
+  color: #1f2937;
+  margin: 0;
+}
+
+.event-card p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.event-link {
+  color: #f97316;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover .event-link {
+  transform: translateX(4px);
+}
+
+/* Admin Button */
+.admin-btn-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+}
+
+.btn-admin {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(to right, #2563eb, #9333ea);
+  color: white;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-admin:hover {
+  background: linear-gradient(to right, #1d4ed8, #7e22ce);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-btn-container {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}

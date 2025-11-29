@@ -1,0 +1,112 @@
+.datas-main {
+  background: linear-gradient(to bottom right, #f3e8ff, #fce7f3);
+  min-height: calc(100vh - 200px);
+  padding: 2rem 1rem;
+}
+
+.datas-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.back-button {
+  margin-bottom: 2rem;
+}
+
+.datas-section h1 {
+  font-size: 2.5rem;
+  color: #581c87;
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #7e22ce;
+  text-align: center;
+  margin: 0 0 2rem 0;
+}
+
+.datas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.data-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.data-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.data-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.data-card h3 {
+  color: #581c87;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.data-date {
+  color: #6b7280;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.data-time,
+.data-location {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  margin: 0.25rem 0;
+}
+
+.info-box {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.info-box h3 {
+  color: #581c87;
+  margin: 0 0 1rem 0;
+}
+
+.info-box p {
+  color: #6b7280;
+  margin: 0;
+}
+
+.info-box a {
+  color: #a855f7;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.info-box a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .datas-section h1 {
+    font-size: 1.875rem;
+  }
+
+  .datas-grid {
+    grid-template-columns: 1fr;
+  }
+}
