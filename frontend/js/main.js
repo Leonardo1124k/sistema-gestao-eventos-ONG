@@ -355,150 +355,46 @@ function initRealizacoesCarousel() {
   });
 }
 
+function initPartnersCarousel() {
+  new Carousel({
+    containerSelector: ".partners-carousel",
+    itemSelector: ".partner-logo-box",
+    prevBtnSelector: ".partners-prev",
+    nextBtnSelector: ".partners-next",
+    dotsSelector: ".partners-dots .dot",
+    autoRotateTime: 0, // Não rotaciona automaticamente
+  });
+}
+
 function initEventCarousel() {
-  // CONSTANTE CORRIGIDA: usando EVENT_AUTO_ROTATE_TIME
   new Carousel({
     containerSelector: ".event-carousel",
     itemSelector: ".event-item",
     prevBtnSelector: ".event-prev",
     nextBtnSelector: ".event-next",
     dotsSelector: ".event-dots .dot",
-    autoRotateTime: EVENT_AUTO_ROTATE_TIME, // CONSTANTE CORRETA
+    autoRotateTime: EVENT_AUTO_ROTATE_TIME,
   });
 }
 
 // ========================
-// CARROSSEL PARCEIROS - VERSÃO CORRIGIDA COM LOOP INFINITO
-// ========================
-function initPartnersCarousel() {
-  const carousel = document.querySelector(".partners-carousel");
-  if (!carousel) return;
-
-  const grid = document.querySelector(".partners-grid");
-  const items = Array.from(document.querySelectorAll(".partner-logo-box"));
-  const prevBtn = document.querySelector(".partners-prev");
-  const nextBtn = document.querySelector(".partners-next");
-  if (!grid || items.length < 1) return;
-
-  let itemWidth = items[0].offsetWidth + PARTNERS_GAP;
-  let currentIndex = 0;
-  let interval;
-  let isAnimating = false;
-
-  // Clonar itens para loop infinito
-  items.forEach((item) => {
-    const clone = item.cloneNode(true);
-    grid.appendChild(clone);
-  });
-
-  const allItems = Array.from(grid.children);
-
-  function recalc() {
-    if (items[0]) {
-      itemWidth = items[0].offsetWidth + PARTNERS_GAP;
-    }
-  }
-
-  function updateCarousel() {
-    if (isAnimating) return;
-    isAnimating = true;
-
-    grid.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-    grid.style.transition = "transform 0.5s ease";
-
-    // Lógica de loop infinito corrigida
-    if (currentIndex >= items.length) {
-      setTimeout(() => {
-        grid.style.transition = "none";
-        currentIndex = 0;
-        grid.style.transform = `translateX(0)`;
-        setTimeout(() => {
-          grid.style.transition = "transform 0.5s ease";
-          isAnimating = false;
-        }, 50);
-      }, 500);
-    } else if (currentIndex < 0) {
-      setTimeout(() => {
-        grid.style.transition = "none";
-        currentIndex = items.length - 1;
-        grid.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-        setTimeout(() => {
-          grid.style.transition = "transform 0.5s ease";
-          isAnimating = false;
-        }, 50);
-      }, 500);
-    } else {
-      setTimeout(() => {
-        isAnimating = false;
-      }, 500);
-    }
-  }
-
-  function nextSlide() {
-    if (isAnimating) return;
-    currentIndex++;
-    updateCarousel();
-  }
-
-  function prevSlide() {
-    if (isAnimating) return;
-    currentIndex--;
-    updateCarousel();
-  }
-
-  function startAutoRotate() {
-    clearInterval(interval);
-    interval = setInterval(nextSlide, CAROUSEL_AUTO_ROTATE_TIME);
-  }
-
-  function stopAutoRotate() {
-    clearInterval(interval);
-  }
-
-  if (nextBtn) {
-    attachControlHandler(nextBtn, () => {
-      stopAutoRotate();
-      nextSlide();
-      startAutoRotate();
-    });
-  }
-
-  if (prevBtn) {
-    attachControlHandler(prevBtn, () => {
-      stopAutoRotate();
-      prevSlide();
-      startAutoRotate();
-    });
-  }
-
-  window.addEventListener(
-    "resize",
-    debounce(() => {
-      recalc();
-      updateCarousel();
-    }, 150)
-  );
-
-  recalc();
-  startAutoRotate();
-}
-
-// ========================
-// MENU MOBILE & SMOOTH SCROLL - CORRIGIDO
+// MENU MOBILE
 // ========================
 function initMobileMenu() {
   const menuToggle = document.querySelector(".menu-toggle");
-  if (!menuToggle) return;
   const navLinks = document.querySelector(".nav-links");
   const navItems = document.querySelectorAll(".nav-links a");
 
+  if (!menuToggle || !navLinks) return;
+
   function toggleMenu() {
     const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-    menuToggle.setAttribute("aria-expanded", !isExpanded);
+    menuToggle.setAttribute("aria-expanded", String(!isExpanded));
     menuToggle.classList.toggle("active");
     navLinks.classList.toggle("active");
 
     let overlay = document.querySelector(".nav-overlay");
+
     if (navLinks.classList.contains("active")) {
       if (!overlay) {
         overlay = document.createElement("div");
@@ -676,6 +572,131 @@ function initPerformanceControls() {
   });
 }
 
+// ================================================
+// INTEGRAÇÃO COM API JAVA (RESERVAS E DOAÇÕES)
+// ================================================
+
+const API_BASE_URL = 'http://localhost:8080';
+
+/**
+ * Envia dados de reserva para o endpoint /reservas da API Java.
+ * @param {object} dadosDaReserva - { idUsuario, idEvento, quantidade, observacoes }
+ */
+async function enviarReserva(dadosDaReserva) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/reservas`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dadosDaReserva),
+    });
+
+    if (!response.ok) {
+      const erroTexto = await response.text();
+      throw new Error(`Erro da API: ${erroTexto}`);
+    }
+
+    const reservaCriada = await response.json();
+    console.log('Reserva criada com sucesso!', reservaCriada);
+    alert(`Reserva confirmada! Seu código é: ${reservaCriada.codigo_reserva}`);
+    return reservaCriada;
+
+  } catch (error) {
+    console.error('Falha ao enviar reserva:', error);
+    alert(`Ocorreu um erro ao reservar: ${error.message}`);
+    return null;
+  }
+}
+
+/**
+ * Envia dados de doação para o endpoint /doacoes da API Java.
+ * @param {object} dadosDaDoacao - { idUsuario, idEvento, tiposItens, quantidade, descricao }
+ */
+async function enviarDoacao(dadosDaDoacao) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/doacoes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dadosDaDoacao),
+    });
+
+    if (!response.ok) {
+      const erroTexto = await response.text();
+      throw new Error(`Erro da API: ${erroTexto}`);
+    }
+
+    const doacaoCriada = await response.json();
+    console.log('Doação registrada com sucesso!', doacaoCriada);
+    alert(`Doação registrada! Seu código é: ${doacaoCriada.codigo_doacao}`);
+    return doacaoCriada;
+
+  } catch (error) {
+    console.error('Falha ao enviar doação:', error);
+    alert(`Ocorreu um erro ao registrar a doação: ${error.message}`);
+    return null;
+  }
+}
+
+// ================================================
+// INICIALIZAÇÃO E EVENT LISTENERS PARA FORMULÁRIOS
+// ================================================
+
+function initFormListeners() {
+    // 1. Listener para o formulário de Reserva (Talharim)
+    const formReserva = document.getElementById('form-reserva-talharim');
+    if (formReserva) {
+        formReserva.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // ATENÇÃO: Os IDs de Usuário e Evento devem ser obtidos de forma segura.
+            // Por enquanto, usamos 1 como exemplo.
+            const dadosParaAPI = {
+                idUsuario: 1, 
+                idEvento: 1,  // Assumindo que o ID 1 é o evento de Talharim
+                quantidade: parseInt(document.getElementById('reserva-quantidade').value),
+                observacoes: document.getElementById('reserva-observacoes').value,
+            };
+
+            const resultado = await enviarReserva(dadosParaAPI);
+            if (resultado) {
+                formReserva.reset(); // Limpa o formulário em caso de sucesso
+            }
+        });
+    }
+
+    // 2. Listener para o formulário de Doação (Bazar)
+    const formDoacao = document.getElementById('form-doacao-bazar');
+    if (formDoacao) {
+        formDoacao.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // ATENÇÃO: Os IDs de Usuário e Evento devem ser obtidos de forma segura.
+            // Por enquanto, usamos 1 como exemplo.
+            const dadosParaAPI = {
+                idUsuario: 1, 
+                idEvento: 2,  // Assumindo que o ID 2 é o evento de Bazar
+                // O campo tiposItens deve ser um JSON String, como esperado pela API
+                tiposItens: JSON.stringify({
+                    roupas: document.getElementById('doacao-roupas').checked,
+                    moveis: document.getElementById('doacao-moveis').checked,
+                    utensilios: document.getElementById('doacao-utensilios').checked,
+                    outros: document.getElementById('doacao-outros').checked,
+                }),
+                quantidade: parseInt(document.getElementById('doacao-quantidade').value),
+                descricao: document.getElementById('doacao-descricao').value,
+            };
+
+            const resultado = await enviarDoacao(dadosParaAPI);
+            if (resultado) {
+                formDoacao.reset(); 
+            }
+        });
+    }
+}
+
 // ========================
 // INICIALIZAÇÃO DE TUDO
 // ========================
@@ -693,6 +714,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initErrorHandling();
   initKeyboardNavigation();
   initPerformanceControls();
+  initFormListeners();
 });
 
 // ========================

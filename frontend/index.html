@@ -49,8 +49,7 @@
                     <li><a href="#nossas-acoes">Nossas Ações</a></li>
                     <li><a href="#eventos">Eventos</a></li>
                     <li><a href="FAQ/faq.html" class="nav-link">FAQ</a></li>
-                    <li><a href="formsubmmit_/forms.html" class="donate-btn" target="_blank"> <strong>Doe
-                                Agora</strong></a></li>
+                    <li><a href="#forms-api" class="donate-btn"> <strong>Doe Agora</strong></a></li>
                 </ul>
                 <!-- CORREÇÃO: menu-toggle agora é button com atributos ARIA -->
                 <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="main-nav"
@@ -72,156 +71,125 @@
                         <h1 class="hero-title">Moradia é um direito,<br>Dignidade é nossa missão</h1>
                         <p class="hero-text">Na Moradia Digna, acreditamos que todo ser humano <br> merece viver com
                             segurança, conforto e respeito.</p>
-                        <p class="hero-text">Com voluntários dedicados e doações de materiais, <br>transformamos a vida
-                            de famílias em situação de <br> vulnerabilidade.</p>
-                        <p class="hero-text">💛 Sua ajuda pode reconstruir histórias.</p>
                         <div class="cta-buttons">
-                            <a href="formsubmmit_/forms.html" class="cta-btn btn-yellow" target="_blank">Quero Doar</a>
-                            <a href="https://docs.google.com/forms/d/1WpHPS5oqzobhdf26UNQvUu8Fwn3hFVBpYd_cVklvNxY/edit"
-                                target="_blank" class="cta-btn btn-outline">Ser voluntário</a>
+                            <a href="#forms-api" class="cta-btn">Quero Ajudar</a>
+                            <a href="#eventos" class="cta-btn btn-yellow">Ver Eventos</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="why-section" id="porque-estamos-aqui">
+        <!--Seção QUEM SOMOS-->
+        <section class="about-section" id="porque-estamos-aqui">
             <div class="container">
-                <h2 class="about-title">QUEM SOMOS?</h2>
-                <div class="about-grid">
-                    <div class="about-content">
-                        <p class="about-text">Acreditamos que todo ser humano merece viver com dignidade.</p>
-                        <p class="about-text">Mas muitas famílias ainda enfrentam condições como: casas com
-                            infiltrações, mofo, falta de
-                            saneamento, risco elétrico, crianças expostas ao frio e à umidade...</p>
-                        <p class="about-text">Diante desse cenário, temos atuado com a reforma de casas aos mais
-                            necessitados. Um pouco do
-                            impacto que já trouxemos:</p>
-                        <ul class="about-stats">
-                            <li class="stat-item">+12 casas reformadas</li>
-                            <li class="stat-item">+50 famílias beneficiadas</li>
-                            <li class="stat-item">+30 voluntários engajados</li>
-                            <li class="stat-item">+20 eventos solidários realizados</li>
-                            <li class="stat-item">Centenas de materiais recebidos e reaproveitados</li>
-                        </ul>
-                        <p class="about-text">Juntos, estamos mudando essa realidade. Um lar por vez.</p>
+                <div class="about-content">
+                    <h2 class="section-title">POR QUE ESTAMOS AQUI?</h2>
+                    <p class="about-text">A ONG Moradia Digna nasceu da urgência em combater a precariedade habitacional
+                        em Franca. Acreditamos que a moradia é o ponto de partida para a dignidade, saúde e
+                        desenvolvimento de uma família.</p>
+                    <p class="about-text">Nosso trabalho vai além da construção: restauramos a esperança e oferecemos um
+                        ambiente seguro para que as famílias possam prosperar.</p>
+                    <a href="Documentação/documentacao.html" class="primary-btn" target="_blank">Nossa Documentação</a>
+                </div>
+                <div class="about-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-slide active">
+                            <img src="images/foto_1.jpeg" alt="Voluntários trabalhando em uma obra">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/foto_2.jpeg" alt="Família recebendo a chave da casa reformada">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/foto_3.jpeg" alt="Interior de uma casa reformada">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/foto_4.jpeg" alt="Voluntários sorrindo após a conclusão de uma obra">
+                        </div>
                     </div>
-
-                    <div class="about-carousel">
-                        <div class="carousel-container">
-                            <div class="carousel-slide active">
-                                <div class="mission-card">
-                                    <h3 class="carousel-title">Missão</h3>
-                                    <p class="carousel-text">Nossa missão é proporcionar dignidade, esperança e
-                                        transformação
-                                        para pessoas em vulnerabilidade.</p>
-                                </div>
-                            </div>
-
-                            <div class="carousel-slide">
-                                <div class="mission-card">
-                                    <h3 class="carousel-title">Visão</h3>
-                                    <p class="carousel-text">Uma cidade onde nenhuma família precise escolher entre
-                                        segurança e um teto.</p>
-                                </div>
-                            </div>
-
-                            <div class="carousel-slide">
-                                <div class="mission-card">
-                                    <h3 class="carousel-title">Valores</h3>
-                                    <ul class="values-list">
-                                        <li>Respeito</li>
-                                        <li>Transparência</li>
-                                        <li>Empatia</li>
-                                        <li>Ação Coletiva</li>
-                                    </ul>
-                                    <p class="carousel-text">Acreditamos no poder da comunidade.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="carousel-controls">
-                            <!-- CORREÇÃO: type="button" adicionado -->
-                            <button type="button" class="carousel-prev" aria-label="Slide anterior">‹</button>
-                            <div class="carousel-dots">
-                                <span class="dot active" data-slide="0"></span>
-                                <span class="dot" data-slide="1"></span>
-                                <span class="dot" data-slide="2"></span>
-                            </div>
-                            <!-- CORREÇÃO: type="button" adicionado -->
-                            <button type="button" class="carousel-next" aria-label="Próximo slide">›</button>
-                        </div>
+                    <button type="button" class="carousel-prev" aria-label="Slide anterior">&#10094;</button>
+                    <button type="button" class="carousel-next" aria-label="Próximo slide">&#10095;</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" data-index="0"></span>
+                        <span class="dot" data-index="1"></span>
+                        <span class="dot" data-index="2"></span>
+                        <span class="dot" data-index="3"></span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="realizacoes-section" id="nossas-acoes">
+        <!--Seção NOSSAS AÇÕES-->
+        <section class="acoes-section" id="nossas-acoes">
             <div class="container">
-                <h2 class="realizacoes-title">NOSSAS AÇÕES</h2>
-
-                <div class="realizacoes-carousel">
-                    <div class="realizacao-item" aria-hidden="true" tabindex="-1">
-                        <div class="realizacao-imagem">
-                            <img src="images/Irmãos_Senne.png" alt="Casa dos Irmãos Senne reformada" width="432"
-                                height="347" loading="lazy">
-                        </div>
-                        <div class="realizacao-conteudo">
-                            <h3 class="realizacao-subtitulo">IRMÃOS SENNE</h3>
-                            <div class="realizacao-descricao">
-                                <p>Luciana e Andrei são irmãos que enfrentam, desde jovens, uma doença degenerativa rara
-                                    chamada Hallervorden-Spatz. A condição limita sua mobilidade e exige cuidados
-                                    constantes, mas eles seguem com coragem e esperança.</p>
-                                <p>Em 2023, sua casa foi atingida por uma enchente, agravando as dificuldades e
-                                    comprometendo a segurança do lar.</p>
-                                <p>Estamos arrecadando recursos para reformar sua moradia e devolver a eles dignidade,
-                                    conforto e qualidade de vida. Sua ajuda faz a diferença.</p>
-                            </div>
-                        </div>
+                <h2 class="section-title">NOSSAS AÇÕES</h2>
+                <div class="acoes-grid">
+                    <div class="acao-item">
+                        <i class="fas fa-hammer"></i>
+                        <h3>Reforma e Construção</h3>
+                        <p>Realizamos reformas estruturais e construções de moradias para garantir segurança e conforto.
+                        </p>
                     </div>
+                    <div class="acao-item">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h3>Apoio Social</h3>
+                        <p>Oferecemos suporte e acompanhamento às famílias, promovendo dignidade e bem-estar.</p>
+                    </div>
+                    <div class="acao-item">
+                        <i class="fas fa-users"></i>
+                        <h3>Voluntariado</h3>
+                        <p>Mobilizamos a comunidade para que todos possam participar ativamente da transformação.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!--Seção REALIZAÇÕES-->
+        <section class="realizacoes-section">
+            <div class="container">
+                <h2 class="section-title">REALIZAÇÕES</h2>
+                <div class="realizacoes-carousel" aria-live="polite">
                     <div class="realizacao-item active">
-                        <div class="realizacao-imagem">
-                            <img src="images/Dona_messias.jpg" alt="Casa reformada da Dona Messias" width="402"
-                                height="445" loading="lazy">
-                        </div>
                         <div class="realizacao-conteudo">
-                            <h3 class="realizacao-subtitulo">CASA DA DONA MESSIAS</h3>
-                            <div class="realizacao-descricao">
-                                <p>Dona Messias, de 70 anos, vivia há mais de 40 anos em uma casa em condições
-                                    precárias, com infiltrações, mofo, janelas improvisadas com papelão e um banheiro
-                                    sem estrutura adequada.</p>
-                                <p>Através do trabalho voluntário da Moradia Digna e com o apoio de doações, a casa foi
-                                    totalmente reformada em 6 meses. A residência recebeu novo telhado, piso,
-                                    revestimentos, parte elétrica, janelas de ferro e um novo quarto.</p>
-                                <p>Atualmente, Dona Messias vive com mais conforto, segurança e dignidade. Seu lar se
-                                    transformou em um espaço acolhedor, saudável e digno, trazendo mais tranquilidade e
-                                    esperança para sua vida.</p>
-                            </div>
+                            <h3>Projeto Família Silva</h3>
+                            <p>Em 2023, reformamos completamente a casa da Família Silva, que vivia em condições
+                                insalubres. O projeto incluiu a construção de um banheiro, telhado novo e instalação
+                                elétrica segura.</p>
+                            <a href="https://www.instagram.com/p/C0f9Z0fR4qY/" target="_blank" class="primary-btn">Ver
+                                detalhes</a>
+                        </div>
+                        <div class="realizacao-image">
+                            <img src="images/realizacao_1.jpeg" alt="Casa reformada">
                         </div>
                     </div>
-
                     <div class="realizacao-item">
-                        <div class="realizacao-imagem">
-                            <img src="images/Silva_familia.png" alt="Casa reformada da Família Silva" width="376"
-                                height="468" loading="lazy">
-                        </div>
                         <div class="realizacao-conteudo">
-                            <h3 class="realizacao-subtitulo">CASA DA LUZIA</h3>
-                            <div class="realizacao-descricao">
-                                <p>A família de Luzia, mãe de três filhos com deficiência mental, vivia em um cômodo nos fundos de uma garagem, sem energia, banheiro e estrutura básica. A louça era lavada em uma bacia, dormiam no chão da garagem, e o espaço não oferecia segurança ou conforto.</p>
-                                <p>Com a ajuda da Moradia Digna, em poucos meses o lar foi transformado. No terreno foi construída uma área com três cômodos, piso adequado, banheiro estruturado e toda a infraestrutura necessária. A família recebeu móveis, eletrodomésticos, utensílios de cozinha e itens de cama, mesa e banho.</p>
-                                <p>Hoje, Luzia e seus filhos vivem com mais saúde, segurança e dignidade. Um lar simples, mas cheio de esperança e futuro para todos.</p>
-                            </div>
+                            <h3>Mutirão de Pintura</h3>
+                            <p>Mais de 50 voluntários se uniram em um único dia para pintar 10 casas no bairro Jardim
+                                Noemia. Uma ação rápida que trouxe cor e alegria para a comunidade.</p>
+                            <a href="https://www.instagram.com/p/C1X7Y0rR4qY/" target="_blank" class="primary-btn">Ver
+                                detalhes</a>
+                        </div>
+                        <div class="realizacao-image">
+                            <img src="images/realizacao_2.jpeg" alt="Voluntários pintando uma casa">
                         </div>
                     </div>
-
-                    <!-- Controles - CORREÇÃO: type="button" adicionado -->
-                    <button type="button" class="realizacoes-prev" aria-label="História anterior">&#10094;</button>
-                    <button type="button" class="realizacoes-next" aria-label="Próxima história">&#10095;</button>
+                    <div class="realizacao-item">
+                        <div class="realizacao-conteudo">
+                            <h3>Doação de Móveis</h3>
+                            <p>Em parceria com empresas locais, conseguimos mobiliar 3 casas recém-reformadas,
+                                garantindo que as famílias tivessem não apenas a estrutura, mas também o conforto
+                                necessário.</p>
+                            <a href="https://www.instagram.com/p/C2e9Z0fR4qY/" target="_blank" class="primary-btn">Ver
+                                detalhes</a>
+                        </div>
+                        <div class="realizacao-image">
+                            <img src="images/realizacao_3.jpeg" alt="Móveis novos em uma casa">
+                        </div>
+                    </div>
+                    <button type="button" class="realizacoes-prev" aria-label="Realização anterior">&#10094;</button>
+                    <button type="button" class="realizacoes-next" aria-label="Próxima realização">&#10095;</button>
                 </div>
-
-                <!-- DOTS CORRETOS PARA REALIZAÇÕES -->
                 <div class="realizacoes-dots">
                     <span class="dot active" data-index="0"></span>
                     <span class="dot" data-index="1"></span>
@@ -230,53 +198,51 @@
             </div>
         </section>
 
-        <section class="historia-section" id="quem-somos">
+        <!--Seção HISTÓRIA-->
+        <section class="historia-section">
             <div class="container">
-                <h2 class="historia-titulo">NOSSA HISTÓRIA</h2>
-                <div class="historia-wrapper">
-                    <div class="historia-texto">
-                        <p>Nascemos em 18 de Julho de 2020. O propósito de levar mais dignidade e esperança a famílias
-                            através de moradias surgiu da vontade da Terezinha Fonseca (Presidente), Rosa Paiva (Vice
-                            Presidente) e Lilian Franco (Voluntária), que se recusaram a cruzar os braços diante de
-                            tantas dificuldades, e começaram a agir motivando e arrastando tantos outros para esse lindo
-                            projeto.</p>
-                        <p> Dessa forma nasceu nossa Associação e nosso CNPJ saiu em 25 de Agosto de 2021.</p>
-                        <p>Acreditamos que a compaixão é a força que transcende fronteiras, conecta corações e
-                            transforma vidas, tornando o mundo um lugar mais humano e acolhedor.</p>
-                    </div>
-
-                    <div class="historia-carousel-container">
-                        <!-- CARROSSEL FUNCIONAL - igual aos outros -->
-                        <div class="historia-carousel" aria-live="polite">
-                            <!-- Item 1 -->
-                            <div class="historia-item active">
-                                <div class="historia-image">
-                                    <img src="images/Historia_img.jpeg" alt="Fundadoras da ONG" loading="lazy">
-                                </div>
+                <h2 class="section-title">NOSSA HISTÓRIA</h2>
+                <div class="historia-carousel-container">
+                    <div class="historia-carousel" aria-live="polite">
+                        <div class="historia-item active">
+                            <div class="historia-texto">
+                                <h3>2021: O Início</h3>
+                                <p>A Moradia Digna é fundada por um grupo de amigos e profissionais da construção civil
+                                    que se uniram para realizar a primeira reforma, percebendo o impacto imediato na vida
+                                    de uma família.</p>
                             </div>
-                            <!-- Item 2 -->
-                            <div class="historia-item">
-                                <div class="historia-image">
-                                    <img src="images/historia2.png" alt="Primeira reforma realizada" loading="lazy">
-                                </div>
-                            </div>
-                            <!-- Item 3 -->
-                            <div class="historia-item">
-                                <div class="historia-image">
-                                    <img src="images/Origem.JPG" alt="Comunidade beneficiada" loading="lazy">
-                                </div>
-                            </div>
-                            <!-- Controles iguais aos outros carrosséis - CORREÇÃO: type="button" adicionado -->
-                            <button type="button" class="historia-prev" aria-label="Imagem anterior">&#10094;</button>
-                            <button type="button" class="historia-next" aria-label="Próxima imagem">&#10095;</button>
                         </div>
-                        <!-- DOTS funcionais - iguais aos outros carrosséis -->
-                        <div class="historia-dots">
-                            <span class="dot active" data-index="0"></span>
-                            <span class="dot" data-index="1"></span>
-                            <span class="dot" data-index="2"></span>
+                        <div class="historia-item">
+                            <div class="historia-texto">
+                                <h3>2022: Formalização e Crescimento</h3>
+                                <p>Com o aumento da demanda e do número de voluntários, a ONG é formalizada e passa a
+                                    realizar eventos como o Talharim Solidário para arrecadar fundos de forma contínua.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="historia-item">
+                            <div class="historia-texto">
+                                <h3>2023: Expansão de Projetos</h3>
+                                <p>Com o apoio de empresas parceiras, conseguimos dobrar o número de reformas anuais e
+                                    iniciar o projeto de construção de casas do zero em terrenos doados.</p>
+                            </div>
+                        </div>
+                        <div class="historia-item">
+                            <div class="historia-texto">
+                                <h3>2024: Olhando para o Futuro</h3>
+                                <p>Nosso objetivo é expandir a atuação para outras cidades da região, levando o direito à
+                                    moradia digna para mais famílias em situação de vulnerabilidade.</p>
+                            </div>
                         </div>
                     </div>
+                    <button type="button" class="historia-prev" aria-label="Ano anterior">&#10094;</button>
+                    <button type="button" class="historia-next" aria-label="Próximo ano">&#10095;</button>
+                </div>
+                <div class="historia-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                    <span class="dot" data-index="3"></span>
                 </div>
             </div>
         </section>
@@ -300,8 +266,8 @@
                                     de qualidade.</p>
                             </div>
                             <div class="cta-buttons-2">
-                                <a href="sistema-gestao-eventos-html/pages/talharim.html"
-                                    target="_blank" class="primary-btn">Quero meu talharim</a>
+                                <!-- BOTÃO AGORA APONTA PARA O FORMULÁRIO DE RESERVA -->
+                                <a href="#forms-api" class="primary-btn">Quero meu talharim</a>
                             </div>
                         </div>
                         <div class="event-image">
@@ -321,8 +287,8 @@
                                 <p>Uma ótima oportunidade para renovar seu guarda-roupa e ajudar quem precisa.</p>
                             </div>
                             <div class="cta-buttons-2">
-                                <a href="sistema-gestao-eventos-html/pages/bazar.html"
-                                    class="primary-btn" target="_blank">Ver próximas datas</a>
+                                <!-- BOTÃO AGORA APONTA PARA O FORMULÁRIO DE DOAÇÃO -->
+                                <a href="#forms-api" class="primary-btn">Quero Doar Itens</a>
                             </div>
                         </div>
                         <div class="event-image">
@@ -343,30 +309,79 @@
             </div>
         </section>
 
+        <!-- Seção de Formulários de API -->
+        <section class="forms-api-section" id="forms-api">
+            <div class="container">
+                <h2 class="section-title">PARTICIPE E CONTRIBUA</h2>
+                <p class="section-subtitle">Use os formulários abaixo para reservar seu talharim ou registrar sua doação de itens.</p>
+
+                <!-- FORMULÁRIO DE RESERVA DE TALHARIM -->
+                <div class="form-container">
+                    <h3>Reserva de Talharim Solidário</h3>
+                    <form id="form-reserva-talharim" class="api-form">
+                        <label for="reserva-quantidade">Quantidade de Talharins:</label>
+                        <input type="number" id="reserva-quantidade" min="1" value="1" required>
+
+                        <label for="reserva-observacoes">Observações (Ex: Alergias, Retirada):</label>
+                        <textarea id="reserva-observacoes"></textarea>
+                        
+                        <!-- ATENÇÃO: Campos de Usuário e Evento serão fixos no JS por enquanto -->
+                        <p class="form-info">Seu nome e contato serão associados à reserva. Certifique-se de estar cadastrado!</p>
+
+                        <button type="submit" class="primary-btn">Confirmar Reserva</button>
+                    </form>
+                </div>
+
+                <!-- FORMULÁRIO DE DOAÇÃO DE BAZAR -->
+                <div class="form-container">
+                    <h3>Registro de Doação para o Bazar</h3>
+                    <form id="form-doacao-bazar" class="api-form">
+                        <label>Tipos de Itens (Marque todos que se aplicam):</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doacao-roupas"> <label for="doacao-roupas">Roupas</label><br>
+                            <input type="checkbox" id="doacao-moveis"> <label for="doacao-moveis">Móveis</label><br>
+                            <input type="checkbox" id="doacao-utensilios"> <label for="doacao-utensilios">Utensílios Domésticos</label><br>
+                            <input type="checkbox" id="doacao-outros"> <label for="doacao-outros">Outros</label>
+                        </div>
+
+                        <label for="doacao-quantidade">Quantidade Estimada de Itens:</label>
+                        <input type="number" id="doacao-quantidade" min="1" value="1" required>
+
+                        <label for="doacao-descricao">Descrição Detalhada dos Itens:</label>
+                        <textarea id="doacao-descricao" required></textarea>
+
+                        <p class="form-info">Entraremos em contato para combinar a retirada ou entrega dos itens.</p>
+
+                        <button type="submit" class="primary-btn btn-yellow">Registrar Doação</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
         <!-- Como Ajudar - Três Colunas -->
-    <section class="how-to-help-section" id="como-ajudar">
-        <h2 class="section-title">COMO AJUDAR?</h2>
-        <div class="help-cards-container">
-            <!-- Coluna Esquerda -->
-            <div class="help-card">
-                <h3>APOIE</h3>
-                <p>Seja um doador e ajude a transformar vidas com sua contribuição.</p>
-                <a href="formsubmmit_/forms.html" class="help-btn">Quero Doar</a>
+        <section class="how-to-help-section" id="como-ajudar">
+            <h2 class="section-title">COMO AJUDAR?</h2>
+            <div class="help-cards-container">
+                <!-- Coluna Esquerda -->
+                <div class="help-card">
+                    <h3>APOIE</h3>
+                    <p>Seja um doador e ajude a transformar vidas com sua contribuição.</p>
+                    <a href="#forms-api" class="help-btn">Quero Doar</a>
+                </div>
+                <!-- Coluna Centro -->
+                <div class="help-card">
+                    <h3>PARTICIPE</h3>
+                    <p>Torne-se um voluntário e faça parte da mudança que queremos ver no mundo.</p>
+                    <a href="https://docs.google.com/forms/d/1WpHPS5oqzobhdf26UNQvUu8FQWn3hFVBpYd_cVklvNxY/edit" class="help-btn">Ser Voluntário</a>
+                </div>
+                <!-- Coluna Direita -->
+                <div class="help-card">
+                    <h3>GERE IMPACTO</h3>
+                    <p>Sua empresa pode ser uma parceira na construção de um futuro mais digno.</p>
+                    <a href="https://linkbio.co/moradiadigna?fbclid=PAZXh0bgNhZW0CMTEAAacf9U6GUZ-dDM2rqWldh9r66qH8e4utD3li28aptIFeFUrwYWGbNbs63u4w1Q_aem_gcYBQ3w3thLmCi_iiz0WWQ" class="help-btn">Faça Parte</a>
+                </div>
             </div>
-            <!-- Coluna Centro -->
-            <div class="help-card">
-                <h3>PARTICIPE</h3>
-                <p>Torne-se um voluntário e faça parte da mudança que queremos ver no mundo.</p>
-                <a href="https://docs.google.com/forms/d/1WpHPS5oqzobhdf26UNQvUu8FQWn3hFVBpYd_cVklvNxY/edit" class="help-btn">Ser Voluntário</a>
-            </div>
-            <!-- Coluna Direita -->
-            <div class="help-card">
-                <h3>GERE IMPACTO</h3>
-                <p>Sua empresa pode ser uma parceira na construção de um futuro mais digno.</p>
-                <a href="https://linkbio.co/moradiadigna?fbclid=PAZXh0bgNhZW0CMTEAAacf9U6GUZ-dDM2rqWldh9r66qH8e4utD3li28aptIFeFUrwYWGbNbs63u4w1Q_aem_gcYBQ3w3thLmCi_iiz0WWQ" class="help-btn">Faça Parte</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
         <section class="section partners-section">
             <div class="partners-container">
