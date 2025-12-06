@@ -4,6 +4,7 @@ import com.ongmoradiadigna.api.dto.ReservaDTO;
 import com.ongmoradiadigna.api.dto.StatusUpdateDTO;
 import com.ongmoradiadigna.api.model.ReservaTalharim;
 import com.ongmoradiadigna.api.service.ReservaService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservas" )
+@RequestMapping("/reservas")
 public class ReservaController {
 
     @Autowired
@@ -66,6 +67,21 @@ public class ReservaController {
             return ResponseEntity.ok(reserva);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @DeleteMapping("/{id_reserva}")
+    public ResponseEntity<?> deletarReserva(@PathVariable Long id_reserva) {
+        try {
+            reservaService.deletarReserva(id_reserva);
+            // Retorna 204 No Content para indicar sucesso na exclusão
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            // Retorna 404 Not Found se a reserva não existir
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            // Retorna 500 Internal Server Error para outros erros
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

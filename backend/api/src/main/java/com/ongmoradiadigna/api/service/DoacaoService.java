@@ -51,6 +51,17 @@ public class DoacaoService {
         doacao.setData_atualizacao(LocalDate.now()); // Atualiza a data automaticamente
         return doacaoRepository.save(doacao);
     }
+    
+    /**
+     * Deleta uma doação pelo ID.
+     * @param idDoacao ID da doação a ser deletada.
+     */
+    public void deletarDoacao(Long idDoacao) {
+        if (!doacaoRepository.existsById(idDoacao)) {
+            throw new EntityNotFoundException("Doação com ID " + idDoacao + " não encontrada para exclusão.");
+        }
+        doacaoRepository.deleteById(idDoacao);
+    }
 
     private String gerarCodigoUnico(String prefixo) {
         String ano = String.valueOf(Year.now().getValue());

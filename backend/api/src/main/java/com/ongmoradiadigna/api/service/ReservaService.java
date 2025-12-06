@@ -67,6 +67,17 @@ public class ReservaService {
         reserva.setStatus_reserva(ReservaTalharim.StatusReserva.valueOf(status));
         return reservaRepository.save(reserva);
     }
+    
+    /**
+     * Deleta uma reserva pelo ID.
+     * @param idReserva ID da reserva a ser deletada.
+     */
+    public void deletarReserva(Long idReserva) {
+        if (!reservaRepository.existsById(idReserva)) {
+            throw new EntityNotFoundException("Reserva com ID " + idReserva + " não encontrada para exclusão.");
+        }
+        reservaRepository.deleteById(idReserva);
+    }
 
     private String gerarCodigoUnico(String prefixo) {
         String ano = String.valueOf(Year.now().getValue());
