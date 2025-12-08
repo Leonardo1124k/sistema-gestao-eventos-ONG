@@ -1,0 +1,166 @@
+/* Confirmacao Page Styles */
+
+.confirmacao-main {
+  background: linear-gradient(to bottom, #fffaed, #fff5e6);
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.confirmacao-section {
+  width: 100%;
+}
+
+h1{
+color: #8b4513;
+}
+
+.confirmacao-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Success Icon */
+.success-icon {
+  width: 4rem;
+  height: 4rem;
+  background-color: #dcfce7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #16a34a;
+  margin: 0 auto 1.5rem;
+  font-weight: bold;
+}
+
+/* Title */
+.confirmacao-card h1 {
+  font-size: 2rem;
+  color: #8b4513,;
+  margin: 0 0 1rem 0;
+}
+
+.hero-container h1 {
+  font-size: 2rem;
+  color: #8b4513;
+  margin: 0 0 1rem 0;
+}
+
+/* Message */
+.confirmacao-message {
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+/* Details */
+.confirmacao-details {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.detail-value {
+  color: #6b7280;
+  font-family: 'Courier New', monospace;
+  background-color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* Next Steps */
+.next-steps {
+  background-color: #f5f0ff;
+  border: 1px solid #f5f0ff;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.next-steps h3 {
+  color: #8b4513;
+  margin: 0 0 1rem 0;
+  font-size: 1.125rem;
+}
+
+.next-steps ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #6b7280;
+}
+
+.next-steps li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.next-steps li:last-child {
+  margin-bottom: 0;
+}
+
+/* Buttons */
+.confirmacao-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.confirmacao-buttons .btn {
+  min-width: 150px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .confirmacao-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .confirmacao-card h1 {
+    font-size: 1.5rem;
+  }
+
+  .confirmacao-buttons {
+    flex-direction: column;
+  }
+
+  .confirmacao-buttons .btn {
+    width: 100%;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
