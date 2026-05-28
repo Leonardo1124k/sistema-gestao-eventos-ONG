@@ -8,7 +8,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "eventos")
+@Table(name = "evento")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,48 +22,26 @@ public class Evento {
     private Long idEvento;
 
     @NotBlank(message = "Nome do evento é obrigatório")
-    @Column(name = "nome_evento", nullable = false, length = 150)
+    @Column(name = "nome_evento", nullable = false, length = 100)
     private String nomeEvento;
 
-    @NotNull(message = "Tipo do evento é obrigatório")
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_evento", nullable = false)
-    private TipoEvento tipoEvento;
+    @NotNull(message = "Data/hora do evento é obrigatória")
+    @Column(name = "data_hora_evento", nullable = false)
+    private LocalDateTime dataHoraEvento;
 
-    @Column(name = "descricao", columnDefinition = "TEXT")
-    private String descricao;
+    @Column(name = "local", length = 250)
+    private String local;
 
-    @NotNull(message = "Data do evento é obrigatória")
-    @Column(name = "data_evento", nullable = false)
-    private LocalDateTime dataEvento;
-
-    @NotBlank(message = "Local do evento é obrigatório")
-    @Column(name = "local_evento", nullable = false, length = 200)
-    private String localEvento;
-
-    @Column(name = "limite_vendas")
-    private Integer limiteVendas;
-
-    @Column(name = "data_criacao_evento", nullable = false, updatable = false)
-    private LocalDateTime dataCriacaoEvento;
+    @Column(name = "limite_produtos")
+    private Integer limiteProdutos;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status_evento", nullable = false)
+    @Column(name = "status_evento")
     @Builder.Default
-    private StatusEvento statusEvento = StatusEvento.ativo;
+    private StatusEvento statusEvento = StatusEvento.planejamento;
 
-    @PrePersist
-    public void prePersist() {
-        if (this.dataCriacaoEvento == null) {
-            this.dataCriacaoEvento = LocalDateTime.now();
-        }
-    }
-
-    public void ativar() {
-        this.statusEvento = StatusEvento.ativo;
-    }
-
-    public void desativar() {
-        this.statusEvento = StatusEvento.inativo;
-    }
+    @NotNull(message = "Administrador é obrigatório")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_id_admin", nullable = false)
+    private Administrador administrador;
 }

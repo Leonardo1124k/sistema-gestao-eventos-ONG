@@ -1,10 +1,10 @@
 package com.sistema.reservas.controller;
 
-import com.sistema.reservas.dto.UsuarioPainelAdmDTO;
+import com.sistema.reservas.dto.AdministradorDTO;
 import com.sistema.reservas.dto.AuthDTO;
-import com.sistema.reservas.model.UsuarioPainelAdm;
+import com.sistema.reservas.model.Administrador;
 import com.sistema.reservas.security.JwtService;
-import com.sistema.reservas.service.UsuarioPainelAdmService;
+import com.sistema.reservas.service.AdministradorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,21 +18,21 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminController {
 
-    private final UsuarioPainelAdmService service;
+    private final AdministradorService service;
     private final JwtService jwtService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<UsuarioPainelAdmDTO> cadastrar(@Valid @RequestBody UsuarioPainelAdmDTO dto) {
+    public ResponseEntity<AdministradorDTO> cadastrar(@Valid @RequestBody AdministradorDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(dto));
     }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@Valid @RequestBody AuthDTO dto) {
-        UsuarioPainelAdm admin = service.autenticar(dto);
-        String token = jwtService.gerarToken(admin.getEmail());
+        Administrador admin = service.autenticar(dto);
+        String token = jwtService.gerarToken(admin.getUsuario());
         return ResponseEntity.ok(Map.of(
                 "token", token,
-                "email", admin.getEmail(),
+                "usuario", admin.getUsuario(),
                 "idAdmin", admin.getIdAdmin().toString()
         ));
     }

@@ -31,22 +31,29 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Public auth endpoints
+                // Autenticação pública
                 .requestMatchers("/api/admin/login", "/api/admin/cadastrar").permitAll()
-                
-                // Public event endpoints (users need to see events to book/donate)
-                .requestMatchers(HttpMethod.GET, "/api/eventos", "/api/eventos/ativos", "/api/eventos/{id}", "/api/eventos/tipo/{tipo}").permitAll()
-                
-                // Public registration / submission endpoints
-                .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/reservas-talharim").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/doacoes-bazar").permitAll()
-                
-                // Public query endpoints by reservation/donation code
-                .requestMatchers(HttpMethod.GET, "/api/reservas-talharim/codigo/{codigo}").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/doacoes-bazar/codigo/{codigo}").permitAll()
-                
-                // All other management/listing endpoints require authentication
+
+                // Eventos públicos (leitura)
+                .requestMatchers(HttpMethod.GET,
+                        "/api/eventos",
+                        "/api/eventos/abertos",
+                        "/api/eventos/{id}",
+                        "/api/eventos/status/{status}").permitAll()
+
+                // Cadastro de cliente público
+                .requestMatchers(HttpMethod.POST, "/api/clientes").permitAll()
+
+                // Consulta de reserva por código (cliente confere sua reserva)
+                .requestMatchers(HttpMethod.GET, "/api/reservas/codigo/{codigo}").permitAll()
+
+                // Criação de reserva pública
+                .requestMatchers(HttpMethod.POST, "/api/reservas").permitAll()
+
+                // Produtos públicos (leitura)
+                .requestMatchers(HttpMethod.GET, "/api/produtos", "/api/produtos/{id}").permitAll()
+
+                // Tudo mais requer autenticação
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

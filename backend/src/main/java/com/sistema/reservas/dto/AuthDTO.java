@@ -1,6 +1,5 @@
 package com.sistema.reservas.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -10,9 +9,9 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class AuthDTO {
-    @NotBlank(message = "E-mail é obrigatório")
-    @Email(message = "E-mail inválido")
-    private String email;
+
+    @NotBlank(message = "Usuário é obrigatório")
+    private String usuario;
 
     @NotBlank(message = "Senha é obrigatória")
     private String senha;

@@ -1,7 +1,6 @@
 package com.sistema.reservas.dto;
 
 import com.sistema.reservas.model.StatusEvento;
-import com.sistema.reservas.model.TipoEvento;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -14,25 +13,23 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class EventoDTO {
+
     private Long idEvento;
 
     @NotBlank(message = "Nome do evento é obrigatório")
     private String nomeEvento;
 
-    @NotNull(message = "Tipo do evento é obrigatório")
-    private TipoEvento tipoEvento;
+    @NotNull(message = "Data/hora do evento é obrigatória")
+    private LocalDateTime dataHoraEvento;
 
-    private String descricao;
+    private String local;
 
-    @NotNull(message = "Data do evento é obrigatória")
-    private LocalDateTime dataEvento;
-
-    @NotBlank(message = "Local do evento é obrigatório")
-    private String localEvento;
-
-    private Integer limiteVendas;
-
-    private LocalDateTime dataCriacaoEvento;
+    private Integer limiteProdutos;
 
     private StatusEvento statusEvento;
+
+    @NotNull(message = "ID do administrador é obrigatório")
+    private Long idAdmin;
+
+    private String nomeAdmin;
 }

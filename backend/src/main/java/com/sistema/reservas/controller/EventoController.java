@@ -1,7 +1,7 @@
 package com.sistema.reservas.controller;
 
 import com.sistema.reservas.dto.EventoDTO;
-import com.sistema.reservas.model.TipoEvento;
+import com.sistema.reservas.model.StatusEvento;
 import com.sistema.reservas.service.EventoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,16 +28,10 @@ public class EventoController {
         return ResponseEntity.ok(service.editar(id, dto));
     }
 
-    @PatchMapping("/{id}/ativar")
-    public ResponseEntity<Void> ativar(@PathVariable Long id) {
-        service.ativar(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @PatchMapping("/{id}/desativar")
-    public ResponseEntity<Void> desativar(@PathVariable Long id) {
-        service.desativar(id);
-        return ResponseEntity.ok().build();
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<EventoDTO> atualizarStatus(@PathVariable Long id,
+                                                      @RequestParam StatusEvento status) {
+        return ResponseEntity.ok(service.atualizarStatus(id, status));
     }
 
     @GetMapping("/{id}")
@@ -50,13 +44,13 @@ public class EventoController {
         return ResponseEntity.ok(service.listarTodos());
     }
 
-    @GetMapping("/ativos")
-    public ResponseEntity<List<EventoDTO>> listarAtivos() {
-        return ResponseEntity.ok(service.listarAtivos());
+    @GetMapping("/abertos")
+    public ResponseEntity<List<EventoDTO>> listarAbertos() {
+        return ResponseEntity.ok(service.listarAbertos());
     }
 
-    @GetMapping("/tipo/{tipo}")
-    public ResponseEntity<List<EventoDTO>> listarPorTipo(@PathVariable TipoEvento tipo) {
-        return ResponseEntity.ok(service.listarPorTipo(tipo));
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<EventoDTO>> listarPorStatus(@PathVariable StatusEvento status) {
+        return ResponseEntity.ok(service.listarPorStatus(status));
     }
 }

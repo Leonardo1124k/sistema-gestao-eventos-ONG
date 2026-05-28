@@ -1,11 +1,10 @@
 package com.sistema.reservas.service;
 
 import com.sistema.reservas.dto.EventoDTO;
-import com.sistema.reservas.exception.BusinessException;
 import com.sistema.reservas.exception.ResourceNotFoundException;
+import com.sistema.reservas.model.Administrador;
 import com.sistema.reservas.model.Evento;
 import com.sistema.reservas.model.StatusEvento;
-import com.sistema.reservas.model.TipoEvento;
 import com.sistema.reservas.repository.EventoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,46 +18,40 @@ import java.util.stream.Collectors;
 public class EventoService {
 
     private final EventoRepository repository;
+    private final AdministradorService administradorService;
 
     @Transactional
     public EventoDTO criar(EventoDTO dto) {
+        Administrador admin = administradorService.buscarEntidade(dto.getIdAdmin());
         Evento evento = Evento.builder()
                 .nomeEvento(dto.getNomeEvento())
-                .tipoEvento(dto.getTipoEvento())
-                .descricao(dto.getDescricao())
-                .dataEvento(dto.getDataEvento())
-                .localEvento(dto.getLocalEvento())
-                .limiteVendas(dto.getLimiteVendas())
-                .statusEvento(StatusEvento.ativo)
+                .dataHoraEvento(dto.getDataHoraEvento())
+                .local(dto.getLocal())
+                .limiteProdutos(dto.getLimiteProdutos())
+                .statusEvento(StatusEvento.planejamento)
+                .administrador(admin)
                 .build();
-        Evento saved = repository.save(evento);
-        return toDTO(saved);
+        return toDTO(repository.save(evento));
     }
 
     @Transactional
     public EventoDTO editar(Long id, EventoDTO dto) {
         Evento evento = buscarEntidade(id);
         evento.setNomeEvento(dto.getNomeEvento());
-        evento.setTipoEvento(dto.getTipoEvento());
-        evento.setDescricao(dto.getDescricao());
-        evento.setDataEvento(dto.getDataEvento());
-        evento.setLocalEvento(dto.getLocalEvento());
-        evento.setLimiteVendas(dto.getLimiteVendas());
+        evento.setDataHoraEvento(dto.getDataHoraEvento());
+        evento.setLocal(dto.getLocal());
+        evento.setLimiteProdutos(dto.getLimiteProdutos());
+        if (dto.getStatusEvento() != null) {
+            evento.setStatusEvento(dto.getStatusEvento());
+        }
         return toDTO(repository.save(evento));
     }
 
     @Transactional
-    public void ativar(Long id) {
+    public EventoDTO atualizarStatus(Long id, StatusEvento status) {
         Evento evento = buscarEntidade(id);
-        evento.ativar();
-        repository.save(evento);
-    }
-
-    @Transactional
-    public void desativar(Long id) {
-        Evento evento = buscarEntidade(id);
-        evento.desativar();
-        repository.save(evento);
+        evento.setStatusEvento(status);
+        return toDTO(repository.save(evento));
     }
 
     @Transactional(readOnly = true)
@@ -72,13 +65,15 @@ public class EventoService {
     }
 
     @Transactional(readOnly = true)
-    public List<EventoDTO> listarAtivos() {
-        return repository.findByStatusEvento(StatusEvento.ativo).stream().map(this::toDTO).collect(Collectors.toList());
+    public List<EventoDTO> listarAbertos() {
+        return repository.findByStatusEvento(StatusEvento.aberto)
+                .stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<EventoDTO> listarPorTipo(TipoEvento tipo) {
-        return repository.findByTipoEvento(tipo).stream().map(this::toDTO).collect(Collectors.toList());
+    public List<EventoDTO> listarPorStatus(StatusEvento status) {
+        return repository.findByStatusEvento(status)
+                .stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     public Evento buscarEntidade(Long id) {
@@ -90,13 +85,12 @@ public class EventoService {
         return EventoDTO.builder()
                 .idEvento(e.getIdEvento())
                 .nomeEvento(e.getNomeEvento())
-                .tipoEvento(e.getTipoEvento())
-                .descricao(e.getDescricao())
-                .dataEvento(e.getDataEvento())
-                .localEvento(e.getLocalEvento())
-                .limiteVendas(e.getLimiteVendas())
-                .dataCriacaoEvento(e.getDataCriacaoEvento())
+                .dataHoraEvento(e.getDataHoraEvento())
+                .local(e.getLocal())
+                .limiteProdutos(e.getLimiteProdutos())
                 .statusEvento(e.getStatusEvento())
+                .idAdmin(e.getAdministrador().getIdAdmin())
+                .nomeAdmin(e.getAdministrador().getUsuario())
                 .build();
     }
 }
