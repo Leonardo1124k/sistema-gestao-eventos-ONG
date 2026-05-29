@@ -41,11 +41,20 @@ public class SecurityConfig {
                         "/api/eventos/{id}",
                         "/api/eventos/status/{status}").permitAll()
 
+                // EDIT PARA CONSULTA DE CLIENTES DO SISTEMA (RETIRAR DEPOIS)
+                .requestMatchers(HttpMethod.GET,"/api/clientes").permitAll()
+
+                //EDIT ALTERAR DADOS DE CLIENTE DO SISTEMA
+                .requestMatchers(HttpMethod.PUT,"/api/clientes/{id}").permitAll()
+
                 // Cadastro de cliente público
                 .requestMatchers(HttpMethod.POST, "/api/clientes").permitAll()
 
                 // Consulta de reserva por código (cliente confere sua reserva)
                 .requestMatchers(HttpMethod.GET, "/api/reservas/codigo/{codigo}").permitAll()
+                
+                // EDIT Consulta de reservas, geral
+                .requestMatchers(HttpMethod.GET, "/api/reservas").permitAll()
 
                 // Criação de reserva pública
                 .requestMatchers(HttpMethod.POST, "/api/reservas").permitAll()
