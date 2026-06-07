@@ -2,6 +2,8 @@ package com.sistema.reservas.service;
 
 import com.sistema.reservas.dto.ReservaProdutoDTO;
 import com.sistema.reservas.dto.ReservaDTO;
+import com.sistema.reservas.dto.PagamentoDTO;
+import com.sistema.reservas.dto.RetiradaDTO;
 import com.sistema.reservas.exception.BusinessException;
 import com.sistema.reservas.exception.ResourceNotFoundException;
 import com.sistema.reservas.model.*;
@@ -114,10 +116,24 @@ public class ReservaService {
                         .idReservaProduto(i.getIdReservaProduto())
                         .idProduto(i.getProduto().getIdProduto())
                         .nomeProduto(i.getProduto().getNomeProduto())
-                        // Linha removida: .idCliente(i.getCliente().getIdCliente())
                         .quantItem(i.getQuantItem())
                         .valor(i.getValor())
                         .build()).collect(Collectors.toList());
+
+        PagamentoDTO pagDTO = r.getPagamento() == null ? null : PagamentoDTO.builder()
+                .idPagamento(r.getPagamento().getIdPagamento())
+                .formaPagamento(r.getPagamento().getFormaPagamento())
+                .statusPagamento(r.getPagamento().getStatusPagamento())
+                .valorPago(r.getPagamento().getValorPago())
+                .idReserva(r.getIdReserva())
+                .build();
+
+        RetiradaDTO retDTO = r.getRetirada() == null ? null : RetiradaDTO.builder()
+                .idRetirada(r.getRetirada().getIdRetirada())
+                .statusRetirada(r.getRetirada().getStatusRetirada())
+                .dataHoraRetirada(r.getRetirada().getDataHoraRetirada())
+                .idReserva(r.getIdReserva())
+                .build();
 
         return ReservaDTO.builder()
                 .idReserva(r.getIdReserva())
@@ -131,6 +147,8 @@ public class ReservaService {
                 .idEvento(r.getEvento().getIdEvento())
                 .nomeEvento(r.getEvento().getNomeEvento())
                 .itens(itens)
+                .pagamento(pagDTO)
+                .retirada(retDTO)
                 .build();
     }
 }

@@ -34,7 +34,7 @@ public class ReservaProduto {
     //retirado private Cliente cliente;
 
     @Positive(message = "Quantidade deve ser positiva")
-    @Column(name = "quant_item", nullable = false)
+    @Column(name = "quant_produto", nullable = false)
     private Integer quantItem; //aqui
 
     @NotNull

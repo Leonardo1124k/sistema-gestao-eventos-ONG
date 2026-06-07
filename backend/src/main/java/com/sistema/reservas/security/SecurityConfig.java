@@ -56,8 +56,8 @@ public class SecurityConfig {
                 // EDIT Consulta de reservas, geral
                 .requestMatchers(HttpMethod.GET, "/api/reservas").permitAll()
 
-                // Criação de reserva pública
-                .requestMatchers(HttpMethod.POST, "/api/reservas").permitAll()
+                // Criação de reserva pública e pagamento
+                .requestMatchers(HttpMethod.POST, "/api/reservas", "/api/pagamentos").permitAll()
 
                 // Produtos públicos (leitura)
                 .requestMatchers(HttpMethod.GET, "/api/produtos", "/api/produtos/{id}").permitAll()

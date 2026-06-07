@@ -45,4 +45,5 @@ help.md
 # .env
 # .env.*
 # application-dev.properties
-# application-secret.properties
+# application-secret.propertiesbackend/target/
+backend/target/

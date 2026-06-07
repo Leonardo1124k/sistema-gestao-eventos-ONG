@@ -28,6 +28,7 @@ public class RetiradaService {
         }
         Retirada retirada = Retirada.builder()
                 .statusRetirada(StatusRetirada.pendente)
+                .dataHoraRetirada(LocalDateTime.now())
                 .reserva(reserva)
                 .build();
         return toDTO(repository.save(retirada));
