@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,25 +36,40 @@ public class ReservaService {
         Reserva reserva = Reserva.builder()
                 .cliente(cliente)
                 .evento(evento)
-                .valorReserva(dto.getValorReserva())
                 .observacoes(dto.getObservacoes())
+                // Não setamos o valorReserva ainda
                 .build();
+
+        BigDecimal valorTotalReserva = BigDecimal.ZERO;
 
         if (dto.getItens() != null && !dto.getItens().isEmpty()) {
             List<ReservaProduto> itens = new ArrayList<>();
+            
             for (ReservaProdutoDTO itemDTO : dto.getItens()) {
                 Produto produto = produtoService.buscarEntidade(itemDTO.getIdProduto());
+                
+                // Backend calcula o valor real do item (Preço do BD * Quantidade)
+                BigDecimal valorRealItem = produto.getPrecoProduto()
+                        .multiply(BigDecimal.valueOf(itemDTO.getQuantItem()));
+                
                 ReservaProduto item = ReservaProduto.builder()
                         .reserva(reserva)
                         .produto(produto)
-                        .cliente(cliente)
                         .quantItem(itemDTO.getQuantItem())
-                        .valor(itemDTO.getValor())
+                        .valor(valorRealItem) // Valor seguro calculado aqui
                         .build();
                 itens.add(item);
+                
+                // Soma ao total da reserva
+                valorTotalReserva = valorTotalReserva.add(valorRealItem);
             }
             reserva.setItens(itens);
+        } else {
+            throw new BusinessException("A reserva deve conter pelo menos um produto.");
         }
+
+        // Agora sim, setamos o valor total seguro
+        reserva.setValorReserva(valorTotalReserva);
 
         return toDTO(repository.save(reserva));
     }
@@ -98,7 +114,7 @@ public class ReservaService {
                         .idReservaProduto(i.getIdReservaProduto())
                         .idProduto(i.getProduto().getIdProduto())
                         .nomeProduto(i.getProduto().getNomeProduto())
-                        .idCliente(i.getCliente().getIdCliente())
+                        // Linha removida: .idCliente(i.getCliente().getIdCliente())
                         .quantItem(i.getQuantItem())
                         .valor(i.getValor())
                         .build()).collect(Collectors.toList());

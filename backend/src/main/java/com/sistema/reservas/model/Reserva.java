@@ -53,7 +53,7 @@ public class Reserva {
     private Retirada retirada;
 
     @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ReservaProduto> itens;
+    private List<ReservaProduto> itens; //Para garantir que uma exclusão da lista reflita no banco, adicione o parâmetro orphanRemoval = true:
 
     @PrePersist
     public void prePersist() {

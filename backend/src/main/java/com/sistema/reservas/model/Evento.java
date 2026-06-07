@@ -30,15 +30,15 @@ public class Evento {
     private LocalDateTime dataHoraEvento;
 
     @Column(name = "local", length = 250)
-    private String local;
+    private String local; //aqui
 
     @Column(name = "limite_produtos")
-    private Integer limiteProdutos;
+    private Integer limiteProdutos; //aqui
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_evento")
     @Builder.Default
-    private StatusEvento statusEvento = StatusEvento.planejamento;
+    private StatusEvento statusEvento = StatusEvento.planejamento; //AQUI
 
     @NotNull(message = "Administrador é obrigatório")
     @ManyToOne(fetch = FetchType.LAZY)

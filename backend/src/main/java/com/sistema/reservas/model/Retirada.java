@@ -23,10 +23,10 @@ public class Retirada {
     @Enumerated(EnumType.STRING)
     @Column(name = "status_retirada")
     @Builder.Default
-    private StatusRetirada statusRetirada = StatusRetirada.pendente;
+    private StatusRetirada statusRetirada = StatusRetirada.pendente; //aqui
 
     @Column(name = "data_hora_retirada")
-    private LocalDateTime dataHoraRetirada;
+    private LocalDateTime dataHoraRetirada; //aqui
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)

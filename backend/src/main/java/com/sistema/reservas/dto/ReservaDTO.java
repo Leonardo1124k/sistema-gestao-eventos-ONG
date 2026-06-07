@@ -1,5 +1,7 @@
 package com.sistema.reservas.dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -18,7 +20,7 @@ public class ReservaDTO {
     private String codigoConfirmacao;
     private LocalDateTime dataHoraReserva;
 
-    @NotNull(message = "Valor da reserva é obrigatório")
+    //se tornou desnecessario @NotNull(message = "Valor da reserva é obrigatório")
     private BigDecimal valorReserva;
 
     private String observacoes;
@@ -34,6 +36,8 @@ public class ReservaDTO {
 
     private String nomeEvento;
 
+    @NotEmpty(message = "A reserva deve conter pelo menos um produto.")
+    @Valid // Garante que as regras do ReservaProdutoDTO sejam validadas
     private List<ReservaProdutoDTO> itens;
 
     private PagamentoDTO pagamento;

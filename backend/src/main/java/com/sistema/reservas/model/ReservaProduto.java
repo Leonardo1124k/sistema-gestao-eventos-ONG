@@ -31,14 +31,11 @@ public class ReservaProduto {
     @JoinColumn(name = "fk_id_produto", nullable = false)
     private Produto produto;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_id_cliente", nullable = false)
-    private Cliente cliente;
+    //retirado private Cliente cliente;
 
     @Positive(message = "Quantidade deve ser positiva")
     @Column(name = "quant_item", nullable = false)
-    private Integer quantItem;
+    private Integer quantItem; //aqui
 
     @NotNull
     @Column(name = "valor", nullable = false, precision = 10, scale = 2)

@@ -28,7 +28,7 @@ public class Pagamento {
     @Enumerated(EnumType.STRING)
     @Column(name = "status_pagamento")
     @Builder.Default
-    private StatusPagamento statusPagamento = StatusPagamento.pendente;
+    private StatusPagamento statusPagamento = StatusPagamento.pendente; //AQUI
 
     @NotNull(message = "Valor pago é obrigatório")
     @Column(name = "valor_pago", nullable = false, precision = 10, scale = 2)

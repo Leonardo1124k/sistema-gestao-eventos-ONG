@@ -23,11 +23,11 @@ public class Cliente {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "telefone", length = 15)
+    @Column(name = "telefone", length = 15) //nullable e outras coisas necessarias aqui
     private String telefone;
 
     @Email(message = "E-mail inválido")
-    @Column(name = "email", unique = true, length = 100)
+    @Column(name = "email", unique = true, length = 100) //nullable
     private String email;
 
     @NotBlank(message = "CPF é obrigatório")
