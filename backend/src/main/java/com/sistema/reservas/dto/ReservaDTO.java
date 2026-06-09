@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.sistema.reservas.model.FormaPagamento;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -42,4 +44,8 @@ public class ReservaDTO {
 
     private PagamentoDTO pagamento;
     private RetiradaDTO retirada;
+
+    // Adicione este campo no seu ReservaDTO pois FormaPagamento é preenchido no formulario frontend.
+    @NotNull(message = "A forma de pagamento é obrigatória")
+    private FormaPagamento formaPagamento;
 }
