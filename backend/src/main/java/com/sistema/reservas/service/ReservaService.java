@@ -52,18 +52,41 @@ public class ReservaService {
                 
                 // Backend calcula o valor real do item (Preço do BD * Quantidade)
                 BigDecimal valorRealItem = produto.getPrecoProduto()
-                        .multiply(BigDecimal.valueOf(itemDTO.getQuantItem()));
+                        .multiply(BigDecimal.valueOf(itemDTO.getQuantProduto()));
                 
                 ReservaProduto item = ReservaProduto.builder()
                         .reserva(reserva)
                         .produto(produto)
-                        .quantItem(itemDTO.getQuantItem())
+                        .quantProduto(itemDTO.getQuantProduto())
                         .valor(valorRealItem) // Valor seguro calculado aqui
                         .build();
                 itens.add(item);
                 
                 // Soma ao total da reserva
                 valorTotalReserva = valorTotalReserva.add(valorRealItem);
+                reserva.setValorReserva(valorTotalReserva);
+                // Criação automática do pagamento já com a intenção preenchida pelo cliente
+                Pagamento pagamento = Pagamento.builder()
+                        .formaPagamento(dto.getFormaPagamento()) // <-- Pegando direto do DTO
+                        .statusPagamento(StatusPagamento.pendente) // Nasce como pendente
+                        .valorPago(valorTotalReserva) // Valor seguro calculado pelo backend
+                        .reserva(reserva)
+                        .build();
+                        
+                reserva.setPagamento(pagamento);
+
+                // CRIAÇÃO AUTOMÁTICA DA RETIRADA
+                Retirada retirada = Retirada.builder()
+                        .statusRetirada(StatusRetirada.pendente) // Nasce aguardando a pessoa buscar
+                        .reserva(reserva)
+                        // A dataHoraRetirada fica nula por enquanto, só é preenchida na entrega
+                        .build();
+                        
+                reserva.setRetirada(retirada);
+
+                // O repository.save salva a reserva, os itens, o pagamento e a retirada de uma só vez!
+                return toDTO(repository.save(reserva));
+
             }
             reserva.setItens(itens);
         } else {
@@ -116,7 +139,8 @@ public class ReservaService {
                         .idReservaProduto(i.getIdReservaProduto())
                         .idProduto(i.getProduto().getIdProduto())
                         .nomeProduto(i.getProduto().getNomeProduto())
-                        .quantItem(i.getQuantItem())
+                        // Linha removida: .idCliente(i.getCliente().getIdCliente())
+                        .quantProduto(i.getQuantProduto())
                         .valor(i.getValor())
                         .build()).collect(Collectors.toList());
 

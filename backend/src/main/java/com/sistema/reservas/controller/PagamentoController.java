@@ -1,9 +1,13 @@
 package com.sistema.reservas.controller;
 
 import com.sistema.reservas.dto.PagamentoDTO;
+import com.sistema.reservas.model.StatusPagamento;
 import com.sistema.reservas.service.PagamentoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,5 +32,17 @@ public class PagamentoController {
     @GetMapping("/reserva/{idReserva}")
     public ResponseEntity<PagamentoDTO> buscarPorReserva(@PathVariable Long idReserva) {
         return ResponseEntity.ok(service.buscarPorReserva(idReserva));
+    }
+
+    // O ENDPOINT DE LISTAR POR STATUS (Certifique-se de que ele está assim)
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<PagamentoDTO>> listarPorStatus(@PathVariable StatusPagamento status) {
+        return ResponseEntity.ok(service.listarPorStatus(status));
+    }
+
+    // NOVO ENDPOINT: Reverter pagamento
+    @PatchMapping("/{id}/reverter")
+    public ResponseEntity<PagamentoDTO> reverter(@PathVariable Long id) {
+        return ResponseEntity.ok(service.reverter(id));
     }
 }

@@ -132,15 +132,16 @@ async function handleSubmitReserva(e) {
       }
     }
 
-    // 5. Criar reserva
+  // 5. Criar reserva (O backend agora cria o Pagamento e Retirada automaticamente!)
     const reservaPayload = {
       idCliente: idCliente,
       idEvento: idEvento,
+      formaPagamento: formaPagamento, // Adicionado para casar com o ReservaDTO!
       observacoes: observacoes || null,
       itens: [
         {
           idProduto: produtoTalharim.idProduto,
-          quantItem: quantidade,
+          quantProduto: quantidade, // Atualizado de quantItem para quantProduto!
         },
       ],
     };
@@ -157,21 +158,8 @@ async function handleSubmitReserva(e) {
       return;
     }
 
-    // 6. Registrar pagamento
-    let pagamentoCriado;
-    try {
-      pagamentoCriado = await apiFetch('/pagamentos', {
-        method: 'POST',
-        body: JSON.stringify({
-          idReserva: reservaCriada.idReserva,
-          formaPagamento: formaPagamento, // 'pix' | 'dinheiro' | 'cartao'
-          valorPago: valorTotal,
-        }),
-      });
-    } catch (errPag) {
-      // Reserva foi criada mas pagamento falhou — avisa mas continua
-      console.warn('Pagamento não registrado:', errPag.message);
-    }
+    // O Passo 6 (POST /pagamentos) FOI COMPLETAMENTE REMOVIDO!
+    // O seu ReservaService já faz isso no backend de forma transacional.
 
     // 7. Salvar dados de confirmação no localStorage para exibir na próxima página
     localStorage.setItem('ultimaReserva', JSON.stringify({
@@ -185,7 +173,8 @@ async function handleSubmitReserva(e) {
       nomeEvento: reservaCriada.nomeEvento,
       dataHoraReserva: reservaCriada.dataHoraReserva,
       idReserva: reservaCriada.idReserva,
-      statusPagamento: pagamentoCriado ? pagamentoCriado.statusPagamento : 'pendente',
+      // Puxa o status do pagamento diretamente do DTO retornado!
+      statusPagamento: reservaCriada.pagamento ? reservaCriada.pagamento.statusPagamento : 'pendente',
     }));
 
     // 8. Redirecionar para confirmação

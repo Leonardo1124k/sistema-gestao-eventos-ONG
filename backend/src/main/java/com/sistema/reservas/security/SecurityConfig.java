@@ -39,10 +39,9 @@ public class SecurityConfig {
                         "/api/eventos",
                         "/api/eventos/abertos",
                         "/api/eventos/{id}",
+                        // EDIT PARA CONSULTA DE CLIENTES DO SISTEMA
+                        "/api/clientes", "/api/clientes/cpf/**",
                         "/api/eventos/status/{status}").permitAll()
-
-                // EDIT PARA CONSULTA DE CLIENTES DO SISTEMA (RETIRAR DEPOIS)
-                .requestMatchers(HttpMethod.GET,"/api/clientes").permitAll()
 
                 //EDIT ALTERAR DADOS DE CLIENTE DO SISTEMA
                 .requestMatchers(HttpMethod.PUT,"/api/clientes/{id}").permitAll()

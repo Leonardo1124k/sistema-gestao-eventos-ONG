@@ -21,7 +21,7 @@ public class PagamentoDTO {
 
     private StatusPagamento statusPagamento;
 
-    @NotNull(message = "Valor pago é obrigatório")
+    //e necessario que o valor pago seja puxado do valor da reserva... @NotNull(message = "Valor pago é obrigatório")
     private BigDecimal valorPago;
 
     private Long idReserva;

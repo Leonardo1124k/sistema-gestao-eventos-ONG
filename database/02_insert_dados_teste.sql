@@ -35,7 +35,7 @@ INSERT INTO reserva (id_reserva, codigo_confirmacao, data_hora_reserva, valor_re
 (8, 'PRI08', NOW(), 20.00, 8, 3), (9, 'PRI09', NOW(), 4.00, 9, 3), (10, 'PRI10', NOW(), 38.00, 10, 3);
 
 -- Itens das Reservas (Quem comprou o quê)
-INSERT INTO reserva_produto (fk_id_reserva, fk_id_produto, quant_item, valor) VALUES 
+INSERT INTO reserva_produto (fk_id_reserva, fk_id_produto, quant_produto, valor) VALUES 
 (1, 1, 1, 18.00), -- Reserva 1: 1 Talharim Bolonhesa
 (2, 1, 1, 18.00), (2, 3, 1, 6.00), -- Reserva 2: Macarrão + Refri
 (3, 2, 1, 20.00), -- Reserva 3: 1 Talharim 4 Queijos
@@ -55,7 +55,7 @@ INSERT INTO pagamento (forma_pagamento, status_pagamento, valor_pago, fk_id_rese
 ('pix', 'pago', 38.00, 10);
 
 -- Retiradas
-INSERT INTO retirada (status_retirada, fk_id_reserva) VALUES 
-('retirado', 1), ('retirado', 2), ('pendente', 3), 
-('pendente', 4), ('retirado', 5), ('retirado', 6), 
-('pendente', 7), ('retirado', 8), ('pendente', 9), ('pendente', 10);
+INSERT INTO retirada (status_retirada, data_hora_retirada, fk_id_reserva) VALUES 
+('retirado', NOW(), 1), ('retirado', NOW(), 2), ('pendente', NOW(), 3), 
+('pendente', NOW(),  4), ('retirado', NOW(), 5), ('retirado',NOW(), 6), 
+('pendente',NOW(), 7), ('retirado',NOW(), 8), ('pendente',NOW(), 9), ('pendente',NOW(), 10);

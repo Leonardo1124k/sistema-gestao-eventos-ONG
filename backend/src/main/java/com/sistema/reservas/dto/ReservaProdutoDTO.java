@@ -24,7 +24,7 @@ public class ReservaProdutoDTO {
 
     @NotNull(message = "Quantidade é obrigatória")
     @Positive(message = "Quantidade deve ser positiva")
-    private Integer quantItem;
+    private Integer quantProduto;
 
     //se tornou desnecessario @NotNull(message = "Valor é obrigatório")
     private BigDecimal valor;

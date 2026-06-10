@@ -142,7 +142,7 @@ function renderizarTabela(reservas) {
     const statusPagamento = r.pagamento ? r.pagamento.statusPagamento : null;
 
     // Calcula quantidade total dos itens
-    const qtdTotal = (r.itens || []).reduce((acc, item) => acc + (item.quantItem || 0), 0);
+    const qtdTotal = (r.itens || []).reduce((acc, item) => acc + (item.quantProduto || 0), 0);
 
     // Badge de retirada
     const retiradaTexto = getStatusRetiradaTexto(statusRetirada);
@@ -280,9 +280,9 @@ function verDetalhes(idReserva) {
     ? new Date(reserva.dataHoraReserva).toLocaleString('pt-BR')
     : 'Não informada';
 
-  const qtdTotal = (reserva.itens || []).reduce((acc, i) => acc + (i.quantItem || 0), 0);
+  const qtdTotal = (reserva.itens || []).reduce((acc, i) => acc + (i.quantProduto || 0), 0);
   const itensTexto = (reserva.itens || [])
-    .map(i => `  • ${i.nomeProduto || 'Produto'} x${i.quantItem} = R$ ${parseFloat(i.valor || 0).toFixed(2).replace('.', ',')}`)
+    .map(i => `  • ${i.nomeProduto || 'Produto'} x${i.quantProduto} = R$ ${parseFloat(i.valor || 0).toFixed(2).replace('.', ',')}`)
     .join('\n') || '  (sem itens)';
 
   const statusRetirada = reserva.retirada ? reserva.retirada.statusRetirada : 'Não registrada';
@@ -317,7 +317,7 @@ ${reserva.observacoes ? `\nObservações:\n${reserva.observacoes}` : ''}`);
 function atualizarEstatisticas(reservas) {
   const total = reservas.length;
   const qtdTotal = reservas.reduce((acc, r) =>
-    acc + (r.itens || []).reduce((s, i) => s + (i.quantItem || 0), 0), 0);
+    acc + (r.itens || []).reduce((s, i) => s + (i.quantProduto || 0), 0), 0);
   const retiradas = reservas.filter(r => r.retirada && r.retirada.statusRetirada === 'retirado').length;
   const pagasCount = reservas.filter(r => r.pagamento && r.pagamento.statusPagamento === 'pago').length;
 
@@ -391,7 +391,7 @@ function exportarCSV() {
   let csv = 'Código,Nome,CPF,Evento,Porções,Valor Total,Forma Pagamento,Status Pagamento,Status Retirada,Data Reserva\n';
 
   reservasCache.forEach(r => {
-    const qtd = (r.itens || []).reduce((a, i) => a + (i.quantItem || 0), 0);
+    const qtd = (r.itens || []).reduce((a, i) => a + (i.quantProduto || 0), 0);
     const valor = r.valorReserva != null ? parseFloat(r.valorReserva).toFixed(2) : '';
     const forma = r.pagamento ? r.pagamento.formaPagamento : '';
     const statPag = r.pagamento ? r.pagamento.statusPagamento : 'pendente';
