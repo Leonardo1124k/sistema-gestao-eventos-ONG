@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ─── apiFetch inline ─────────────────────────────────────────────────────────
 
-const API_BASE_URL_LOGIN = 'http://localhost:8080/api';
+const API_BASE_URL_LOGIN = 'http://136.248.121.28:8080/api';
 
 async function apiFetch(path, options = {}) {
   const headers = {

@@ -12,7 +12,7 @@
  *   6. Salva dados de confirmação e redireciona
  */
 
-const API_BASE_URL_LOCAL = 'http://localhost:8080/api';
+const API_BASE_URL_LOCAL = 'http://136.248.121.28:8080/api';
 
 // ─── Inicialização ────────────────────────────────────────────────────────────
 
