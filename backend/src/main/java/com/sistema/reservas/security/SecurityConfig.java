@@ -39,10 +39,9 @@ public class SecurityConfig {
                         "/api/eventos",
                         "/api/eventos/abertos",
                         "/api/eventos/{id}",
+                        // EDIT PARA CONSULTA DE CLIENTES DO SISTEMA
+                        "/api/clientes", "/api/clientes/cpf/**",
                         "/api/eventos/status/{status}").permitAll()
-
-                // EDIT PARA CONSULTA DE CLIENTES DO SISTEMA (RETIRAR DEPOIS)
-                .requestMatchers(HttpMethod.GET,"/api/clientes").permitAll()
 
                 //EDIT ALTERAR DADOS DE CLIENTE DO SISTEMA
                 .requestMatchers(HttpMethod.PUT,"/api/clientes/{id}").permitAll()
@@ -56,8 +55,8 @@ public class SecurityConfig {
                 // EDIT Consulta de reservas, geral
                 .requestMatchers(HttpMethod.GET, "/api/reservas").permitAll()
 
-                // Criação de reserva pública
-                .requestMatchers(HttpMethod.POST, "/api/reservas").permitAll()
+                // Criação de reserva pública e pagamento
+                .requestMatchers(HttpMethod.POST, "/api/reservas", "/api/pagamentos").permitAll()
 
                 // Produtos públicos (leitura)
                 .requestMatchers(HttpMethod.GET, "/api/produtos", "/api/produtos/{id}").permitAll()

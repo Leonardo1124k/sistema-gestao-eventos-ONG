@@ -1,54 +1,58 @@
-// Confirmacao Page Script
+/**
+ * confirmacao.js — Exibe os detalhes da reserva criada no backend
+ */
 
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('Página de Confirmação carregada');
+document.addEventListener('DOMContentLoaded', function () {
+  const dados = JSON.parse(localStorage.getItem('ultimaReserva') || 'null');
 
-  // Recuperar dados da última reserva/doação
-  const ultimaReserva = localStorage.getItem('ultimaReserva');
-  
-  if (ultimaReserva) {
-    const dados = JSON.parse(ultimaReserva);
-    
-    // Preencher os dados na página
-    const codigoElement = document.getElementById('codigoReserva');
-    const nomeElement = document.getElementById('nomeReserva');
-    const quantidadeElement = document.getElementById('quantidadeReserva');
-    const valorElement = document.getElementById('valorReserva');
+  if (!dados) {
+    // Sem dados — exibe mensagem genérica e não quebra a página
+    return;
+  }
 
-    if (codigoElement) codigoElement.textContent = dados.codigo;
-    if (nomeElement) nomeElement.textContent = dados.nomeCompleto || dados.nome || '-';
-    
-    if (quantidadeElement) {
-      if (dados.quantidade) {
-        quantidadeElement.textContent = dados.quantidade + ' porções';
-      } else if (dados.tipoDoacao) {
-        quantidadeElement.textContent = dados.tipoDoacao;
-      }
-    }
-    
-    if (valorElement && dados.quantidade) {
-      const valor = parseInt(dados.quantidade) * 25;
-      valorElement.textContent = 'R$ ' + valor.toFixed(2).replace('.', ',');
+  // Código de confirmação (vindo do backend)
+  const codigoEl = document.getElementById('codigoReserva');
+  if (codigoEl) {
+    codigoEl.textContent = dados.codigo || '—';
+  }
+
+  // Nome
+  const nomeEl = document.getElementById('nomeReserva');
+  if (nomeEl) {
+    nomeEl.textContent = dados.nomeCompleto || dados.nome || '—';
+  }
+
+  // Quantidade
+  const qtdEl = document.getElementById('quantidadeReserva');
+  if (qtdEl) {
+    const qtd = parseInt(dados.quantidade) || 1;
+    qtdEl.textContent = qtd === 1 ? `${qtd} porção` : `${qtd} porções`;
+  }
+
+  // Valor total (calculado no backend: precoProduto × quantidade)
+  const valorEl = document.getElementById('valorReserva');
+  if (valorEl) {
+    if (dados.valorTotal != null) {
+      valorEl.textContent = `R$ ${parseFloat(dados.valorTotal).toFixed(2).replace('.', ',')}`;
+    } else if (dados.quantidade && dados.precoProduto) {
+      const valor = parseInt(dados.quantidade) * parseFloat(dados.precoProduto);
+      valorEl.textContent = `R$ ${valor.toFixed(2).replace('.', ',')}`;
     }
   }
 
-  // Adicionar animação ao ícone de sucesso
+  // Animação no ícone de sucesso
   const successIcon = document.querySelector('.success-icon');
   if (successIcon) {
     successIcon.style.animation = 'pulse 2s infinite';
   }
 });
 
-// Adicionar animação CSS
+// CSS da animação
 const style = document.createElement('style');
 style.textContent = `
   @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
   }
 `;
 document.head.appendChild(style);
