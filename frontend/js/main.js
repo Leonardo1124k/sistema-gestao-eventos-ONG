@@ -576,7 +576,7 @@ function initPerformanceControls() {
 // INTEGRAÇÃO COM API JAVA (RESERVAS E DOAÇÕES)
 // ================================================
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'http://136.248.121.28:8080/api';
 
 /**
  * Envia dados de reserva para o endpoint /reservas da API Java.
