@@ -41,6 +41,8 @@ public class SecurityConfig {
                         "/api/eventos/{id}",
                         // EDIT PARA CONSULTA DE CLIENTES DO SISTEMA
                         "/api/clientes", "/api/clientes/cpf/**",
+                        // EDIT PARA CONSULTA DE CLIENTES DO SISTEMA (CPF E EMAIL LIBERADOS)
+                        "/api/clientes", "/api/clientes/cpf/**", "/api/clientes/email/**",
                         "/api/eventos/status/{status}").permitAll()
 
                 //EDIT ALTERAR DADOS DE CLIENTE DO SISTEMA
