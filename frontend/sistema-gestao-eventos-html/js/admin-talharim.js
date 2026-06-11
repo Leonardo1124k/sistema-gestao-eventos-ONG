@@ -162,8 +162,8 @@ function renderizarTabela(reservas) {
         data-status-pagamento="${statusPagamento || 'pendente'}">
       <td><strong>${r.codigoConfirmacao || '—'}</strong></td>
       <td>${r.nomeCliente || '—'}</td>
-      <td>${r.cpfCliente || '—'}</td>
-      <td>${r.nomeEvento || '—'}</td>
+      <td>${r.emailCliente || '—'}</td>
+      <td>${r.telefoneCliente || '—'}</td>
       <td>${qtdTotal} ${qtdTotal === 1 ? 'porção' : 'porções'}</td>
       <td>
         <span class="status-badge status-${retiradaClasse}">${retiradaTexto}</span>

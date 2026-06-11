@@ -42,61 +42,50 @@ public class ReservaService {
                 // Não setamos o valorReserva ainda
                 .build();
 
-        BigDecimal valorTotalReserva = BigDecimal.ZERO;
-
         if (dto.getItens() != null && !dto.getItens().isEmpty()) {
             List<ReservaProduto> itens = new ArrayList<>();
-            
+            BigDecimal valorTotalReserva = BigDecimal.ZERO;
+
             for (ReservaProdutoDTO itemDTO : dto.getItens()) {
                 Produto produto = produtoService.buscarEntidade(itemDTO.getIdProduto());
-                
-                // Backend calcula o valor real do item (Preço do BD * Quantidade)
+
                 BigDecimal valorRealItem = produto.getPrecoProduto()
                         .multiply(BigDecimal.valueOf(itemDTO.getQuantProduto()));
-                
+
                 ReservaProduto item = ReservaProduto.builder()
                         .reserva(reserva)
                         .produto(produto)
                         .quantProduto(itemDTO.getQuantProduto())
-                        .valor(valorRealItem) // Valor seguro calculado aqui
+                        .valor(valorRealItem)
                         .build();
                 itens.add(item);
-                
-                // Soma ao total da reserva
+
                 valorTotalReserva = valorTotalReserva.add(valorRealItem);
-                reserva.setValorReserva(valorTotalReserva);
-                // Criação automática do pagamento já com a intenção preenchida pelo cliente
-                Pagamento pagamento = Pagamento.builder()
-                        .formaPagamento(dto.getFormaPagamento()) // <-- Pegando direto do DTO
-                        .statusPagamento(StatusPagamento.pendente) // Nasce como pendente
-                        .valorPago(valorTotalReserva) // Valor seguro calculado pelo backend
-                        .reserva(reserva)
-                        .build();
-                        
-                reserva.setPagamento(pagamento);
-
-                // CRIAÇÃO AUTOMÁTICA DA RETIRADA
-                Retirada retirada = Retirada.builder()
-                        .statusRetirada(StatusRetirada.pendente) // Nasce aguardando a pessoa buscar
-                        .reserva(reserva)
-                        // A dataHoraRetirada fica nula por enquanto, só é preenchida na entrega
-                        .build();
-                        
-                reserva.setRetirada(retirada);
-
-                // O repository.save salva a reserva, os itens, o pagamento e a retirada de uma só vez!
-                return toDTO(repository.save(reserva));
-
             }
-            reserva.setItens(itens);
+
+            // Tudo fora do for:
+            reserva.setValorReserva(valorTotalReserva);
+            reserva.setItens(itens); // ← itens completos antes de salvar
+
+            Pagamento pagamento = Pagamento.builder()
+                    .formaPagamento(dto.getFormaPagamento())
+                    .statusPagamento(StatusPagamento.pendente)
+                    .valorPago(valorTotalReserva)
+                    .reserva(reserva)
+                    .build();
+            reserva.setPagamento(pagamento);
+
+            Retirada retirada = Retirada.builder()
+                    .statusRetirada(StatusRetirada.pendente)
+                    .reserva(reserva)
+                    .build();
+            reserva.setRetirada(retirada);
+
+            return toDTO(repository.save(reserva)); // ← único return, fora do for
+
         } else {
             throw new BusinessException("A reserva deve conter pelo menos um produto.");
         }
-
-        // Agora sim, setamos o valor total seguro
-        reserva.setValorReserva(valorTotalReserva);
-
-        return toDTO(repository.save(reserva));
     }
 
     @Transactional(readOnly = true)
@@ -134,8 +123,8 @@ public class ReservaService {
     }
 
     private ReservaDTO toDTO(Reserva r) {
-        List<ReservaProdutoDTO> itens = r.getItens() == null ? List.of() :
-                r.getItens().stream().map(i -> ReservaProdutoDTO.builder()
+        List<ReservaProdutoDTO> itens = r.getItens() == null ? List.of()
+                : r.getItens().stream().map(i -> ReservaProdutoDTO.builder()
                         .idReservaProduto(i.getIdReservaProduto())
                         .idProduto(i.getProduto().getIdProduto())
                         .nomeProduto(i.getProduto().getNomeProduto())
@@ -144,20 +133,22 @@ public class ReservaService {
                         .valor(i.getValor())
                         .build()).collect(Collectors.toList());
 
-        PagamentoDTO pagDTO = r.getPagamento() == null ? null : PagamentoDTO.builder()
-                .idPagamento(r.getPagamento().getIdPagamento())
-                .formaPagamento(r.getPagamento().getFormaPagamento())
-                .statusPagamento(r.getPagamento().getStatusPagamento())
-                .valorPago(r.getPagamento().getValorPago())
-                .idReserva(r.getIdReserva())
-                .build();
+        PagamentoDTO pagDTO = r.getPagamento() == null ? null
+                : PagamentoDTO.builder()
+                        .idPagamento(r.getPagamento().getIdPagamento())
+                        .formaPagamento(r.getPagamento().getFormaPagamento())
+                        .statusPagamento(r.getPagamento().getStatusPagamento())
+                        .valorPago(r.getPagamento().getValorPago())
+                        .idReserva(r.getIdReserva())
+                        .build();
 
-        RetiradaDTO retDTO = r.getRetirada() == null ? null : RetiradaDTO.builder()
-                .idRetirada(r.getRetirada().getIdRetirada())
-                .statusRetirada(r.getRetirada().getStatusRetirada())
-                .dataHoraRetirada(r.getRetirada().getDataHoraRetirada())
-                .idReserva(r.getIdReserva())
-                .build();
+        RetiradaDTO retDTO = r.getRetirada() == null ? null
+                : RetiradaDTO.builder()
+                        .idRetirada(r.getRetirada().getIdRetirada())
+                        .statusRetirada(r.getRetirada().getStatusRetirada())
+                        .dataHoraRetirada(r.getRetirada().getDataHoraRetirada())
+                        .idReserva(r.getIdReserva())
+                        .build();
 
         return ReservaDTO.builder()
                 .idReserva(r.getIdReserva())
@@ -168,6 +159,8 @@ public class ReservaService {
                 .idCliente(r.getCliente().getIdCliente())
                 .nomeCliente(r.getCliente().getNome())
                 .cpfCliente(r.getCliente().getCpf())
+                .emailCliente(r.getCliente().getEmail())
+                .telefoneCliente(r.getCliente().getTelefone())
                 .idEvento(r.getEvento().getIdEvento())
                 .nomeEvento(r.getEvento().getNomeEvento())
                 .itens(itens)

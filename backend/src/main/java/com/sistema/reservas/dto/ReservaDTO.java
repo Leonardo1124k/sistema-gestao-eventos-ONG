@@ -32,6 +32,8 @@ public class ReservaDTO {
 
     private String nomeCliente;
     private String cpfCliente;
+    private String emailCliente;
+    private String telefoneCliente;
 
     @NotNull(message = "ID do evento é obrigatório")
     private Long idEvento;
