@@ -3,7 +3,7 @@
  * Base URL: http://136.248.121.28:8080/api
  */
 
-const API_BASE_URL = 'http://136.248.121.28:8080/api';
+const API_BASE_URL = 'https://emptier-sanction-sequence.ngrok-free.dev';
 
 // ─── JWT / Auth ────────────────────────────────────────────────────────────────
 

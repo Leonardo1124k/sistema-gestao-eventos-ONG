@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "https://leonardo1124k.github.io")
 @RestController
 @RequestMapping("/api/pagamentos")
 @RequiredArgsConstructor

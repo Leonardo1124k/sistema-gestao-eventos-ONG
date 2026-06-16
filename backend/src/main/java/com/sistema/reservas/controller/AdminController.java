@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@CrossOrigin(origins = "https://leonardo1124k.github.io")
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
