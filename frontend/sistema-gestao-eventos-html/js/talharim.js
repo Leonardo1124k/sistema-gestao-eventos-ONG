@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // Busca as informações do Evento
 async function carregarDadosEvento() {
   try {
-    const response = await fetch(`${API_BASE_URL}/eventos/abertos`);
+    const response = await fetch(`${API_BASE_URL}/eventos/abertos`, {
+      headers: {
+        'ngrok-skip-browser-warning': 'true'
+      }
+    });
     const eventos = await response.json();
 
     if (eventos && eventos.length > 0) {
@@ -84,7 +88,11 @@ async function carregarDadosEvento() {
 // Busca as informações do Produto (Preço)
 async function carregarDadosProduto() {
   try {
-    const response = await fetch(`${API_BASE_URL}/produtos`);
+    const response = await fetch(`${API_BASE_URL}/produtos`, {
+      headers: {
+        'ngrok-skip-browser-warning': 'true'
+      }
+    });
     const produtos = await response.json();
 
     if (produtos && produtos.length > 0) {

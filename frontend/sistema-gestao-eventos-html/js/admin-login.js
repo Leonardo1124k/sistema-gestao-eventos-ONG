@@ -60,6 +60,7 @@ const API_BASE_URL_LOGIN = 'https://emptier-sanction-sequence.ngrok-free.dev';
 async function apiFetch(path, options = {}) {
   const headers = {
     'Content-Type': 'application/json',
+    'ngrok-skip-browser-warning': 'true', // <-- ADICIONE ESTA LINHA
     ...(options.headers || {}),
   };
 

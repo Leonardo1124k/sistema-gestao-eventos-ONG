@@ -60,6 +60,7 @@ function getToken() {
 async function apiFetch(path, options = {}) {
   const headers = {
     'Content-Type': 'application/json',
+    'ngrok-skip-browser-warning': 'true', // <-- ADICIONE ESTA LINHA
     ...(options.headers || {}),
   };
 
