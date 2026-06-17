@@ -12,7 +12,7 @@
  *   6. Salva dados de confirmação e redireciona
  */
 
-const API_BASE_URL_LOCAL = 'https://emptier-sanction-sequence.ngrok-free.dev';
+const API_BASE_URL_LOCAL = 'https://emptier-sanction-sequence.ngrok-free.dev/api';
 
 // ─── Inicialização ────────────────────────────────────────────────────────────
 

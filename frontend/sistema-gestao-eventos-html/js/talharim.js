@@ -1,7 +1,7 @@
 // Talharim Page Script
 // Atualizado para carregar informações reais da API do backend
 
-const API_BASE_URL = 'https://emptier-sanction-sequence.ngrok-free.dev';
+const API_BASE_URL = 'https://emptier-sanction-sequence.ngrok-free.dev/api';
 
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Página Talharim carregada');

@@ -576,7 +576,7 @@ function initPerformanceControls() {
 // INTEGRAÇÃO COM API JAVA (RESERVAS E DOAÇÕES)
 // ================================================
 
-const API_BASE_URL = '"https://emptier-sanction-sequence.ngrok-free.dev';
+const API_BASE_URL = 'https://emptier-sanction-sequence.ngrok-free.dev/api';
 
 /**
  * Envia dados de reserva para o endpoint /reservas da API Java.

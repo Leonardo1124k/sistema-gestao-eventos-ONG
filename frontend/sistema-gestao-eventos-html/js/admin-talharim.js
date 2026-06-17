@@ -3,7 +3,7 @@
  * Integrado com o backend: todas as operações usam a API REST.
  */
 
-const API_BASE_ADMIN = 'https://emptier-sanction-sequence.ngrok-free.dev';
+const API_BASE_ADMIN = 'https://emptier-sanction-sequence.ngrok-free.dev/api';
 
 // Cache das reservas carregadas da API
 let reservasCache = [];

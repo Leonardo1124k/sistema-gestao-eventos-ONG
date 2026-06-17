@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ─── apiFetch inline ─────────────────────────────────────────────────────────
 
-const API_BASE_URL_LOGIN = 'https://emptier-sanction-sequence.ngrok-free.dev';
+const API_BASE_URL_LOGIN = 'https://emptier-sanction-sequence.ngrok-free.dev/api';
 
 async function apiFetch(path, options = {}) {
   const headers = {
